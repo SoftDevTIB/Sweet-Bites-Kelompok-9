@@ -39,7 +39,7 @@ section {
   color: #555;
   margin-bottom: 20px;
 }
-.dashboard-box .avatar {
+.person-icon {
   font-size: 100px;
   color: #D67832;
 }
@@ -56,7 +56,7 @@ section {
   text-decoration: none;
   transition: background-color 0.3s ease;
 }
-.logout-btn i {
+.logout-btn .icon {
   margin-left: 10px;
 }
 .logout-btn:hover {

@@ -25,9 +25,25 @@ body {
   object-fit: contain;
   z-index: 1;
 }
-.menu-button{
+.menu-btn {
+  display: inline-block;
+  background-color: #FDF0D4;
+  color: #D67832;
+  padding: 5px 10px;
+  border: 1px solid #D67832;
+  border-radius: 10px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
   z-index: 2;
   position: relative;
+}
+.menu-btn:hover {
+  background-color: #ffcc99;
+  color: #D67832;
+}
+.menu-btn .icon{
+  font-size: 30px;
 }
 
 /* Sidebar */
@@ -53,6 +69,7 @@ body {
 ul li:hover a {
   padding-left: 10px;
 }
-.sidebar ul a i {
+.sidebar ul a .icon {
   margin-right: 5px;
+  margin-bottom: 5px;
 }

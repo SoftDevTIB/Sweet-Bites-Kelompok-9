@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import AdminPage from './admin/pages/admin_dashboard';
 import AdminProductPage from './admin/pages/admin_products';

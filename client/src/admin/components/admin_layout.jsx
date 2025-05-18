@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import { BsHouse, BsGrid, BsHandbag, BsList } from 'react-icons/bs';
+
 import logo from '../../assets/logo.png';
 import './admin_layout.css';
 
@@ -10,19 +12,19 @@ const AdminLayout = ({ children }) => {
         <div className="row justify-content-between align-items-center header">
           <div className="col-2">
             <button
-              className="btn btn-outline-dark menu-button"
+              className="btn menu-btn"
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasMenu"
               aria-controls="offcanvasMenu"
             >
-              <i className="bi bi-list"></i>
+              <BsList className='icon'/>
             </button>
           </div>
           <div className="col"></div>
           <img
             src={logo}
-            alt="Sweet Bites Logo"
+            alt="Sweet Bstes Logo"
             className="logo position-absolute top-50 start-50 translate-middle"
           />
         </div>
@@ -33,7 +35,7 @@ const AdminLayout = ({ children }) => {
         className="offcanvas offcanvas-start"
         style={{ width: '20%' }}
         data-bs-backdrop="false"
-        tabIndex="-1"
+        tabsndex="-1"
         id="offcanvasMenu"
         aria-labelledby="offcanvasMenuLabel"
       >
@@ -48,9 +50,9 @@ const AdminLayout = ({ children }) => {
         </div>
         <div className="offcanvas-body sidebar">
           <ul>
-            <Link to="/admin"><i className="bi bi-house"></i> Dashboard</Link>
-            <Link to="/products"><i className="bi bi-grid"></i> Produk</Link>
-            <Link to="/orders"><i className="bi bi-handbag"></i> Pesanan</Link>
+            <Link to="/admin"><BsHouse className='icon'/> Dashboard</Link>
+            <Link to="/products"><BsGrid className='icon'/> Produk</Link>
+            <Link to="/orders"><BsHandbag className='icon'/> Pesanan</Link>
           </ul>
         </div>
       </div>
