@@ -1,0 +1,81 @@
+.btn-teal {
+  background-color: #3B7883;
+  color: white;
+  border: none;
+}
+.btn-teal:hover {
+  background-color: grey;
+  color: white;
+}
+.border-primary {
+  border-color: #D67832 !important;
+  background-color: #FEF0D5;
+}
+.rounded-bottom {
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+  overflow: hidden;
+}
+.search {
+  border-color: #D67832;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 40px;
+}
+.form-control {
+  border-color: #D67832;
+}
+.form-control:focus {
+  border-color: #D67832;
+  box-shadow: 0 0 0 .25rem rgb(214, 120, 50, 0.25);
+}
+.src-btn {
+  color: #D67832;
+  padding: 0 7px;
+}
+.table th {
+  background-color: #D67832 !important;
+  font-weight: bold;
+  border: none;
+  padding: 14px;
+  font-size: 1rem;
+  vertical-align: middle;
+}
+.table td {
+  background-color: #FEF0D5 !important;
+  padding: 14px;
+}
+.btn-outline-teal {
+  color: #3B7883;
+  font-size: 30px;
+  background-color: transparent;
+}
+.btn-outline-teal:hover {
+  background-color: transparent;
+  color: white;
+}
+.btn-outline-teal:active, 
+.btn-outline-teal:focus-visible, 
+.btn-outline-teal:focus {
+  background-color: transparent;
+  border: none;
+}
+.btn-outline-teal:disabled {
+  background-color: transparent;
+  color: grey;
+  border: none;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.box {
+  background-color: #FEF0D5;
+  border: 1px solid #D67832;
+}
+.picture {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background-color: #FEC0C6;
+  border-radius: 4px;
+  cursor: pointer;
+}
