@@ -1,17 +1,20 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import ProductCard from '../components/ProductCard';
 import gambar1 from '../../assets/Choco_oreo.jpg';
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
   const staticProducts = [
-    { id: 1, name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: 2, name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: 3, name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: 4, name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: 5, name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: 6, name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
+    { id: '1', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
+    { id: '2', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
+    { id: '3', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
+    { id: '4', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
+    { id: '5', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
+    { id: '6', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
   ];
 
   return (
@@ -32,7 +35,7 @@ const HomePage = () => {
             <h4 style={{ color: '#D67832' }}>Porsi Pas, Rasa Kelas!</h4>
             <p>Cocok dinikmati sendiri, atau berbagi dengan orang tersayang</p>
             <button className="btn btn-warning me-2">Lihat Rekomendasi</button>
-            <button className="btn btn-warning me-2">Cek Menu</button>
+            <button className="btn btn-warning me-2" onClick={() => navigate('/menu')}>Cek Menu</button>
           </div>
         </section>
 
@@ -41,13 +44,14 @@ const HomePage = () => {
           <h3 className="mb-4 fw-bold" style={{ color: '#D67832' }}>Rekomendasi</h3>
           <div className="d-flex flex-wrap justify-content-center">
             {staticProducts.map(product => (
-              <ProductCard
-                key={product.id}
-                name={product.name}
-                price={product.price}
-                available={product.available}
-                imageUrl={product.imageUrl}
-              />
+              <Link key={product.id} to={`/menu/${product.id}`} style={{ textDecoration: 'none' }}>
+                <ProductCard
+                  name={product.name}
+                  price={product.price}
+                  available={product.available}
+                  imageUrl={product.imageUrl}
+                />
+              </Link>
             ))}
           </div>
         </section>

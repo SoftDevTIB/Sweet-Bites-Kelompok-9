@@ -12,16 +12,48 @@
 }
 
 .footer-logo img {
-    height: 50px;
+    height: 80px;
+    margin-left: 40px; 
 }
 
 .footer-links {
     display: flex;
-    gap: 80px;
+    gap: 10px;
+}
+
+.footer-links > div:last-child {
+    padding-right: 20px;
 }
 
 .footer-links div p {
-    margin: 4px 0;
+    margin: 2px 0;
+    font-size: 14px;
+}
+
+.footer-links > div:last-child {
+    padding-right: 20px;
+}
+
+.footer-links div p {
+    margin: 2px 0;
+    font-size: 14px;
+}
+
+.footer-links > div:last-child {
+    padding-right: 20px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 10px;
+}
+
+.footer-links > div:last-child {
+    padding-right: 20px;
+}
+
+.footer-links div p {
+    margin: 2px 0;
     font-size: 14px;
 }
 

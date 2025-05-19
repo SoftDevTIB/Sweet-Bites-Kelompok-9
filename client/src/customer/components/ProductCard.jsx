@@ -1,4 +1,6 @@
 import React from 'react';
+import { FaShoppingCart } from 'react-icons/fa';
+import './ProductCard.css';
 
 const ProductCard = ({ name, price, available, imageUrl }) => {
   return (
@@ -7,9 +9,11 @@ const ProductCard = ({ name, price, available, imageUrl }) => {
       <div className="card-body p-2">
         <h6 className="card-title">{name}</h6>
         <p className="card-text">Rp {price}</p>
-        <p className="text-muted">{available ? 'Tersedia' : 'Tidak tersedia'}</p>
+        <p className={available ? 'available-text' : 'text-muted'}>
+          {available ? 'Tersedia' : 'Tidak tersedia'}
+        </p>
         <button className="btn btn-sm btn-success" disabled={!available}>
-          Add To Cart
+          <FaShoppingCart /> Add To Cart
         </button>
       </div>
     </div>

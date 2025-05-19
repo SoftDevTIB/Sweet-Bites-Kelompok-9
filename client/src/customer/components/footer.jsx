@@ -8,7 +8,7 @@ const Footer = () => {
       <div>
         <div className="row gy-4">
           <div className="col-md-3 d-flex align-items-center">
-            <img src={logo} alt="Sweet Bites Logo" style={{ height: '50px' }} />
+            <img src={logo} alt="Sweet Bites Logo" style={{ height: '80px', paddingLeft:'150px'}} />
           </div>
           <div className="col-md-9 d-flex justify-content-between flex-wrap">
             <div>
