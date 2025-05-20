@@ -1,0 +1,32 @@
+.bg-light-pink {
+  background-color: #FFF2F2;
+}
+
+.login-card {
+  border: 1px solid #D67832;
+  border-radius: 20px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-title {
+  color: #D67832;
+  font-family: 'Georgia', serif;
+}
+
+.custom-input {
+  background-color: white;
+  border: 1px solid #D67832;
+}
+
+.btn-teal {
+  background-color: #3B7883;
+  color: white;
+}
+
+.btn-teal:hover {
+  background-color: #2e5859;
+  color:white;
+}
+

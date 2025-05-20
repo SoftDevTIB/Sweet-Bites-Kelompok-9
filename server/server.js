@@ -1,21 +1,24 @@
-const express = require("express");
+const express = require('express');
+const mongoose = require('mongoose');
+require('dotenv').config()
+
+const cors = require('cors');
+const authRouter = require('./routes/auth');
+
+
 const app = express();
 const PORT = 5000;
 
-const cors = require("cors");
-const corsOptions = {
-    origin:["http://localhost:5173"]
-};
-const connect = require("./connect");
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
-app.get("/api", (req, res) => {
-    res.json({fruits:["apple", "banana", "orange"]});
-});
+
+// prefix semua route auth dengan /api/auth
+app.use('/api/auth', authRouter);
+// Connect ke MongoDB
+mongoose.connect(process.env.ATLAS_URI)
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error(err));
 
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
-
-console.log("Server file mulai dijalankan");
