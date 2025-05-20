@@ -40,7 +40,7 @@ const AdminMenuPage = () => {
   return (
     <AdminLayout>
       <section>
-        <div className="container mt-4" style={{ maxWidth: '900px' }}>
+        <div className="container" style={{ maxWidth: '900px' }}>
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">Produk</li>
@@ -55,22 +55,22 @@ const AdminMenuPage = () => {
             </Link>
           </div>
 
-          <div className="container border border-2 border-primary rounded-4 px-0 pt-3 pb-0">
+          <div className="container border border-2 border-primary rounded-4 px-0 pt-2 pb-0 menu-container">
             {/* Search Bar */}
-            <div className='row justify-content-end'>
-              <div className="col-4 mb-3 p-0">
-              <input
-                type="text"
-                className="form-control search"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={e => {
-                  setSearchTerm(e.target.value);
-                  setCurrentPage(1); 
-                }}
-              />
-            </div>
-              <div className='col-1 src-btn'> 
+            <div className='row justify-content-end mx-0 mb-2 pb-0 search-bar'>
+              <div className="col-10 col-sm-6 col-md-4 p-0">
+                <input
+                  type="text"
+                  className="form-control search"
+                  placeholder="Search..."
+                  value={searchTerm}
+                  onChange={e => {
+                    setSearchTerm(e.target.value);
+                    setCurrentPage(1); 
+                  }}
+                />
+              </div>
+              <div className='col-auto src-btn'> 
                 <BsSearch />
               </div>
             </div>
@@ -116,7 +116,6 @@ const AdminMenuPage = () => {
             </div>
           </div>
           
-
           {/* Navigasi Halaman */}
           {totalPages > 1 && (
             <div className="d-flex justify-content-center align-items-center mt-3 gap-3">
@@ -127,7 +126,7 @@ const AdminMenuPage = () => {
               >
                 <BsArrowLeftCircle />
               </button>
-              <span>
+              <span className='text-center'>
                 Menampilkan {currentPage} dari {totalPages} halaman
               </span>
               <button

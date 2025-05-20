@@ -51,30 +51,100 @@ body {
   font-size: 30px;
 }
 
-/* Sidebar */
 .sidebar {
+  position: fixed;
   left: 0;
   top: 0;
+  height: 100%;
+  width: 20%;
+  margin-top: 80px;
+  padding-top: 20px;
   background: #D67832;
   color: white;
   transition: all .5s ease;
 }
-.sidebar ul {
-  padding-left: 0;
-}
-.sidebar ul a {
-  display: block;
-  line-height: 65px;
-  font-size: 20px;
+
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
   color: white;
-  padding-left: 5px;
-  transition: .4s;
-  text-decoration: none;
 }
-ul li:hover a {
-  padding-left: 10px;
+
+.sidebar .nav-link:hover {
+  padding-left: 13px;
 }
-.sidebar ul a .icon {
-  margin-right: 5px;
-  margin-bottom: 5px;
+
+main {
+  height: 100%;
+  margin-left: 20%;
+}
+
+section {
+  padding: 30px;
+}
+
+@media (max-width: 800px) {
+  .sidebar .desc {
+    display: none;
+  }
+  
+  .sidebar {
+    width: 40px;
+  }
+
+  .sidebar .nav-link {
+    padding-left: 10px;
+  }
+
+  main {
+    margin-left: 40px;
+  }
+
+  section {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .table th, .table td {
+    font-size: 12px !important;
+    padding: 5px !important;
+  }
+
+  section  {
+    font-size: 12px !important;
+  }
+
+  section h4 {
+    font-size: 15px;
+  }
+
+  .btn-teal {
+    font-size: 10px;
+  }
+
+  .menu-container {
+    padding-top: 7px !important;
+  }
+
+  .search {
+    font-size: 10px !important;
+  }
+}
+
+@media (max-width: 400px) {
+  section {
+    padding: 10px;
+  }
+  .table th {
+    font-size: 10px !important;
+    padding: 5px !important;
+  }
+
+  .table td {
+    font-size: 9px !important;
+    padding: 2px !important;
+  }
 }
