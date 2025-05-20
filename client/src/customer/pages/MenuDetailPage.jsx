@@ -4,6 +4,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import gambar1 from '../../assets/Choco_oreo.jpg';
+import { useCart } from '../context/CartContext';
 
 const products = [
   {
@@ -71,6 +72,7 @@ const products = [
 const MenuDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { addToCart } = useCart();
 
   const product = products.find(p => p.id === id);
 
@@ -87,6 +89,10 @@ const MenuDetailPage = () => {
     );
   }
 
+  const handleAddToCart = () => {
+    addToCart(product);
+  };
+
   return (
     <>
       <Header />
@@ -97,12 +103,12 @@ const MenuDetailPage = () => {
           </div>
           <div className="col-md-6">
             <h2 style={{ color: '#3B7883' }}>{product.name}</h2>
-<p style={{ color: 'black' }}>{product.description}</p>
+            <p style={{ color: 'black' }}>{product.description}</p>
             <p style={{ color: product.available ? '#D67832' : 'gray' }}>
               {product.available ? 'Tersedia' : 'Tidak tersedia'}
             </p>
             <h4 style={{ color: '#3B7883' }}>Rp {product.price}</h4>
-            <button className="btn btn-success me-2" disabled={!product.available}>
+            <button className="btn btn-success me-2" disabled={!product.available} onClick={handleAddToCart}>
               <FaShoppingCart /> Add To Cart
             </button>
             <button className="btn btn-outline-secondary">
