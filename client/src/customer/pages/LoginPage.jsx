@@ -9,26 +9,35 @@ const LoginPage = () => {
     e.preventDefault();
 
     // lempar data ke backend (bisa ganti URL sesuai endpoint kamu)
-    fetch('http://localhost:5000/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data); // bisa juga set role & redirect ke halaman admin/user
-        if (data.role === 'admin') {
-          window.location.href = '/';
-        } else {
-          window.location.href = '/';
-        }
-      })
-      .catch((err) => {
-        console.error('Login failed:', err);
-        alert('Email atau password salah');
-      });
+fetch('http://localhost:5000/api/auth/login', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ email, password }),
+})
+.then(async (res) => {
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.message || 'Login failed');
+  }
+  return data;
+})
+.then((data) => {
+  if (data.role === 'admin') {
+    window.location.href = '/'; // redirect admin
+  } else if (data.role === 'user') {
+    window.location.href = '/';  // redirect user
+  } else {
+    // kalau role bukan admin atau user
+    alert('Login failed: role tidak valid');
+    // gak redirect kemana-mana
+  }
+})
+.catch((err) => {
+  alert(err.message || 'Login failed');
+});
+
   };
 
   return (
