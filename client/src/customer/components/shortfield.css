@@ -1,0 +1,102 @@
+.kontak-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 3rem 5%;
+  background-color: #ffecec; 
+  flex-wrap: wrap;
+}
+
+.kontak-left {
+  flex: 1;
+  min-width: 250px;
+  max-width: 400px;
+}
+
+.kontak-left h2 {
+  font-size: 2rem;
+  color: #b05727;
+  margin-bottom: 1rem;
+}
+
+.kontak-left p {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.kontak-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem; 
+  font-size: 1.2rem;
+  color: #000; 
+  margin-bottom: 1.5rem;
+}
+
+.kontak-info svg {
+  font-size: 2rem; 
+  color: #000;     
+}
+
+.kontak-info img {
+  width: 40px;
+  height: 40px;
+  margin-right: 1rem;
+}
+
+.kontak-info span {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.kontak-right {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+  background-color: #fff0f0;
+  padding: 2rem;
+  border: 1px solid #c48964;
+  border-radius: 20px;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.kontak-form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 500;
+  color: #b05727;
+}
+
+.kontak-form input,
+.kontak-form textarea {
+  width: 100%;
+  padding: 0.7rem;
+  margin-top: 0.3rem;
+  border: 1px solid #c48964;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 1rem;
+}
+
+.kontak-form textarea {
+  resize: vertical;
+}
+
+.kontak-form button {
+  margin-top: 1.5rem;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #4b7b75;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.kontak-form button:hover {
+  background-color: #3c625e;
+}
