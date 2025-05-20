@@ -24,6 +24,7 @@ const MenuPage = () => {
           {staticProducts.map(product => (
             <Link key={product.id} to={`/menu/${product.id}`} style={{ textDecoration: 'none' }}>
               <ProductCard
+                id={product.id}
                 name={product.name}
                 price={product.price}
                 available={product.available}

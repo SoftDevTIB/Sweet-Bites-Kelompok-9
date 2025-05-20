@@ -1,0 +1,9 @@
+.cart-title {
+  color: #D67832;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

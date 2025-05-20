@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 import './header.css';
 
@@ -15,9 +16,11 @@ const Header = () => {
         <a href="/kontak" className="text-decoration-none text-dark fw-medium">KONTAK</a>
         <a href="/tentang" className="text-decoration-none text-dark fw-medium">TENTANG KAMI</a>
       </nav>
-      <div className="icons d-flex gap-3 text-warning" style={{ fontSize: '18px', cursor: 'pointer' }}>
-        <FaShoppingCart />
-        <FaUser />
+      <div className="icons d-flex gap-3">
+        <Link to="/cart" className="icon">
+          <FaShoppingCart />
+        </Link>
+        <FaUser className="icon" />
       </div>
     </header>
   );
