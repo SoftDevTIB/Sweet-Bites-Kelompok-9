@@ -21,11 +21,13 @@ fetch('http://localhost:5000/api/auth/login', {
   if (!res.ok) {
     throw new Error(data.message || 'Login failed');
   }
+  console.log(data);
+  console.log('Role:', data.role);
   return data;
 })
 .then((data) => {
   if (data.role === 'admin') {
-    window.location.href = '/'; // redirect admin
+    window.location.href = '/admin'; // redirect admin
   } else if (data.role === 'user') {
     window.location.href = '/';  // redirect user
   } else {

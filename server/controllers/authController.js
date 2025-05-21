@@ -44,20 +44,24 @@ const loginUser = async (req, res) => {
       console.log('User tidak ditemukan untuk email:', email);
       return res.status(401).json({ message: 'Email tidak ditemukan' });
     }
-
+    console.log('User ditemukan:', user);
     const isMatch = await user.matchPassword(password);
-    console.log('Password match:', isMatch);  // cek hasilnya
+    console.log('Password match:', password);
 
     if (!isMatch) {
       return res.status(401).json({ message: 'Password salah' });
     }
 
-    res.status(200).json({ message: 'Login berhasil', userId: user._id });
+    // Kirim role juga
+    res.status(200).json({
+      message: 'Login berhasil',
+      userId: user._id,
+      role: user.role,  // <- ini yang kamu butuhkan di frontend
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Gagal login' });
   }
 };
-
 
 module.exports = { registerUser, loginUser };
