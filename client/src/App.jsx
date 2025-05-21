@@ -27,6 +27,8 @@ function App() {
         <Route path="/registration" element={<RegistrationPage />} />
         <Route path="/menu" element={<MenuPage />} />
         <Route path="/menu/:id" element={<MenuDetailPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
         {/* Admin-only routes */}
           <Route
             path="/admin"
