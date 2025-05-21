@@ -4,7 +4,9 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import HomePage from './customer/pages/Homepage';
 import MenuPage from './customer/pages/MenuPage';
+import KontakPage from './customer/pages/Kontak';
 import MenuDetailPage from './customer/pages/MenuDetailPage';
+import TentangKamiPage from './customer/pages/TentangKamiPage';
 import LoginPage from './customer/pages/LoginPage';
 import RegistrationPage from './customer/pages/RegistrationPage';
 
@@ -26,6 +28,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registration" element={<RegistrationPage />} />
         <Route path="/menu" element={<MenuPage />} />
+        <Route path="/kontak" element={<KontakPage />} />
+        <Route path="/tentang" element={<TentangKamiPage />} />
         <Route path="/menu/:id" element={<MenuDetailPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
