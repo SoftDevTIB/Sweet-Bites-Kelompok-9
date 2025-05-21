@@ -1,27 +1,38 @@
 import '../components/dashboard.css';
 import { Link } from 'react-router-dom';
 import { BsArrowRightCircle, BsArrowLeftCircle, BsPencilSquare, BsTrash3, BsPlusCircle, BsSearch } from 'react-icons/bs';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import AdminLayout from '../components/admin_layout';
 import '../components/admin_menu.css';
 
 const AdminMenuPage = () => {
-  const allMenuItems = [
-    { nama: 'Choco Oreo', stok: 32, harga: 'Rp 10.000' },
-    { nama: 'Cheese Tart', stok: 15, harga: 'Rp 10.000' },
-    { nama: 'Brownies', stok: 6, harga: 'Rp 10.000' },
-    { nama: 'Ogura Pandan', stok: 7, harga: 'Rp 10.000' },
-    { nama: 'Red Velvet', stok: 12, harga: 'Rp 10.000' },
-    { nama: 'Matcha Roll', stok: 9, harga: 'Rp 10.000' },
-    { nama: 'Tiramisu', stok: 5, harga: 'Rp 10.000' },
-  ];
-
+  // Ganti array statis jadi state products
+  const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  const filteredMenu = allMenuItems.filter(item =>
+  // Ambil data produk dari API backend
+  useEffect(() => {
+    fetch('http://localhost:5000/api/products')
+      .then(res => res.json())
+      .then(data => {
+        const formatted = data.map(item => ({
+          nama: item.productName,
+          stok: item.stock,
+          harga: 'Rp ' + Number(item.price).toLocaleString('id-ID'),
+          _id: item._id,
+        }));
+        setProducts(formatted);
+      })
+      .catch(err => {
+        console.error('Gagal mengambil produk:', err);
+      });
+  }, []);
+
+  const filteredMenu = products.filter(item =>
     item.nama.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -36,6 +47,23 @@ const AdminMenuPage = () => {
   const handleNextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Yakin ingin menghapus produk?");
+    if (!confirmDelete) return;
+
+    try {
+      await axios.delete(`http://localhost:5000/api/products/${id}`);
+      alert("Produk berhasil dihapus");
+
+      // Refresh daftar produk
+      setProducts(prev => prev.filter(p => p._id !== id));
+    } catch (error) {
+      console.error("Gagal menghapus produk:", error);
+      alert("Gagal menghapus produk");
+    }
+  };
+
 
   return (
     <AdminLayout>
@@ -56,7 +84,6 @@ const AdminMenuPage = () => {
           </div>
 
           <div className="container border border-2 border-primary rounded-4 px-0 pt-2 pb-0 menu-container">
-            {/* Search Bar */}
             <div className='row justify-content-end mx-0 mb-2 pb-0 search-bar'>
               <div className="col-10 col-sm-6 col-md-4 p-0">
                 <input
@@ -66,16 +93,15 @@ const AdminMenuPage = () => {
                   value={searchTerm}
                   onChange={e => {
                     setSearchTerm(e.target.value);
-                    setCurrentPage(1); 
+                    setCurrentPage(1);
                   }}
                 />
               </div>
-              <div className='col-auto src-btn'> 
+              <div className='col-auto src-btn'>
                 <BsSearch />
               </div>
             </div>
 
-            {/* Tabel Menu */}
             <div className="card shadow-sm rounded-4 border-0">
               <div className="card-body p-0">
                 <div className="table-responsive rounded-bottom">
@@ -92,15 +118,20 @@ const AdminMenuPage = () => {
                     <tbody className="text-center align-middle">
                       {currentItems.length > 0 ? (
                         currentItems.map((item, index) => (
-                          <tr key={index}>
+                          <tr key={item._id || index}>
                             <td>{item.nama}</td>
                             <td>{item.stok}</td>
                             <td>{item.harga}</td>
                             <td>
-                              <BsPencilSquare className="text-success cursor-pointer" />
+                              <Link to={`/admin/editproduct/${item._id}`}>
+                                <BsPencilSquare className="text-success cursor-pointer" />
+                              </Link>
                             </td>
                             <td>
-                              <BsTrash3 className="text-danger cursor-pointer" />
+                              <BsTrash3
+                                className="text-danger cursor-pointer"
+                                onClick={() => handleDelete(item._id)}
+                              />
                             </td>
                           </tr>
                         ))
@@ -110,13 +141,13 @@ const AdminMenuPage = () => {
                         </tr>
                       )}
                     </tbody>
+
                   </table>
                 </div>
               </div>
             </div>
           </div>
-          
-          {/* Navigasi Halaman */}
+
           {totalPages > 1 && (
             <div className="d-flex justify-content-center align-items-center mt-3 gap-3">
               <button

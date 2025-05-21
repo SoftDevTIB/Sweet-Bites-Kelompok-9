@@ -10,18 +10,8 @@ const {
   deleteProduct 
 } = require('../controllers/productController');
 
-console.log('typeof upload.single:', typeof upload.single);
-console.log('typeof createProduct:', typeof createProduct);
-
 // POST /api/products - buat produk baru
-router.post('/', (req, res, next) => {
-  console.log('Before multer');
-  next();
-}, upload.single('photo'), (req, res, next) => {
-  console.log('After multer', req.file);
-  next();
-}, createProduct);
-
+router.post('/', upload.single('photo'), createProduct);
 
 
 // GET /api/products - dapatkan semua produk

@@ -2,16 +2,12 @@ const Product = require('../models/Product');
 
 // Create product
 const createProduct = async (req, res) => {
-  console.log('req.body:', req.body);
-  console.log('req.file:', req.file);
-
   try {
      
     const { productName, stock, price, description } = req.body;
     const photo = req.file ? req.file.filename : null;
     
     const product = new Product({ productName, stock, price, description, photo });
-    console.log('test1');
     await product.save();
 
     res.status(201).json({ message: 'Produk berhasil dibuat', product });
