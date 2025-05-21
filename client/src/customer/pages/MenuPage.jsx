@@ -18,19 +18,18 @@ const MenuPage = () => {
   return (
     <>
       <Header />
-      <main className="container-fluid p-4" style={{ backgroundColor: '#FFFFFF' }}>
+      <main className="container-fluid p-4" style={{ backgroundColor: '#FFF2F2', paddingTop: '70px' }}>
         <h2 className="text-center mb-4" style={{ color: '#D67832' }}>Menu Kami</h2>
         <div className="d-flex flex-wrap justify-content-center">
           {staticProducts.map(product => (
-            <Link key={product.id} to={`/menu/${product.id}`} style={{ textDecoration: 'none' }}>
-              <ProductCard
-                id={product.id}
-                name={product.name}
-                price={product.price}
-                available={product.available}
-                imageUrl={product.imageUrl}
-              />
-            </Link>
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              name={product.name}
+              price={product.price}
+              available={product.available}
+              imageUrl={product.imageUrl}
+            />
           ))}
         </div>
       </main>

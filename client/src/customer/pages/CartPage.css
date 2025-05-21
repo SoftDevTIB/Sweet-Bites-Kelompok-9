@@ -7,3 +7,26 @@
   justify-content: center;
   align-items: center;
 }
+
+.cart-summary-box {
+  border-radius: 10px;
+  border: 10px solid #D67832;
+  padding: 1rem;
+}
+
+.cart-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.cart-page-wrapper > .container {
+  flex: 1 0 auto;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 2rem;
+}
+
+footer {
+  flex-shrink: 0;
+}
