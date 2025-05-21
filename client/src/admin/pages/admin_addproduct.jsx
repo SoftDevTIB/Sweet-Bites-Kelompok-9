@@ -76,7 +76,7 @@ const AddProductPage = () => {
 
                         <div className="d-flex gap-3 mt-4">
                             <button type="submit" className="btn btn-teal rounded-pill px-4">Tambah</button>
-                            <Link to="/menu" className='btn btn-outline-dark rounded-pill px-4'>Batal</Link>
+                            <Link to="/admin/menu" className='btn btn-outline-dark rounded-pill px-4'>Batal</Link>
                         </div>
                         </div>
                     </div>

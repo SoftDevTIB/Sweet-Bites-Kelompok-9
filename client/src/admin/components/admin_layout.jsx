@@ -27,11 +27,11 @@ const AdminLayout = ({ children }) => {
             <BsHouse className="icon" />
             <span className='desc'>Dashboard</span>
           </Link>
-          <Link to="/menu" className='nav-link'>
+          <Link to="/admin/menu" className='nav-link'>
             <BsGrid className="icon" />
             <span className='desc'>Produk</span>
           </Link>
-          <Link to="/orders" className='nav-link'>
+          <Link to="/admin/orders" className='nav-link'>
             <BsHandbag className="icon" />
             <span className='desc'>Pesanan</span>
           </Link>

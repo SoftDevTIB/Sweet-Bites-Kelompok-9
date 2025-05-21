@@ -50,7 +50,7 @@ const AdminMenuPage = () => {
 
           <div className="d-flex justify-content-between align-items-center mb-3">
             <h4 className="fw-bold">Daftar Menu</h4>
-            <Link to="/addproduct" className="btn btn-teal">
+            <Link to="/admin/addproduct" className="btn btn-teal">
               <BsPlusCircle className="me-2" /> Tambah Produk
             </Link>
           </div>
