@@ -3,9 +3,11 @@ import { useCart } from '../context/CartContext';
 import { FaTrash, FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
 import Header from '../components/header';
 import Footer from '../components/footer';
+import { useNavigate } from 'react-router-dom';
 
 const CartPage = () => {
   const { cartItems, removeFromCart, updateQuantity } = useCart();
+  const navigate = useNavigate();
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = cartItems.reduce((sum, item) => sum + item.quantity * parseFloat(item.price.replace(/\./g, '').replace(',', '.')), 0);
@@ -22,6 +24,10 @@ const CartPage = () => {
     if (quantity > 1) {
       updateQuantity(id, quantity - 1);
     }
+  };
+
+  const handleCheckout = () => {
+    navigate('/checkout');
   };
 
   return (
@@ -54,7 +60,7 @@ const CartPage = () => {
               <div className="border p-3" style={{ borderRadius: '10px' }}>
                 <p>Total Item: {totalItems} buah</p>
                 <p>SubTotal: <strong>{formatPrice(subtotal)}</strong></p>
-                <button className="btn btn-success w-100">Check out</button>
+                <button className="btn btn-success w-100" onClick={handleCheckout}>Check out</button>
               </div>
             </div>
           </div>
