@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const registerUser = async (req, res) => {
   try {
@@ -52,9 +54,16 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ message: 'Password salah' });
     }
 
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
+    );
+
     // Kirim role juga
     res.status(200).json({
       message: 'Login berhasil',
+      token,
       userId: user._id,
       role: user.role,  // <- ini yang kamu butuhkan di frontend
     });

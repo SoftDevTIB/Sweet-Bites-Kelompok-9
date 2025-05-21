@@ -7,6 +7,7 @@ const LoginPage = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    
 
     // lempar data ke backend (bisa ganti URL sesuai endpoint kamu)
 fetch('http://localhost:5000/api/auth/login', {
@@ -26,14 +27,17 @@ fetch('http://localhost:5000/api/auth/login', {
   return data;
 })
 .then((data) => {
+  // simpan token dan role
+  localStorage.setItem('token', data.token);
+  localStorage.setItem('role', data.role);
+
+  // redirect sesuai role
   if (data.role === 'admin') {
-    window.location.href = '/admin'; // redirect admin
+    window.location.href = '/admin';
   } else if (data.role === 'user') {
-    window.location.href = '/';  // redirect user
+    window.location.href = '/';
   } else {
-    // kalau role bukan admin atau user
     alert('Login failed: role tidak valid');
-    // gak redirect kemana-mana
   }
 })
 .catch((err) => {
