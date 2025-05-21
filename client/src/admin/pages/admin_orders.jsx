@@ -5,7 +5,7 @@ import AdminLayout from '../components/admin_layout';
 const AdminOrdersPage = () => {
   return (
     <AdminLayout>
-      <section>
+      <section className='admin-section'>
         <div className="dashboard-box">
           <h2>Orders</h2>
           <p>🍰 x100 </p>

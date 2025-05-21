@@ -14,7 +14,7 @@ const AddProductPage = () => {
 
     return (
         <AdminLayout>
-            <section className="container-md" style={{ maxWidth: '900px' }}>
+            <section className="container-md admin-section" style={{ maxWidth: '900px' }}>
                 <nav aria-label="breadcrumb">
                     <ol className="breadcrumb">
                     <li className="breadcrumb-item">Produk</li>

@@ -39,7 +39,7 @@ const AdminLayout = ({ children }) => {
       </div>
 
       {/* Main Content */}
-      <main>{children}</main>
+      <main className='admin-main'>{children}</main>
     </>
   );
 };

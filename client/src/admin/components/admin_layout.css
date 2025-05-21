@@ -76,16 +76,28 @@ body {
   padding-left: 13px;
 }
 
-main {
+.sidebar .nav-link .icon {
+  color: #FFFFFF;
+}
+
+.admin-main {
   height: 100%;
   margin-left: 20%;
 }
 
-section {
+.admin-section {
   padding: 30px;
 }
 
 @media (max-width: 800px) {
+  .admin-main {
+    margin-left: 40px;
+  }
+
+  .admin-section {
+    padding: 20px;
+  }
+
   .sidebar .desc {
     display: none;
   }
@@ -97,14 +109,6 @@ section {
   .sidebar .nav-link {
     padding-left: 10px;
   }
-
-  main {
-    margin-left: 40px;
-  }
-
-  section {
-    padding: 20px;
-  }
 }
 
 @media (max-width: 600px) {
@@ -113,11 +117,11 @@ section {
     padding: 5px !important;
   }
 
-  section  {
+  .admin-section  {
     font-size: 12px !important;
   }
 
-  section h4 {
+  .admin-section h4 {
     font-size: 15px;
   }
 
@@ -135,7 +139,7 @@ section {
 }
 
 @media (max-width: 400px) {
-  section {
+  .admin-section {
     padding: 10px;
   }
   .table th {

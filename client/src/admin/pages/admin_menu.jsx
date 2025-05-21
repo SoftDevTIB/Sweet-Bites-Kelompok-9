@@ -39,7 +39,7 @@ const AdminMenuPage = () => {
 
   return (
     <AdminLayout>
-      <section>
+      <section className='admin-section'>
         <div className="container" style={{ maxWidth: '900px' }}>
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb">

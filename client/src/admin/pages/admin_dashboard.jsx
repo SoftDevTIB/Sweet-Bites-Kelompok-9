@@ -6,7 +6,7 @@ import { BsBoxArrowRight, BsPersonFill } from 'react-icons/bs';
 const AdminPage = () => {
   return (
     <AdminLayout>
-      <section>
+      <section className='admin-section'>
         <div className="dashboard-box">
           <BsPersonFill className="person-icon" />
           <h2>Welcome back, Admin!</h2>
