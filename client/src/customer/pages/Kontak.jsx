@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../components/header';
 import Footer from '../components/footer';
-import '../components/shortfield.css';
+import './Kontak.css';
 import { BsWhatsapp,BsInstagram } from "react-icons/bs";
 
 

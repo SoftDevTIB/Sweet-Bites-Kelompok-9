@@ -14,7 +14,7 @@ function App() {
         <Route path="/menu" element={<MenuPage />} />
         <Route path="/kontak" element={<KontakPage />} />
         <Route path="/menu/:id" element={<MenuDetailPage />} />
-        <Route path="/tentang-kami" element={<TentangKamiPage />} />
+        <Route path="/tentang" element={<TentangKamiPage />} />
       </Routes>
     </main> 
   );

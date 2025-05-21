@@ -16,13 +16,13 @@
 
 .kontak-left h2 {
   font-size: 2rem;
-  color: #b05727;
+  color: #D67832;
   margin-bottom: 1rem;
 }
 
 .kontak-left p {
   font-size: 1rem;
-  color: #333;
+  color: #2D2D2D;
   margin-bottom: 2rem;
 }
 
@@ -57,7 +57,7 @@
   max-width: 500px;
   background-color: #fff0f0;
   padding: 2rem;
-  border: 1px solid #c48964;
+  border: 1px solid #D67832;
   border-radius: 20px;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -66,7 +66,7 @@
   display: block;
   margin-top: 1rem;
   font-weight: 500;
-  color: #b05727;
+  color: #2D2D2D;
 }
 
 .kontak-form input,
@@ -88,7 +88,7 @@
   margin-top: 1.5rem;
   width: 100%;
   padding: 0.8rem;
-  background-color: #4b7b75;
+  background-color: #3B7883;
   color: white;
   font-size: 1rem;
   border: none;
