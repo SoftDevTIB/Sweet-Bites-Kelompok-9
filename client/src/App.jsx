@@ -10,6 +10,7 @@ import AdminPage from './admin/pages/admin_dashboard';
 import AdminMenuPage from './admin/pages/admin_menu';
 import AdminOrdersPage from './admin/pages/admin_orders';
 import AddProductPage from './admin/pages/admin_addproduct';
+import EditProductPage from './admin/pages/admin_editproduct';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/menu" element={<AdminMenuPage />} />
         <Route path="/admin/addproduct" element={<AddProductPage />} />
+        <Route path="/admin/editproduct/:productId" element={<EditProductPage />} />
         <Route path="/admin/orders" element={<AdminOrdersPage />} />
       </Routes>
     </main>

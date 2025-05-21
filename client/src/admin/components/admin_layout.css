@@ -109,6 +109,10 @@ body {
   .sidebar .nav-link {
     padding-left: 10px;
   }
+
+  .caption-up-gambar {
+    font-size: 15px !important;
+  }
 }
 
 @media (max-width: 600px) {
@@ -129,12 +133,28 @@ body {
     font-size: 10px;
   }
 
+  .cancel-btn {
+    font-size: 10px;
+  }
+
   .menu-container {
     padding-top: 7px !important;
   }
 
   .search {
     font-size: 10px !important;
+  }
+
+  .caption-up-gambar {
+    font-size: 10px !important;
+  }
+}
+
+@media (max-width: 574px) {
+  .box-gambar {
+    width: 50%;
+    margin: 0 auto;
+    padding-top: 20px;
   }
 }
 
@@ -150,5 +170,9 @@ body {
   .table td {
     font-size: 9px !important;
     padding: 2px !important;
+  }
+
+  .box-gambar {
+    width: 70%;
   }
 }

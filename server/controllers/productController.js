@@ -45,7 +45,7 @@ const getProductById = async (req, res) => {
 // Update product
 const updateProduct = async (req, res) => {
   try {
-    const { productName, stock, price, description, photo } = req.body;
+    const { productName, stock, price, description } = req.body;
     const product = await Product.findById(req.params.id);
     if (!product) return res.status(404).json({ message: 'Produk tidak ditemukan' });
 
@@ -53,7 +53,10 @@ const updateProduct = async (req, res) => {
     product.stock = stock !== undefined ? stock : product.stock;
     product.price = price !== undefined ? price : product.price;
     product.description = description || product.description;
-    product.photo = photo || product.photo;
+
+    if (req.file) {
+      product.photo = req.file.filename; 
+    }
 
     await product.save();
     res.json({ message: 'Produk berhasil diperbarui', product });
@@ -62,6 +65,7 @@ const updateProduct = async (req, res) => {
     res.status(500).json({ message: 'Gagal memperbarui produk' });
   }
 };
+
 
 // Delete product
 const deleteProduct = async (req, res) => {
