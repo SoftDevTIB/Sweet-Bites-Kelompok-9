@@ -17,6 +17,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', authRouter);
 app.use('/api/products', productRouter);
 
+// New endpoint to receive order data
+app.post("/api/orders", (req, res) => {
+  const { kota, alamat, kodePos, cartItems } = req.body;
+  console.log("Received order:");
+  console.log("Kota:", kota);
+  console.log("Alamat:", alamat);
+  console.log("Kode Pos:", kodePos);
+  console.log("Cart Items:", cartItems);
+
+  // Here you can add logic to save the order to a database
+
+  res.status(201).json({ message: "Order received successfully" });
+});
+
 // Connect ke MongoDB
 mongoose.connect(process.env.ATLAS_URI)
   .then(() => console.log('MongoDB connected'))
