@@ -1,19 +1,21 @@
-const express = require("express");
+const express = require('express');
+const mongoose = require('mongoose');
+require('dotenv').config()
+
+const cors = require('cors');
+const authRouter = require('./routes/auth');
+const productRouter = require('./routes/productRoutes');
+
 const app = express();
 const PORT = 5000;
 
-const cors = require("cors");
-const corsOptions = {
-  origin: ["http://localhost:5173"],
-};
-const connect = require("./connect");
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/api", (req, res) => {
-  res.json({ fruits: ["apple", "banana", "orange"] });
-});
+// prefix semua route auth dengan /api/auth
+app.use('/api/auth', authRouter);
+app.use('/api/products', productRouter);
 
 // New endpoint to receive order data
 app.post("/api/orders", (req, res) => {
@@ -29,8 +31,11 @@ app.post("/api/orders", (req, res) => {
   res.status(201).json({ message: "Order received successfully" });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Connect ke MongoDB
+mongoose.connect(process.env.ATLAS_URI)
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error(err));
 
-console.log("Server file mulai dijalankan");
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+});
