@@ -21,7 +21,8 @@ router.get('/', getAllProducts);
 router.get('/:id', getProductById);
 
 // PUT /api/products/:id - update produk by id
-router.put('/:id', updateProduct);
+router.put('/:id', upload.single('photo'), updateProduct);
+
 
 // DELETE /api/products/:id - hapus produk by id
 router.delete('/:id', deleteProduct);

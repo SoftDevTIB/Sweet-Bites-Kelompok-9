@@ -13,6 +13,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const path = require('path');
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // prefix semua route auth dengan /api/auth
 app.use('/api/auth', authRouter);
 app.use('/api/products', productRouter);

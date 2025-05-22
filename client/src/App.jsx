@@ -14,6 +14,7 @@ import AdminPage from './admin/pages/admin_dashboard';
 import AdminMenuPage from './admin/pages/admin_menu';
 import AdminOrdersPage from './admin/pages/admin_orders';
 import AddProductPage from './admin/pages/admin_addproduct';
+import EditProductPage from './admin/pages/admin_editproduct';
 import CartPage from './customer/pages/CartPage';
 import CheckoutPage from './customer/pages/CheckoutPage';
 import { CartProvider } from './customer/context/CartContext';
@@ -58,7 +59,16 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
+          <Route 
+            path="/admin/editproduct/:productId"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <EditProductPage />
+              </ProtectedRoute>
+            }
+          
+          />
+        <Route
             path="/admin/orders"
             element={
               <ProtectedRoute allowedRoles={['admin']}>
