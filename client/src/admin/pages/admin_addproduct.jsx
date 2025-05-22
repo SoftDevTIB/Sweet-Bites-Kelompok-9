@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { BsUpload } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import AdminLayout from '../components/admin_layout';
-import '../components/admin_menu.css';
 
 const AddProductPage = () => {
     const [productName, setProductName] = useState('');
@@ -10,7 +9,7 @@ const AddProductPage = () => {
     const [stock, setStock] = useState('');
     const [description, setDescription] = useState('');
     const [photoFile, setPhotoFile] = useState(null);
-    const [gambarPreview, setGambarPreview] = useState(null); // untuk preview
+    const [gambarPreview, setGambarPreview] = useState(null); 
 
     const handleUpload = (e) => {
         const file = e.target.files[0];
@@ -148,7 +147,7 @@ const AddProductPage = () => {
                                 </div>
 
                                 <div className="d-flex gap-3 mt-4">
-                                    <button type="submit" className="btn btn-teal rounded-pill px-4">Tambah</button>
+                                    <button type="submit" className="btn admin-btn-teal rounded-pill px-4">Tambah</button>
                                     <Link to="/admin/menu" className='btn btn-outline-dark rounded-pill px-4 cancel-btn'>Batal</Link>
                                 </div>
                             </div>

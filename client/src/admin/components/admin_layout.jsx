@@ -4,14 +4,14 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { BsHouse, BsGrid, BsHandbag } from 'react-icons/bs';
 
 import logo from '../../assets/logo.png';
-import './admin_layout.css';
+import './admin.css';
 
 const AdminLayout = ({ children }) => {
   return (
     <>
       {/* Header */}
       <div className="container-fluid sticky">
-        <div className="row justify-content-between align-items-center header">
+        <div className="row justify-content-between align-items-center admin-header">
           <div className="col"></div>
           <img
             src={logo}

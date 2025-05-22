@@ -1,5 +1,3 @@
-import '../components/dashboard.css';
-
 import AdminLayout from '../components/admin_layout';
 import { BsBoxArrowRight, BsPersonFill } from 'react-icons/bs';
 
