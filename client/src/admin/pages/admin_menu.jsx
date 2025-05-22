@@ -1,11 +1,9 @@
-import '../components/dashboard.css';
 import { Link } from 'react-router-dom';
 import { BsArrowRightCircle, BsArrowLeftCircle, BsPencilSquare, BsTrash3, BsPlusCircle, BsSearch } from 'react-icons/bs';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import AdminLayout from '../components/admin_layout';
-import '../components/admin_menu.css';
 
 const AdminMenuPage = () => {
   // Ganti array statis jadi state products
@@ -78,7 +76,7 @@ const AdminMenuPage = () => {
 
           <div className="d-flex justify-content-between align-items-center mb-3">
             <h4 className="fw-bold">Daftar Menu</h4>
-            <Link to="/admin/addproduct" className="btn btn-teal">
+            <Link to="/admin/addproduct" className="btn admin-btn-teal">
               <BsPlusCircle className="me-2" /> Tambah Produk
             </Link>
           </div>
@@ -102,7 +100,7 @@ const AdminMenuPage = () => {
               </div>
             </div>
 
-            <div className="card shadow-sm rounded-4 border-0">
+            <div className="card shadow-sm rounded-4 border-0 admin-table">
               <div className="card-body p-0">
                 <div className="table-responsive rounded-bottom">
                   <table className="table table-borderless mb-0">

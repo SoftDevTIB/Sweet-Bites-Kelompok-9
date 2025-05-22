@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';  // kalau kamu pakai react-router
-import '../components/dashboard.css';
 
 import AdminLayout from '../components/admin_layout';
 import { BsBoxArrowRight, BsPersonFill } from 'react-icons/bs';
@@ -40,13 +39,13 @@ const AdminPage = () => {
               <p>Yakin ingin logout?</p>
               <div className="modal-actions">
                 <button
-                  className="btn btn-teal"
+                  className="btn btn-teal rounded-pill"
                   onClick={handleLogout}
                 >
                   Ya, Logout
                 </button>
                 <button
-                  className="btn btn-secondary"
+                  className="btn btn-secondary rounded-pill px-4"
                   onClick={() => setShowModal(false)}
                 >
                   Batal

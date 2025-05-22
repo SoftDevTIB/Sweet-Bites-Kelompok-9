@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { BsUpload } from 'react-icons/bs';
 import AdminLayout from '../components/admin_layout';
-import '../components/admin_menu.css';
 
 const EditProductPage = () => {
     const { productId } = useParams();
@@ -153,7 +152,7 @@ const EditProductPage = () => {
                                 </div>
 
                                 <div className="d-flex gap-3 mt-4">
-                                    <button type="submit" className="btn btn-teal rounded-pill px-4">Simpan</button>
+                                    <button type="submit" className="btn admin-btn-teal rounded-pill px-4">Simpan</button>
                                     <Link to="/admin/menu" className="btn btn-outline-dark rounded-pill px-4 cancel-btn">Batal</Link>
                                 </div>
                             </div>
