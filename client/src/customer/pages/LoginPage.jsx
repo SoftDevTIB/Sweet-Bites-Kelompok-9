@@ -4,46 +4,64 @@ import './LoginPage.css';
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [touched, setTouched] = useState({ email: false, password: false });
+
+  const validateEmail = (email) => {
+    if (!email) return 'Email wajib diisi';
+    if (!/^\S+@\S+\.\S+$/.test(email)) return 'Format email tidak valid';
+    return '';
+  };
+
+  const validatePassword = (password) => {
+  if (!password) return 'Password wajib diisi';
+  if (
+    // !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(password)
+    password <8
+  ) {
+    return 'Password min. 8 karakter, ada huruf besar, kecil, angka, simbol';
+  }
+  return '';
+};
+
+
+  const emailError = validateEmail(email);
+  const passwordError = validatePassword(password);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    
 
-    // lempar data ke backend (bisa ganti URL sesuai endpoint kamu)
-fetch('http://localhost:5000/api/auth/login', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ email, password }),
-})
-.then(async (res) => {
-  const data = await res.json();
-  if (!res.ok) {
-    throw new Error(data.message || 'Login failed');
-  }
-  console.log(data);
-  console.log('Role:', data.role);
-  return data;
-})
-.then((data) => {
-  // simpan token dan role
-  localStorage.setItem('token', data.token);
-  localStorage.setItem('role', data.role);
+    // Kalau ada error, hentikan
+    if (emailError || passwordError) {
+      alert('Mohon perbaiki input terlebih dahulu');
+      return;
+    }
 
-  // redirect sesuai role
-  if (data.role === 'admin') {
-    window.location.href = '/admin';
-  } else if (data.role === 'user') {
-    window.location.href = '/';
-  } else {
-    alert('Login failed: role tidak valid');
-  }
-})
-.catch((err) => {
-  alert(err.message || 'Login failed');
-});
+    // Kirim ke backend
+    fetch('http://localhost:5000/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    })
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Login gagal');
+        return data;
+      })
+      .then((data) => {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('role', data.role);
 
+        if (data.role === 'admin') {
+          window.location.href = '/admin';
+        } else if (data.role === 'user') {
+          window.location.href = '/';
+        } else {
+          alert('Login gagal: role tidak valid');
+        }
+      })
+      .catch((err) => {
+        alert(err.message || 'Login gagal');
+      });
   };
 
   return (
@@ -59,8 +77,10 @@ fetch('http://localhost:5000/api/auth/login', {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
               required
             />
+            {touched.email && emailError && <div className="error-text mt-1">{emailError}</div>}
           </div>
           <div className="mb-4">
             <label htmlFor="password" className="form-label">Password:</label>
@@ -70,8 +90,10 @@ fetch('http://localhost:5000/api/auth/login', {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onBlur={() => setTouched((prev) => ({ ...prev, password: true }))}
               required
             />
+            {touched.password && passwordError && <div className="error-text mt-1">{passwordError}</div>}
           </div>
           <div className="d-flex justify-content-center">
             <button type="submit" className="btn btn-teal rounded-pill px-5">

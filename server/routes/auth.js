@@ -2,8 +2,7 @@ const express = require('express');
 const User = require('../models/User').default; 
 const router = express.Router();
 
-const { loginUser } = require('../controllers/authController');
-const {registerUser} = require('../controllers/authController')
+const { login, logout, registerUser } = require('../controllers/authController');
 
 router.get('/', async (req, res) => {
   const db = getDB();
@@ -13,8 +12,8 @@ router.get('/', async (req, res) => {
 
 // rutenya jadi: /api/auth/login
 router.post('/register', registerUser);
-router.post('/login', loginUser);
-
+router.post('/login', login);
+router.post('/logout', logout);
 
 
 

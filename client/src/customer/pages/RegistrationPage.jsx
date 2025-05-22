@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './RegistrationPage.css';
 
 const RegistrationPage = () => {
@@ -8,31 +8,55 @@ const RegistrationPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    const newErrors = {};
+
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = 'Email tidak valid';
+    }
+
+    if (phone && !/^\d{10,}$/.test(phone)) {
+      newErrors.phone = 'Nomor telepon minimal 10 digit dan hanya angka';
+    }
+
+    if (
+      password &&
+      !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(password)
+    ) {
+      newErrors.password =
+        'Password min. 8 karakter, ada huruf besar, kecil, angka, simbol';
+    }
+
+    if (confirmPassword && password !== confirmPassword) {
+      newErrors.confirmPassword = 'Konfirmasi password tidak cocok';
+    }
+
+    setErrors(newErrors);
+  }, [email, phone, password, confirmPassword]);
+
+  const isFormValid = Object.keys(errors).length === 0 &&
+    name && email && phone && password && confirmPassword;
+
   const handleRegister = (e) => {
     e.preventDefault();
-
-    if (password !== confirmPassword) {
-      alert('Password dan konfirmasi password tidak cocok');
-      return;
-    }
+    if (!isFormValid) return;
 
     const userData = { name, email, phone, password };
 
     fetch('http://localhost:5000/api/auth/register', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData),
     })
       .then((res) => {
         if (!res.ok) throw new Error('Registrasi gagal');
         return res.json();
       })
-      .then((data) => {
-        console.log('User registered:', data);
+      .then(() => {
         alert('Registrasi berhasil!');
-        window.location.href = '/login'; // redirect ke login
+        window.location.href = '/login';
       })
       .catch((err) => {
         console.error(err);
@@ -56,6 +80,7 @@ const RegistrationPage = () => {
               required
             />
           </div>
+
           <div className="mb-3">
             <label htmlFor="email" className="form-label">Email:</label>
             <input
@@ -66,7 +91,9 @@ const RegistrationPage = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
+            {errors.email && <div className="error-text">{errors.email}</div>}
           </div>
+
           <div className="mb-3">
             <label htmlFor="phone" className="form-label">Nomor Telepon</label>
             <input
@@ -77,7 +104,9 @@ const RegistrationPage = () => {
               onChange={(e) => setPhone(e.target.value)}
               required
             />
+            {errors.phone && <div className="error-text">{errors.phone}</div>}
           </div>
+
           <div className="mb-4">
             <label htmlFor="password" className="form-label">Password:</label>
             <input
@@ -88,7 +117,9 @@ const RegistrationPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            {errors.password && <div className="error-text">{errors.password}</div>}
           </div>
+
           <div className="mb-4">
             <label htmlFor="confirmPassword" className="form-label">Konfirmasi Password:</label>
             <input
@@ -99,9 +130,11 @@ const RegistrationPage = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
+            {errors.confirmPassword && <div className="error-text">{errors.confirmPassword}</div>}
           </div>
+
           <div className="d-flex justify-content-center">
-            <button type="submit" className="btn btn-teal rounded-pill px-5">
+            <button type="submit" className="btn btn-teal rounded-pill px-5" >
               Buat Akun
             </button>
           </div>

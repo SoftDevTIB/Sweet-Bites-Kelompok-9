@@ -37,7 +37,7 @@ const registerUser = async (req, res) => {
 //   }
 // };
 
-const loginUser = async (req, res) => {
+const login = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -73,4 +73,14 @@ const loginUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser };
+const logout = async (req, res) => {
+  try {
+    res.clearCookie('token');
+    res.status(200).json({ message: 'Logout berhasil' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Gagal logout' });
+  }
+};
+
+module.exports = { registerUser, login, logout };
