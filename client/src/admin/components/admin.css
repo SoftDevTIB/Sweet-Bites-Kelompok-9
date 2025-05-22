@@ -215,7 +215,7 @@ body {
 }
 .btn-outline-teal:hover {
   background-color: transparent;
-  color: white;
+  color: #2E5859;
 }
 .btn-outline-teal:active, 
 .btn-outline-teal:focus-visible, 
