@@ -100,7 +100,11 @@ const RegistrationPage = () => {
               required
             />
           </div>
-          <button type="submit" className="btn btn-teal w-100">Register</button>
+          <div className="d-flex justify-content-center">
+            <button type="submit" className="btn btn-teal rounded-pill px-5">
+              Buat Akun
+            </button>
+          </div>
         </form>
       </div>
     </div>
