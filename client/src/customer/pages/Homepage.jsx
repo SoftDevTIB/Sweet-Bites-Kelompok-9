@@ -24,9 +24,13 @@ const HomePage = () => {
       <main className="homepage-main">
         <div className="container">
           {/* Hero Section */}
-          <section className="hero-section">
-            <h2 className="hero-title">Manisnya Seporsi Kebahagiaan</h2>
-            <p>Nikmati kue dan cookies lezat dengan harga terjangkau, pas untuk ngemil atau teman santai</p>
+          <section className="hero-section d-flex flex-wrap align-items-center justify-content-between">
+            <div className="hero-text">
+              <h2 className="hero-title">Manisnya Seporsi Kebahagiaan</h2>
+              <p className="hero-subtitle">
+                Nikmati kue dan cookies lezat dengan harga terjangkau, pas untuk ngemil atau teman santai
+              </p>
+            </div>
             <img src={gambar1} alt="Sweet Bites" className="hero-image" />
           </section>
         </div>
@@ -38,30 +42,30 @@ const HomePage = () => {
             <div className="highlight-text">
               <h4>Porsi Pas, Rasa Kelas!</h4>
               <p>Cocok dinikmati sendiri, atau berbagi dengan orang tersayang</p>
-            <button
-              className="btn me-2"
-              style={{ backgroundColor: '#D67832', color: 'white' }}
-              onClick={() => {
-                const element = document.getElementById('recommendation-section');
-                if (element) {
-                  element.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
-            >
-              Lihat Rekomendasi
-            </button>
-            <button
-              className="btn me-2"
-              style={{
-                backgroundColor: 'transparent',
-                border: '1px solid #2D2D2D',
-                color: '#2D2D2D',
-                borderRadius: '0.375rem',
-              }}
-              onClick={() => navigate('/menu')}
-            >
-              Cek Menu
-            </button>
+              <button
+                className="btn me-2"
+                style={{ backgroundColor: '#D67832', color: 'white' }}
+                onClick={() => {
+                  const element = document.getElementById('recommendation-section');
+                  if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
+                Lihat Rekomendasi
+              </button>
+              <button
+                className="btn me-2"
+                style={{
+                  backgroundColor: 'transparent',
+                  border: '1px solid #2D2D2D',
+                  color: '#2D2D2D',
+                  borderRadius: '0.375rem',
+                }}
+                onClick={() => navigate('/menu')}
+              >
+                Cek Menu
+              </button>
             </div>
           </div>
         </section>
@@ -72,14 +76,14 @@ const HomePage = () => {
             <h3 id="recommendation-section" className="recommendation-title">Rekomendasi</h3>
             <div className="d-flex flex-wrap justify-content-center product-cards-container">
               {staticProducts.map(product => (
-              <ProductCard
-                key={product.id}
-                id={product.id}
-                name={product.name}
-                price={product.price}
-                available={product.available}
-                imageUrl={product.imageUrl}
-              />
+                <ProductCard
+                  key={product.id}
+                  id={product.id}
+                  name={product.name}
+                  price={product.price}
+                  available={product.available}
+                  imageUrl={product.imageUrl}
+                />
               ))}
             </div>
           </section>
