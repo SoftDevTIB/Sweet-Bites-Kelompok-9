@@ -55,8 +55,18 @@ const MenuDetailPage = () => {
     );
   }
 
+  const normalizedPrice = typeof product.price === 'string' ? parseFloat(product.price.replace(/\./g, '').replace(',', '.')) : product.price;
+
   const handleAddToCart = () => {
-    addToCart(product);
+    addToCart({
+      id: product._id,
+      name: product.productName,
+      price: normalizedPrice,
+      photo: product.photo,
+      imageUrl: product.photo ? `/uploads/${product.photo}` : '',
+      description: product.description,
+      stock: product.stock,
+    });
   };
 
   return (

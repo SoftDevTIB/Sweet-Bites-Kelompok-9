@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import { FaTrash, FaPlusCircle, FaMinusCircle } from 'react-icons/fa';
 import Header from '../components/header';
@@ -9,8 +9,12 @@ const CartPage = () => {
   const { cartItems, removeFromCart, updateQuantity } = useCart();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    console.log('Cart items in CartPage:', cartItems);
+  }, [cartItems]);
+
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const subtotal = cartItems.reduce((sum, item) => sum + item.quantity * parseFloat(item.price.replace(/\./g, '').replace(',', '.')), 0);
+  const subtotal = cartItems.reduce((sum, item) => sum + item.quantity * item.price, 0);
 
   const formatPrice = (price) => {
     return 'Rp ' + price.toLocaleString('id-ID');
@@ -46,7 +50,7 @@ const CartPage = () => {
                     <img src={item.imageUrl} alt={item.name} style={{ width: '80px', height: '80px', objectFit: 'cover', marginRight: '15px' }} />
                     <div className="flex-grow-1">
                       <h5>{item.name}</h5>
-                      <p>{item.price}</p>
+                      <p>{formatPrice(item.price)}</p>
                       <div className="d-flex align-items-center">
                         <button className="btn btn-link p-0 me-2" onClick={() => handleDecrease(item.id, item.quantity)}><FaMinusCircle /></button>
                         <span>{item.quantity}</span>

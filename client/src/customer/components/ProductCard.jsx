@@ -8,9 +8,11 @@ const ProductCard = ({ id, name, price, available, imageUrl }) => {
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
+  const normalizedPrice = typeof price === 'string' ? parseFloat(price.replace(/\./g, '').replace(',', '.')) : price;
+
   const handleAddToCart = (e) => {
     e.stopPropagation();
-    addToCart({ id, name, price, available, imageUrl });
+    addToCart({ id, name, price: normalizedPrice, available, imageUrl });
     alert('Berhasil ditambahkan ke keranjang!');
   };
 
