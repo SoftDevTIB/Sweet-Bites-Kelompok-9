@@ -118,9 +118,8 @@
   margin: 0;
   color: #3B7A57;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 15px;
   cursor: pointer;
-  text-decoration: underline;
 }
 
 .order-item-price {
