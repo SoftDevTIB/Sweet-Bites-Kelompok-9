@@ -8,6 +8,9 @@ import './Homepage.css';
 const HomePage = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const carouselImages = products.map(product => product.photo ? `/uploads/${product.photo}` : '/src/assets/Choco_oreo.jpg');
 
   useEffect(() => {
     fetch('/api/products')
@@ -15,6 +18,13 @@ const HomePage = () => {
       .then(data => setProducts(data))
       .catch(err => console.error('Failed to fetch products:', err));
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % carouselImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [carouselImages.length]);
 
   return (
     <>
@@ -29,8 +39,26 @@ const HomePage = () => {
         </div>
 
         {/* Highlight Section */}
-        <section className="highlight-section">
-          <div className="container highlight-container">
+        <section className="highlight-section highlight-carousel">
+          <div className="container highlight-container highlight-wrapper">
+            <div className="highlight-image-container">
+              <img
+                src={carouselImages[currentImageIndex]}
+                alt="Product"
+                className="highlight-image"
+                onClick={() => setCurrentImageIndex((currentImageIndex + 1) % carouselImages.length)}
+                style={{ cursor: 'pointer' }}
+              />
+              <div className="carousel-indicators">
+                {carouselImages.map((_, index) => (
+                  <span
+                    key={index}
+                    className={`carousel-indicator ${index === currentImageIndex ? 'active' : ''}`}
+                    onClick={() => setCurrentImageIndex((index + 1) % carouselImages.length)}
+                  />
+                ))}
+              </div>
+            </div>
             <div className="highlight-text">
               <h4>Porsi Pas, Rasa Kelas!</h4>
               <p>Cocok dinikmati sendiri, atau berbagi dengan orang tersayang</p>

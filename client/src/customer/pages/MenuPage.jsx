@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import ProductCard from '../components/ProductCard';
+import './MenuPage.css';
 
 const MenuPage = () => {
   const [products, setProducts] = useState([]);
@@ -16,7 +17,7 @@ const MenuPage = () => {
   return (
     <>
       <Header />
-      <main className="container-fluid p-4" style={{ backgroundColor: '#FFF2F2', paddingTop: '70px' }}>
+      <main className="container" style={{ backgroundColor: '#FFF2F2' }}>
         <h2 className="text-center mb-4" style={{ color: '#D67832' }}>Menu Kami</h2>
         <div className="d-flex flex-wrap justify-content-center">
           {products.map(product => (
