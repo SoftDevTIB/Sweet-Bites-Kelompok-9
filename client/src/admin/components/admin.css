@@ -283,6 +283,27 @@ body {
   flex-wrap: wrap;
   gap: 0.5rem;
 }
+.status-color-circle {
+  width: 10px;
+  height: 10px;
+}
+.select-box {
+  width: 125px;
+}
+.text-teal {
+  color: #3B7883;
+}
+.text-red {
+  color: #FF7373;
+}
+.link-no-style {
+  text-decoration: none;
+  color: inherit;
+}
+.link-no-style:hover {
+  text-decoration: none;
+  color: #3B7883;
+}
 
 @media (max-width: 1050px) {
   .filter-search {
@@ -340,11 +361,11 @@ body {
     padding: 5px !important;
   }
 
-  .admin-order-wrapper {
+  .admin-wrapper {
     overflow-x: auto !important;
   }
 
-  .admin-order-wrapper table {
+  .admin-wrapper table {
     min-width: 400px; 
   }
 }
@@ -382,6 +403,17 @@ body {
   .caption-up-gambar {
     font-size: 10px !important;
   }
+
+  .status-color-circle {
+    width: 5px;
+    height: 5px;
+  }
+
+  .select-box {
+    width: 100px;
+    font-size: 12px;
+  }
+
 }
 
 @media (max-width: 574px) {
@@ -396,20 +428,19 @@ body {
   .admin-order-table th, .admin-order-table td {
     font-size: 10px !important;
   }
+
+  .admin-order-detail-scroll {
+    overflow-x: auto !important;
+  }
+
+  .admin-order-detail-scroll table {
+    min-width: 250px; 
+  }
 }
 
 @media (max-width: 400px) {
   .admin-section {
     padding: 10px;
-  }
-  .admin-table th {
-    font-size: 10px !important;
-    padding: 5px !important;
-  }
-
-  .admin-table td {
-    font-size: 9px !important;
-    padding: 2px !important;
   }
 
   .box-gambar {

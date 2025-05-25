@@ -19,6 +19,7 @@ import CartPage from './customer/pages/CartPage';
 import CheckoutPage from './customer/pages/CheckoutPage';
 import { CartProvider } from './customer/context/CartContext';
 import ProtectedRoute from './customer/components/ProtectedRoute'; // <<== Tambahin ini
+import AdminOrderDetailPage from './admin/pages/admin_orderdetail';
 
 function App() {
   return (
@@ -73,6 +74,14 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={['admin']}>
                 <AdminOrdersPage />
+              </ProtectedRoute>
+            }
+          />
+        <Route
+            path="/admin/orders/detail"
+            element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <AdminOrderDetailPage />
               </ProtectedRoute>
             }
           />

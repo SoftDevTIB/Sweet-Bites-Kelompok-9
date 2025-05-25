@@ -125,7 +125,7 @@ const AdminOrdersPage = () => {
 
             <div className="card shadow-sm rounded-4 border-0 admin-table admin-order-table">
               <div className="card-body p-0">
-                <div className="rounded-bottom admin-order-wrapper">
+                <div className="rounded-bottom admin-wrapper">
                   <table className="table table-borderless mb-0">
                     <thead className="text-center">
                       <tr>
@@ -147,10 +147,10 @@ const AdminOrdersPage = () => {
                             <td>Rp {order.total.toLocaleString('id-ID')}</td>
                             <td><StatusBadge status={order.status} /></td>
                             <td>
-                              <Link to="#">
+                              <Link to="/admin/orders/detail" className="link-no-style">
                                 <BsSearch className="text-primary cursor-pointer detail-btn" />
+                                Detail
                               </Link>
-                              Detail 
                             </td>
                           </tr>
                         ))
