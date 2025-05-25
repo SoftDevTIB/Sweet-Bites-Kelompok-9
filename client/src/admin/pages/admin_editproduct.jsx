@@ -12,6 +12,8 @@ const EditProductPage = () => {
     const [description, setDescription] = useState('');
     const [photoFile, setPhotoFile] = useState(null);
     const [gambarPreview, setGambarPreview] = useState(null);
+    const [showModal1, setShowModal1] = useState(false);
+    const [showModal2, setShowModal2] = useState(false);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -22,7 +24,7 @@ const EditProductPage = () => {
                 setPrice(data.price);
                 setStock(data.stock);
                 setDescription(data.description);
-                setGambarPreview(`http://localhost:5000/uploads/${data.photo}`); 
+                setGambarPreview(`http://localhost:5000/uploads/${data.photo}`);
             } catch (err) {
                 console.error(err);
                 alert('Gagal mengambil data produk.');
@@ -40,9 +42,7 @@ const EditProductPage = () => {
         }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
+    const handleSubmit = async () => {
         const formData = new FormData();
         formData.append('productName', productName);
         formData.append('price', price);
@@ -59,7 +59,7 @@ const EditProductPage = () => {
             });
 
             if (res.ok) {
-                navigate('/admin/menu');
+                setShowModal2(true);
             } else {
                 alert('Gagal memperbarui produk');
             }
@@ -82,7 +82,7 @@ const EditProductPage = () => {
                 <h4 className="fw-bold mb-4">Edit Produk</h4>
 
                 <div className="p-4 rounded-4 shadow-sm box">
-                    <form onSubmit={handleSubmit}>
+                    <form>
                         <div className="row g-4 align-items-start">
                             <div className="col-md-4 col-sm-4 text-center box-gambar">
                                 <label htmlFor="uploadGambar" className="d-flex flex-column justify-content-center align-items-center picture">
@@ -152,13 +152,62 @@ const EditProductPage = () => {
                                 </div>
 
                                 <div className="d-flex gap-3 mt-4">
-                                    <button type="submit" className="btn admin-btn-teal rounded-pill px-4">Simpan</button>
+                                    <button
+                                        type="button"
+                                        className="btn admin-btn-teal rounded-pill px-4"
+                                        onClick={() => setShowModal1(true)}
+                                    >
+                                        Simpan
+                                    </button>
                                     <Link to="/admin/menu" className="btn btn-outline-dark rounded-pill px-4 cancel-btn">Batal</Link>
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
+
+                {/* Modal Konfirmasi */}
+                {showModal1 && (
+                    <div className="modal-overlay">
+                        <div className="modal-content">
+                            <p>Apakah Anda yakin ingin menyimpan perubahan?</p>
+                            <div className="modal-actions d-flex gap-3 justify-content-center mt-4">
+                                <button
+                                    className="btn btn-teal rounded-pill px-5"
+                                    onClick={() => {
+                                        setShowModal1(false);
+                                        handleSubmit();
+                                    }}
+                                >
+                                    Ya
+                                </button>
+                                <button
+                                    className="btn btn-secondary rounded-pill px-5"
+                                    onClick={() => setShowModal1(false)}
+                                >
+                                    Tidak
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Modal Berhasil */}
+                {showModal2 && (
+                    <div className="modal-overlay">
+                        <div className="modal-content">
+                            <p>Produk berhasil diperbarui!</p>
+                            <div className="modal-actions">
+                                <button
+                                    className="btn btn-teal rounded-pill px-5"
+                                    onClick={() => navigate("/admin/menu")}
+                                >
+                                    Ok
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </section>
         </AdminLayout>
     );

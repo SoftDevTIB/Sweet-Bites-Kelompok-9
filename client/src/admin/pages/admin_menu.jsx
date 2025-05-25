@@ -6,13 +6,14 @@ import axios from 'axios';
 import AdminLayout from '../components/admin_layout';
 
 const AdminMenuPage = () => {
-  // Ganti array statis jadi state products
   const [products, setProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [showModal1, setShowModal1] = useState(false);
+  const [showModal2, setShowModal2] = useState(false);
+  const [selectedId, setSelectedId] = useState(null); // ID produk yang dipilih untuk dihapus
   const itemsPerPage = 5;
 
-  // Ambil data produk dari API backend
   useEffect(() => {
     fetch('http://localhost:5000/api/products')
       .then(res => res.json())
@@ -47,21 +48,15 @@ const AdminMenuPage = () => {
   };
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm("Yakin ingin menghapus produk?");
-    if (!confirmDelete) return;
-
     try {
       await axios.delete(`http://localhost:5000/api/products/${id}`);
-      alert("Produk berhasil dihapus");
-
-      // Refresh daftar produk
+      setShowModal2(true);
       setProducts(prev => prev.filter(p => p._id !== id));
     } catch (error) {
       console.error("Gagal menghapus produk:", error);
       alert("Gagal menghapus produk");
     }
   };
-
 
   return (
     <AdminLayout>
@@ -128,7 +123,10 @@ const AdminMenuPage = () => {
                             <td>
                               <BsTrash3
                                 className="text-danger cursor-pointer"
-                                onClick={() => handleDelete(item._id)}
+                                onClick={() => {
+                                  setSelectedId(item._id);
+                                  setShowModal1(true);
+                                }}
                               />
                             </td>
                           </tr>
@@ -139,7 +137,6 @@ const AdminMenuPage = () => {
                         </tr>
                       )}
                     </tbody>
-
                   </table>
                 </div>
               </div>
@@ -168,6 +165,55 @@ const AdminMenuPage = () => {
             </div>
           )}
         </div>
+
+        {/* Modal Konfirmasi (Modal 1) */}
+        {showModal1 && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <p>Apakah Anda yakin ingin menghapus produk?</p>
+              <div className="modal-actions d-flex gap-3 justify-content-center mt-4">
+                <button
+                  className="btn btn-teal rounded-pill px-5"
+                  onClick={() => {
+                    setShowModal1(false);
+                    if (selectedId) {
+                      handleDelete(selectedId);
+                      setSelectedId(null);
+                    }
+                  }}
+                >
+                  Ya
+                </button>
+                <button
+                  className="btn btn-secondary rounded-pill px-5"
+                  onClick={() => {
+                    setShowModal1(false);
+                    setSelectedId(null);
+                  }}
+                >
+                  Tidak
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Modal Berhasil (Modal 2) */}
+        {showModal2 && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <p>Produk berhasil dihapus!</p>
+              <div className="modal-actions">
+                <button
+                  className="btn btn-teal rounded-pill px-5"
+                  onClick={() => setShowModal2(false)}
+                >
+                  Ok
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
     </AdminLayout>
   );

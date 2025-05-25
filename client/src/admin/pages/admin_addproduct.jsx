@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { BsUpload } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AdminLayout from '../components/admin_layout';
 
 const AddProductPage = () => {
@@ -10,6 +10,9 @@ const AddProductPage = () => {
     const [description, setDescription] = useState('');
     const [photoFile, setPhotoFile] = useState(null);
     const [gambarPreview, setGambarPreview] = useState(null); 
+    const [showModal, setShowModal] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleUpload = (e) => {
         const file = e.target.files[0];
@@ -40,7 +43,7 @@ const AddProductPage = () => {
             });
 
             if (res.ok) {
-                alert('Produk berhasil ditambahkan!');
+                setShowModal(true);
                 // Reset form
                 setProductName('');
                 setPrice('');
@@ -154,6 +157,23 @@ const AddProductPage = () => {
                         </div>
                     </form>
                 </div>
+
+                {/* Modal Berhasil */}
+                {showModal && (
+                    <div className="modal-overlay">
+                    <div className="modal-content">
+                        <p>Produk berhasil ditambahkan!</p>
+                        <div className="modal-actions">
+                        <button
+                            className="btn btn-teal rounded-pill px-5"
+                            onClick={ () => navigate("/admin/menu") }
+                        >
+                            Ok
+                        </button>
+                        </div>
+                    </div>
+                    </div>
+                )}
             </section>
         </AdminLayout>
     );
