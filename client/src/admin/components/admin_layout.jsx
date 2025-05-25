@@ -10,8 +10,8 @@ const AdminLayout = ({ children }) => {
   return (
     <>
       {/* Header */}
-      <div className="container-fluid sticky">
-        <div className="row justify-content-between align-items-center admin-header">
+      <div className="container-fluid sticky admin-header">
+        <div className="row justify-content-between align-items-center">
           <div className="col"></div>
           <img
             src={logo}
