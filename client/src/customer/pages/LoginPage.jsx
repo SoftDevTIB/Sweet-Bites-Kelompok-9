@@ -13,55 +13,90 @@ const LoginPage = () => {
   };
 
   const validatePassword = (password) => {
-  if (!password) return 'Password wajib diisi';
-  if (
-    // !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/.test(password)
-    password <8
-  ) {
-    return 'Password min. 8 karakter, ada huruf besar, kecil, angka, simbol';
-  }
-  return '';
-};
-
+    if (!password) return 'Password wajib diisi';
+    if (
+      // kamu bisa perbaiki validasi password ini sesuai kebutuhan
+      password.length < 8
+    ) {
+      return 'Password min. 8 karakter, ada huruf besar, kecil, angka, simbol';
+    }
+    return '';
+  };
 
   const emailError = validateEmail(email);
   const passwordError = validatePassword(password);
 
-  const handleLogin = (e) => {
+  // Fungsi sinkronisasi cart ke backend
+  async function syncCartAfterLogin(token) {
+  // grab your anonymous cart
+  const localCart = JSON.parse(localStorage.getItem('cart')) || [];
+  if (localCart.length === 0) return;
+
+  // transform each item → { productId, name, price, imageUrl, quantity }
+  const payloadItems = localCart.map(item => ({
+    productId: item.id,      // ← must match your Mongoose schema
+    name:      item.name,
+    price:     item.price,
+    imageUrl:  item.imageUrl,
+    quantity:  item.quantity
+  }));
+  console.log(payloadItems);
+  try {
+    const res = await fetch('http://localhost:5000/api/cart/sync', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.message || 'Gagal sinkronisasi cart');
+    }
+
+    // only clear localStorage once the sync actually succeeded
+    localStorage.removeItem('cart');
+  } catch (error) {
+    console.error('Sync cart error:', error.message);
+  }
+}
+
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // Kalau ada error, hentikan
     if (emailError || passwordError) {
       alert('Mohon perbaiki input terlebih dahulu');
       return;
     }
 
-    // Kirim ke backend
-    fetch('http://localhost:5000/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    })
-      .then(async (res) => {
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.message || 'Login gagal');
-        return data;
-      })
-      .then((data) => {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('role', data.role);
-
-        if (data.role === 'admin') {
-          window.location.href = '/admin';
-        } else if (data.role === 'user') {
-          window.location.href = '/';
-        } else {
-          alert('Login gagal: role tidak valid');
-        }
-      })
-      .catch((err) => {
-        alert(err.message || 'Login gagal');
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
       });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message || 'Login gagal');
+
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('role', data.role);
+
+      // Panggil fungsi sync setelah login berhasil
+      await syncCartAfterLogin(data.token);
+
+      if (data.role === 'admin') {
+        window.location.href = '/admin';
+      } else if (data.role === 'user') {
+        window.location.href = '/';
+      } else {
+        alert('Login gagal: role tidak valid');
+      }
+    } catch (err) {
+      alert(err.message || 'Login gagal');
+    }
   };
 
   return (

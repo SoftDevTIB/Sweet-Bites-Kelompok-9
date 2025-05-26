@@ -32,8 +32,15 @@ const CartPage = () => {
   };
 
   const handleCheckout = () => {
-    navigate('/checkout');
-  };
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      navigate('/login');
+    } else {
+      navigate('/checkout');
+    }
+};
+
 
   return (
     <>

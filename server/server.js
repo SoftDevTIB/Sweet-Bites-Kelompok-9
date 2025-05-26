@@ -5,6 +5,7 @@ require('dotenv').config()
 const cors = require('cors');
 const authRouter = require('./routes/auth');
 const productRouter = require('./routes/productRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 
 const app = express();
 const PORT = 5000;
@@ -19,6 +20,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // prefix semua route auth dengan /api/auth
 app.use('/api/auth', authRouter);
 app.use('/api/products', productRouter);
+app.use('/api/cart', cartRoutes);
 
 // New endpoint to receive order data
 app.post("/api/orders", (req, res) => {

@@ -70,3 +70,79 @@
     font-size: 12px;
     font-weight: bold;
 }
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+  border: #3B7883;
+}
+
+.modal-content {
+  max-width: 320px;
+  width: 90%;
+}
+
+/* Tombol modal */
+.modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Styling tombol hijau */
+.btn-teal {
+  border: #3B7883;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.btn-teal:hover {
+  background-color: #146c43;
+}
+
+/* Styling tombol batal */
+.btn-secondary {
+  background-color: #6c757d;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+.btn-login, .btn-logout {
+    display: inline-flex; 
+    align-items: center; 
+    gap: 10px; 
+    /* background-color: #FDF0D4; */
+    padding: 10px 25px;
+    border-radius: 10px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-login {
+   color: #3B7883; 
+   border: 1px solid #3B7883;
+}
+
+.btn-logout{
+    color: #D67832;
+    border: 1px solid #D67832;
+}
