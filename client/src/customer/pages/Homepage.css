@@ -37,13 +37,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1.5rem;
+  padding: 0 1.5rem 1.5rem 1.5rem;
   width: 100vw;
   position: relative;
   left: 50%;
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .highlight-container {
@@ -51,15 +53,21 @@
   justify-content: center;
   align-items: center;
   padding: 0;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .highlight-image {
-  width: 150px;
+  width: 180px;
   margin-right: 20px;
+  border-radius: 15px;
+  cursor: pointer;
 }
 
 .highlight-text h4 {
   color: #D67832;
+  font-weight: bold;
+  font-size: 35px;
 }
 
 .recommendation-title {
@@ -78,4 +86,9 @@
 .product-cards-container {
   position: relative;
   z-index: 1;
+}
+
+.highlight-wrapper {
+  margin-top: 1rem !important;
+  padding-top: 1rem !important;
 }

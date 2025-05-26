@@ -1,9 +1,16 @@
 .card-title {
-  color: #3B7883;
+  color: #3B7883 !important;
+  text-align: center;
+}
+
+.card-text {
+  color: black !important;
+  text-align: center;
 }
 
 .available-text {
-  color: #D67832;
+  color: #D67832 !important;
+  text-align: center;
 }
 
 .card:hover {

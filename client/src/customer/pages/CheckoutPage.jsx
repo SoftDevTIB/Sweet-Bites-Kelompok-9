@@ -10,7 +10,6 @@ const CheckoutPage = () => {
   const [kota, setKota] = useState('');
   const [alamat, setAlamat] = useState('');
   const [kodePos, setKodePos] = useState('');
-  // Removed unused additionalInfo state and handler
 
   useEffect(() => {
     const savedKota = localStorage.getItem('checkout_kota');
@@ -38,8 +37,7 @@ const CheckoutPage = () => {
 
   const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = cartItems.reduce(
-    (sum, item) =>
-      sum + item.quantity * parseFloat(item.price.replace(/\./g, '').replace(',', '.')),
+    (sum, item) => sum + item.quantity * item.price,
     0
   );
   const ongkir = 10000;
@@ -80,16 +78,16 @@ const CheckoutPage = () => {
                 disabled={false}
                 readOnly={false}
               />
-            <input
-              type="text"
-              placeholder="Kode Pos"
-              value={kodePos}
-              onChange={handleKodePosChange}
-              className="address-input"
-              disabled={false}
-              readOnly={false}
-            />
-          </div>
+              <input
+                type="text"
+                placeholder="Kode Pos"
+                value={kodePos}
+                onChange={handleKodePosChange}
+                className="address-input"
+                disabled={false}
+                readOnly={false}
+              />
+            </div>
           </div>
 
           <div className="order-section">
@@ -100,10 +98,10 @@ const CheckoutPage = () => {
                   <img src={item.imageUrl} alt={item.name} />
                   <div className="order-item-details">
                     <h6 className="order-item-name">{item.name}</h6>
-                    <p className="order-item-price">{item.price}</p>
+                    <p className="order-item-price">{formatPrice(item.price)}</p>
                   </div>
                   <div className="order-item-quantity">{item.quantity} x</div>
-                  <div className="order-item-total">{formatPrice(item.quantity * parseFloat(item.price.replace(/\./g, '').replace(',', '.')))}</div>
+                  <div className="order-item-total">{formatPrice(item.quantity * item.price)}</div>
                 </div>
               ))}
             </div>
@@ -122,33 +120,35 @@ const CheckoutPage = () => {
               <p className="total">
                 TOTAL <span style={{ float: 'right' }}>{formatPrice(total)}</span>
               </p>
-          <button className="payment-button" onClick={async () => {
-            try {
-              const response = await fetch('http://localhost:5000/api/orders', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                kota,
-                alamat,
-                kodePos,
-                cartItems,
-              }),
-              });
-              if (response.ok) {
-                alert('Pesanan berhasil dikirim!');
-                // Optionally clear cart or redirect user here
-              } else {
-                alert('Gagal mengirim pesanan.');
-              }
-            } catch (error) {
-              console.error('Error submitting order:', error);
-              alert('Terjadi kesalahan saat mengirim pesanan.');
-            }
-          }}>
-            Pembayaran
-          </button>
+              <button
+                className="payment-button"
+                onClick={async () => {
+                  try {
+                    const response = await fetch('http://localhost:5000/api/orders', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({
+                        kota,
+                        alamat,
+                        kodePos,
+                        cartItems,
+                      }),
+                    });
+                    if (response.ok) {
+                      alert('Pesanan berhasil dikirim!');
+                    } else {
+                      alert('Gagal mengirim pesanan.');
+                    }
+                  } catch (error) {
+                    console.error('Error submitting order:', error);
+                    alert('Terjadi kesalahan saat mengirim pesanan.');
+                  }
+                }}
+              >
+                Pembayaran
+              </button>
             </div>
           </div>
         </div>

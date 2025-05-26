@@ -1,34 +1,33 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import ProductCard from '../components/ProductCard';
-import gambar1 from '../../assets/Choco_oreo.jpg';
+import './MenuPage.css';
 
 const MenuPage = () => {
-  const staticProducts = [
-    { id: '1', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: '2', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: '3', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: '4', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: '5', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: '6', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-  ];
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => setProducts(data))
+      .catch(err => console.error('Failed to fetch products:', err));
+  }, []);
 
   return (
     <>
       <Header />
-      <main className="container-fluid p-4" style={{ backgroundColor: '#FFF2F2', paddingTop: '70px' }}>
+      <main className="container" style={{ backgroundColor: '#FFF2F2' }}>
         <h2 className="text-center mb-4" style={{ color: '#D67832' }}>Menu Kami</h2>
         <div className="d-flex flex-wrap justify-content-center">
-          {staticProducts.map(product => (
+          {products.map(product => (
             <ProductCard
-              key={product.id}
-              id={product.id}
-              name={product.name}
+              key={product._id}
+              id={product._id}
+              name={product.productName}
               price={product.price}
-              available={product.available}
-              imageUrl={product.imageUrl}
+              available={product.stock > 0}
+              imageUrl={product.photo ? `/uploads/${product.photo}` : ''}
             />
           ))}
         </div>
