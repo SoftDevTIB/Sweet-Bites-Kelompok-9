@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import ProductCard from '../components/ProductCard';
@@ -43,8 +43,7 @@ const HomePage = () => {
               <h4>Porsi Pas, Rasa Kelas!</h4>
               <p>Cocok dinikmati sendiri, atau berbagi dengan orang tersayang</p>
               <button
-                className="btn me-2"
-                style={{ backgroundColor: '#D67832', color: 'white' }}
+                className="btn-filled me-2"
                 onClick={() => {
                   const element = document.getElementById('recommendation-section');
                   if (element) {
@@ -55,13 +54,7 @@ const HomePage = () => {
                 Lihat Rekomendasi
               </button>
               <button
-                className="btn me-2"
-                style={{
-                  backgroundColor: 'transparent',
-                  border: '1px solid #2D2D2D',
-                  color: '#2D2D2D',
-                  borderRadius: '0.375rem',
-                }}
+                className="btn-outlined me-2"
                 onClick={() => navigate('/menu')}
               >
                 Cek Menu
