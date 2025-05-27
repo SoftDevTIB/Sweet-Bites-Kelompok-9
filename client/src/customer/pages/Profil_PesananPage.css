@@ -1,0 +1,50 @@
+.pp-container {
+  padding-top: 50px;
+}
+.mini-nav-btn-active, .mini-nav-btn-active:hover {
+  font-size: 15px;
+  color: #FFFFFF;
+  border: none;
+  background-color: #D67832;
+  pointer-events: none;
+}
+.mini-nav-btn {
+  font-size: 15px;
+  border: none;
+  background-color: #FDF0D4;
+}
+.mini-nav-btn:hover {
+  background-color: #FADB9A;
+}
+.history-items {
+  font-size: 12px;
+}
+.history-items .item {
+  background-color: #FFF2F2;
+}
+
+.title-font {
+  font-family: 'Esteban';
+}
+
+.order-card {
+  background-color: #FDF0D4;
+  color: #442918;
+  margin-bottom: 35px;
+}
+
+.ship-section {
+  font-size: 13px;
+}
+
+.text-lg {
+  font-size: 20px;
+}
+
+.text-oren {
+  color: #D67832;
+}
+
+.text-teal {
+  color: #3B7883;
+}

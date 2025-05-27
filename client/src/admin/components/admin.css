@@ -96,6 +96,11 @@ body {
   transition: none !important;
   cursor: default !important;
 }
+
+.admin-container {
+  padding-top: 0;
+}
+
 /* Dashboard */
 .dashboard-box {
   background-color: #FFF2F2;

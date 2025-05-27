@@ -72,7 +72,7 @@ const AdminOrdersPage = () => {
   return (
     <AdminLayout>
       <section className='admin-section'>
-        <div className="container" style={{ maxWidth: '1000px' }}>
+        <div className="admin-container" style={{ maxWidth: '1000px' }}>
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">Pesanan</li>
