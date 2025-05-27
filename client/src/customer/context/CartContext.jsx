@@ -79,6 +79,33 @@ export const CartProvider = ({ children }) => {
     setCartItems(updated);
   };
 
+    // di dalam CartProvider:
+  const overwriteCartApi = async (items) => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    try {
+      await fetch('http://localhost:5000/api/cart/overwrite', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          items: items.map(i => ({
+            productId: i.id,
+            name:      i.name,
+            price:     i.price,
+            imageUrl:  i.imageUrl,
+            quantity:  i.quantity
+          }))
+        })
+      });
+    } catch (err) {
+      console.error('Failed to overwrite cart', err);
+    }
+  };
+
+
   const updateQuantity = (id, quantity) => {
     const updated = cartItems.map(item =>
       item.id === id ? { ...item, quantity } : item
@@ -100,7 +127,7 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, updateQuantity, removeFromCart, clearCart }}
+      value={{ cartItems, addToCart, updateQuantity, removeFromCart, clearCart, overwriteCart:overwriteCartApi}}
     >
       {children}
     </CartContext.Provider>
