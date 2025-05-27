@@ -30,3 +30,19 @@
   color:white;
 }
 
+.text-login {
+  color:#D67832;
+  font-size: 12px;
+}
+
+.text-login:hover {
+  color: #ff8e38;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 40px; 
+  right: 15px; 
+  cursor: pointer;
+  color:#3B7883;
+}

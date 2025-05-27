@@ -9,17 +9,19 @@ import MenuDetailPage from './customer/pages/MenuDetailPage';
 import TentangKamiPage from './customer/pages/TentangKamiPage';
 import LoginPage from './customer/pages/LoginPage';
 import RegistrationPage from './customer/pages/RegistrationPage';
+import CartPage from './customer/pages/CartPage';
+import CheckoutPage from './customer/pages/CheckoutPage';
+import { CartProvider } from './customer/context/CartContext';
+import ProtectedRoute from './customer/components/ProtectedRoute'; // <<== Tambahin ini
+import ChangePasswordPage from './customer/pages/ChangePasswordPage';
 
 import AdminPage from './admin/pages/admin_dashboard';
 import AdminMenuPage from './admin/pages/admin_menu';
 import AdminOrdersPage from './admin/pages/admin_orders';
 import AddProductPage from './admin/pages/admin_addproduct';
 import EditProductPage from './admin/pages/admin_editproduct';
-import CartPage from './customer/pages/CartPage';
-import CheckoutPage from './customer/pages/CheckoutPage';
-import { CartProvider } from './customer/context/CartContext';
-import ProtectedRoute from './customer/components/ProtectedRoute'; // <<== Tambahin ini
 import AdminOrderDetailPage from './admin/pages/admin_orderdetail';
+
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registration" element={<RegistrationPage />} />
+        <Route path="/change-password" element={<ChangePasswordPage  />} />
         <Route path="/menu" element={<MenuPage />} />
         <Route path="/kontak" element={<KontakPage />} />
         <Route path="/tentang" element={<TentangKamiPage />} />

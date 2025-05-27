@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './LoginPage.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [touched, setTouched] = useState({ email: false, password: false });
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { setCartItems } = useCart();
 
@@ -134,10 +136,10 @@ const LoginPage = () => {
             />
             {touched.email && emailError && <div className="error-text mt-1">{emailError}</div>}
           </div>
-          <div className="mb-4">
+          <div className="mb-4 position-relative">
             <label htmlFor="password" className="form-label">Password:</label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               className="form-control custom-input"
               id="password"
               value={password}
@@ -145,13 +147,36 @@ const LoginPage = () => {
               onBlur={() => setTouched(prev => ({ ...prev, password: true }))}
               required
             />
+            <span
+              className="password-toggle"
+              onClick={() => setShowPassword(!showPassword)}
+              style={{ position: 'absolute', top: '40px', right: '15px', cursor: 'pointer' }}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
             {touched.password && passwordError && <div className="error-text mt-1">{passwordError}</div>}
           </div>
-          <div className="d-flex justify-content-center">
-            <button type="submit" className="btn btn-teal rounded-pill px-5">
+           <div className="d-flex justify-content-center ">
+            <div className="row gap-3 m-3">
+               <button type="submit" className="btn btn-teal rounded-pill px-5">
               Login
             </button>
+            <button
+              type="button"
+              className="btn btn-outline-secondary rounded-pill px-5  "
+              onClick={() => navigate('/')}
+            >
+              Home
+            </button>
+            </div>
+           
+            
           </div>
+          <div className="d-flex justify-content-between gap-3 mt-4">
+            <Link to="/registration" className="text-login">Tidak punya akun?</Link>
+            <Link to="/change-password" className="text-login">Atur ulang kata sandi</Link>
+          </div>
+         
         </form>
       </div>
     </div>
