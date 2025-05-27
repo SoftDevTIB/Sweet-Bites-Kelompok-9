@@ -29,6 +29,17 @@ const MenuPage = () => {
     fetchProducts();
   }, [search, sortBy, order, available]);
 
+  const formatPrice = (price) => {
+    if (typeof price === 'number') {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+    if (typeof price === 'string') {
+      const numericPrice = price.replace(/\D/g, '');
+      return numericPrice.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+    return price;
+  };
+
   return (
     <>
       <Header />
@@ -80,7 +91,7 @@ const MenuPage = () => {
               key={product._id}
               id={product._id}
               name={product.productName}
-              price={product.price}
+              price={formatPrice(product.price)}
               available={product.stock > 0}
               imageUrl={product.photo ? `/uploads/${product.photo}` : ''}
             />
