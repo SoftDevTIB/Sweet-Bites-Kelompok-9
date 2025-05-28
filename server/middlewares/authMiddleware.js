@@ -22,7 +22,7 @@ const verifyToken = (req, res, next) => {
 // Middleware to allow only admin
 const allowRoles = (...roles) => {
   return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
+    if (!roles.includes(req.userRole)) {
       return res.status(403).json({ message: 'Access denied' });
     }
     next();

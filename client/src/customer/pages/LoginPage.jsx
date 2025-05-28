@@ -133,6 +133,7 @@ const LoginPage = () => {
               onChange={e => setEmail(e.target.value)}
               onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
               required
+              autoComplete="email"
             />
             {touched.email && emailError && <div className="error-text mt-1">{emailError}</div>}
           </div>
@@ -146,6 +147,7 @@ const LoginPage = () => {
               onChange={e => setPassword(e.target.value)}
               onBlur={() => setTouched(prev => ({ ...prev, password: true }))}
               required
+              autoComplete="password"
             />
             <span
               className="password-toggle"
@@ -172,9 +174,8 @@ const LoginPage = () => {
            
             
           </div>
-          <div className="d-flex justify-content-between gap-3 mt-4">
+          <div className="d-flex justify-content-center gap-3 mt-4">
             <Link to="/registration" className="text-login">Tidak punya akun?</Link>
-            <Link to="/change-password" className="text-login">Atur ulang kata sandi</Link>
           </div>
          
         </form>
