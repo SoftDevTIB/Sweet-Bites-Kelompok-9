@@ -20,9 +20,9 @@ import CheckoutPage from './customer/pages/CheckoutPage';
 import { CartProvider } from './customer/context/CartContext';
 import ProtectedRoute from './customer/components/ProtectedRoute'; // <<== Tambahin ini
 import AdminOrderDetailPage from './admin/pages/admin_orderdetail';
-import HistoryPage from './customer/pages/HistoryPage';
 import ProfilePage from './customer/pages/ProfilePage';
 import PesananPage from './customer/pages/PesananPage';
+import DetailPesananPage from './customer/pages/DetailPesananPage';
 
 function App() {
   return (
@@ -37,7 +37,7 @@ function App() {
         <Route path="/tentang" element={<TentangKamiPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/pesanan" element={<PesananPage />} />
-        <Route path="/history" element={<HistoryPage />} />
+        <Route path="/pesanan/detail" element={<DetailPesananPage/>} />
         <Route path="/menu/:id" element={<MenuDetailPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />

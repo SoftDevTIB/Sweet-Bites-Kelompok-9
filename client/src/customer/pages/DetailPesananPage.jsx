@@ -2,10 +2,9 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import './Profil_PesananPage.css';
 import { FiShoppingBag, FiUser } from "react-icons/fi";
-import { BsReceipt } from "react-icons/bs";
 import { Link } from 'react-router-dom';
 
-const ProfilePage = () => {
+const DetailPesananPage = () => {
   return (
     <>
         <Header />
@@ -13,11 +12,11 @@ const ProfilePage = () => {
         <div className="pp-container">
             {/* Tabs */}
             <div className="d-flex justify-content-center gap-2 mb-4">
-                <Link to="/pesanan" className="btn mini-nav-btn d-flex align-items-center">
+                <Link to="/pesanan" className="btn mini-nav-btn-active d-flex align-items-center">
                     <FiShoppingBag className='me-2' />
                     Pesanan
                 </Link>
-                <Link to="/profile" className="btn mini-nav-btn-active d-flex align-items-center">
+                <Link to="/profile" className="btn mini-nav-btn d-flex align-items-center">
                     <FiUser className='me-2' />
                     Profile
                 </Link>
@@ -29,4 +28,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default DetailPesananPage;
