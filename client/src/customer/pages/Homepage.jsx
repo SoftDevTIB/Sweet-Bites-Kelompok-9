@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import ProductCard from '../components/ProductCard';
@@ -7,7 +6,7 @@ import tiramisuImage from '../../assets/tiramisu.png';
 import './Homepage.css';
 
 const HomePage = () => {
-  const navigate = useNavigate();
+  
   const [products, setProducts] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -94,7 +93,9 @@ const HomePage = () => {
               </button>
               <button
                 className="btn me-2 btn-menu"
-                onClick={() => navigate('/menu')}
+                onClick={() => {
+                  window.location.href = '/menu#top';
+                }}
               >
                 Cek Menu
               </button>
