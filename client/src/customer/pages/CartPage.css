@@ -1,8 +1,51 @@
 .cart-summary-box {
-  border-radius: 10px;
+  border-radius: 40px;
   border: 3px solid #D67832 !important;
   background-color: #FFF2F2;
   padding: 1rem;
+  min-height: 300px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item {
+  border-bottom: 2px solid black;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+.total-item-row {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  color: #747474;
+  margin-bottom: 0.3rem;
+  font-size: 20px;
+}
+
+.total-item-line {
+  border-bottom: 1px solid #747474;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.subtotal-row {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  font-size: 20px;
+}
+
+.subtotal-label {
+  color: #D67832;
+  font-weight:500;
+  font-size: 20px;
+}
+
+.subtotal-value {
+  font-weight: 500;
+  color: #D67832;
+  font-size: 20px;
 }
 
 .product-name {
@@ -10,28 +53,91 @@
   padding-top: 1rem;
   margin: 0;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 25px;
 }
 
 .product-price {
   margin: 0;
   color: black;
+  font-size: 22px;
 }
 
-.quantity-controls {
+.quantity-btn {
   display: flex;
   align-items: center;
   margin-top: 0.5rem;
+  gap: 16px;
+  min-width: 120px;
+  justify-content: center;
 }
 
-.quantity-controls button {
-  background: none;
-  border: none;
+.quantity-btn button {
+  background: transparent;
   cursor: pointer;
   padding: 0;
-  margin: 0 5px;
+  margin: 0;
+  width: 36px;
+  height: 36px;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
 }
 
-.quantity-controls span {
-  margin: 0 5px;
+.quantity-btn button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.quantity-btn span {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 36px;
+  width: 36px;
+  text-align: center;
+}
+
+.quantity-icon {
+  color: black;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.checkout-btn {
+  display: inline-block;
+  background-color: #3B7883;
+  color: white;
+  border-radius: 20px;
+  padding: 0.5rem 2rem;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.checkout-button-wrapper {
+  text-align: center;
+  padding-top: 7rem;
+}
+
+.checkout-btn:hover {
+  background-color: #e96e0f;
+  color: white;
+}
+
+.trash-btn {
+  color: #3B7883;
+  font-size: 22px;
+  margin-left: 20px;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.trash-btn:hover {
+  color: #e96e0f;
 }
