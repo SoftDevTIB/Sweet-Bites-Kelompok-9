@@ -3,6 +3,7 @@ import { FiSearch, FiFilter } from 'react-icons/fi';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import ProductCard from '../components/ProductCard';
+import bannerImage from '../../assets/banner.png';
 import './MenuPage.css';
 
 const MenuPage = () => {
@@ -44,10 +45,11 @@ const MenuPage = () => {
     <>
       <Header />
       <main className="container" style={{ backgroundColor: '#FFF2F2' }}>
+        <img src={bannerImage} alt="Banner" className="menu-banner" />
         <h2 className="text-center mb-4" style={{ color: '#D67832' }}>Temukan Pilihanmu</h2>
 
-        <div className="search-filter-container mb-4 d-flex justify-content-center align-items-center flex-wrap gap-3" style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <div className="d-flex align-items-center" style={{ position: 'relative', flex: '1 1 300px' }}>
+        <div className="search-filter-container mb-4 d-flex justify-content-center align-items-center flex-wrap gap-3" style={{ maxWidth: '920px', margin: '0 auto' }}>
+          <div className="d-flex align-items-center" style={{ position: 'relative', flex: '1 1 700px' }}>
             <input
               type="text"
               placeholder="Cari nama produk..."
@@ -85,18 +87,18 @@ const MenuPage = () => {
           )}
         </div>
 
-        <div className="d-flex flex-wrap justify-content-center mt-4 gap-3">
-          {products.map(product => (
-            <ProductCard
-              key={product._id}
-              id={product._id}
-              name={product.productName}
-              price={formatPrice(product.price)}
-              available={product.stock > 0}
-              imageUrl={product.photo ? `/uploads/${product.photo}` : ''}
-            />
-          ))}
-        </div>
+<div className="d-flex flex-wrap justify-content-center product-cards-container">
+  {products.map(product => (
+    <ProductCard
+      key={product._id}
+      id={product._id}
+      name={product.productName}
+      price={formatPrice(product.price)}
+      available={product.stock > 0}
+      imageUrl={product.photo ? `/uploads/${product.photo}` : ''}
+    />
+  ))}
+</div>
       </main>
       <Footer />
     </>
