@@ -4,7 +4,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { BsHouse, BsGrid, BsHandbag } from 'react-icons/bs';
 
 import logo from '../../assets/logo.png';
-import './admin.css';
+import './Admin.css';
 
 const AdminLayout = ({ children }) => {
   return (

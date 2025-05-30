@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AdminLayout from '../components/admin_layout';
+import AdminLayout from '../components/AdminLayout';
 
 const statusColors = {
   Menunggu: '#FF55E5',

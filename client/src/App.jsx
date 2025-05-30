@@ -14,16 +14,17 @@ import CheckoutPage from './customer/pages/CheckoutPage';
 import { CartProvider } from './customer/context/CartContext';
 import ProtectedRoute from './customer/components/ProtectedRoute'; // <<== Tambahin ini
 import ChangePasswordPage from './customer/pages/ChangePasswordPage';
-
-import AdminPage from './admin/pages/admin_dashboard';
-import AdminMenuPage from './admin/pages/admin_menu';
-import AdminOrdersPage from './admin/pages/admin_orders';
-import AddProductPage from './admin/pages/admin_addproduct';
-import EditProductPage from './admin/pages/admin_editproduct';
-import AdminOrderDetailPage from './admin/pages/admin_orderdetail';
 import ProfilePage from './customer/pages/ProfilePage';
 import PesananPage from './customer/pages/PesananPage';
 import DetailPesananPage from './customer/pages/DetailPesananPage';
+
+import AdminPage from './admin/pages/AdminDashboard';
+import AdminMenuPage from './admin/pages/AdminMenu';
+import AdminOrdersPage from './admin/pages/AdminOrders';
+import AddProductPage from './admin/pages/AdminAddProductjsx';
+import EditProductPage from './admin/pages/AdminEditProduct';
+import AdminOrderDetailPage from './admin/pages/AdminOrderDetail';
+
 
 
 function App() {

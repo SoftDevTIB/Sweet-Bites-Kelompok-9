@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { BsArrowRightCircle, BsArrowLeftCircle, BsSearch } from 'react-icons/bs';
 import { useState } from 'react';
-import AdminLayout from '../components/admin_layout';
+import AdminLayout from '../components/AdminLayout';
 
 const statusColors = {
   Menunggu: '#FF55E5',
