@@ -19,6 +19,11 @@
     box-sizing: border-box;
 }
 
+.header-spacer {
+    height: 100px;
+    width: 100%;
+}
+
 .logo {
     display: flex;
     align-items: center;
@@ -98,7 +103,6 @@
   gap: 12px;
 }
 
-/* Styling tombol hijau */
 .btn-teal {
   border: #3B7883;
   color: white;
@@ -111,7 +115,6 @@
   background-color: #146c43;
 }
 
-/* Styling tombol batal */
 .btn-secondary {
   background-color: #6c757d;
   border: none;
@@ -129,7 +132,6 @@
     display: inline-flex; 
     align-items: center; 
     gap: 10px; 
-    /* background-color: #FDF0D4; */
     padding: 10px 25px;
     border-radius: 10px;
     font-weight: 500;

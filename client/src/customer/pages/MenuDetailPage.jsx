@@ -4,6 +4,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import { useCart } from '../context/CartContext';
+import './MenuDetailPage.css';
 
 const MenuDetailPage = () => {
   const { id } = useParams();
@@ -11,6 +12,25 @@ const MenuDetailPage = () => {
   const { addToCart } = useCart();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [headerHeight, setHeaderHeight] = useState(0);
+
+  const formatPrice = (price) => {
+    if (typeof price === 'number') {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+    if (typeof price === 'string') {
+      const numericPrice = price.replace(/\D/g, '');
+      return numericPrice.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+    return price;
+  };
+
+  useEffect(() => {
+    const headerElement = document.querySelector('.header');
+    if (headerElement) {
+      setHeaderHeight(headerElement.offsetHeight);
+    }
+  }, []);
 
   useEffect(() => {
     fetch(`/api/products/${id}`)
@@ -34,7 +54,7 @@ const MenuDetailPage = () => {
     return (
       <>
         <Header />
-        <main className="container p-4">
+        <main className="container p-4" style={{ paddingTop: headerHeight }}>
           <h2>Loading...</h2>
         </main>
         <Footer />
@@ -46,7 +66,7 @@ const MenuDetailPage = () => {
     return (
       <>
         <Header />
-        <main className="container p-4">
+        <main className="container p-4" style={{ paddingTop: headerHeight }}>
           <h2>Product not found</h2>
           <button onClick={() => navigate('/menu')} className="btn btn-primary">Back to Menu</button>
         </main>
@@ -72,19 +92,20 @@ const MenuDetailPage = () => {
   return (
     <>
       <Header />
-      <main className="container p-4" style={{ backgroundColor: '#FFF2F2' }}>
+      <div className="header-spacer" />
+      <main className="container p-5 menu-detail-padding" style={{ backgroundColor: '#FFF2F2', paddingTop: headerHeight }}>
         <div className="row align-items-center">
           <div className="col-md-6">
             <img src={product.photo ? `/uploads/${product.photo}` : ''} alt={product.productName} className="img-fluid rounded" />
           </div>
           <div className="col-md-6">
-            <h2 style={{ color: '#3B7883' }}>{product.productName}</h2>
-            <p style={{ color: 'black' }}>{product.description}</p>
-            <p style={{ color: product.stock > 0 ? '#D67832' : 'gray' }}>
+            <h2 className="menu-detail-heading">{product.productName}</h2>
+            <p className="menu-detail-description">{product.description}</p>
+            <p className={product.stock > 0 ? 'menu-detail-stock-available' : 'menu-detail-stock-unavailable'}>
               {product.stock > 0 ? 'Tersedia' : 'Tidak tersedia'}
             </p>
-            <h4 style={{ color: '#3B7883' }}>Rp {product.price}</h4>
-            <button className="btn btn-success me-2" disabled={product.stock <= 0} onClick={handleAddToCart}>
+            <h4 className="menu-detail-price">Rp {formatPrice(product.price)}</h4>
+            <button className="btn btn-add-to-cart me-4" disabled={product.stock <= 0} onClick={handleAddToCart}>
               <FaShoppingCart /> Add To Cart
             </button>
             <button className="btn btn-outline-secondary">
