@@ -21,6 +21,9 @@ import AdminOrdersPage from './admin/pages/admin_orders';
 import AddProductPage from './admin/pages/admin_addproduct';
 import EditProductPage from './admin/pages/admin_editproduct';
 import AdminOrderDetailPage from './admin/pages/admin_orderdetail';
+import ProfilePage from './customer/pages/ProfilePage';
+import PesananPage from './customer/pages/PesananPage';
+import DetailPesananPage from './customer/pages/DetailPesananPage';
 
 
 function App() {
@@ -35,6 +38,9 @@ function App() {
         <Route path="/menu" element={<MenuPage />} />
         <Route path="/kontak" element={<KontakPage />} />
         <Route path="/tentang" element={<TentangKamiPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/pesanan" element={<PesananPage />} />
+        <Route path="/pesanan/detail" element={<DetailPesananPage/>} />
         <Route path="/menu/:id" element={<MenuDetailPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />

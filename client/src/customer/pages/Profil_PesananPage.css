@@ -1,0 +1,123 @@
+.pp-container {
+  padding: 50px 1rem 0 1rem;
+  overflow-x: hidden;
+}
+.mini-nav-btn-active, .mini-nav-btn-active:hover {
+  font-size: 15px;
+  color: #FFFFFF;
+  border: none;
+  background-color: #D67832;
+  pointer-events: none;
+}
+.mini-nav-btn {
+  font-size: 15px;
+  border: none;
+  background-color: #FDF0D4;
+}
+.mini-nav-btn:hover {
+  background-color: #FADB9A;
+}
+.history-items {
+  font-size: 12px;
+}
+.history-items .item {
+  background-color: #FFF2F2;
+}
+
+.font-est {
+  font-family: 'Esteban';
+}
+
+.order-card {
+  background-color: #FDF0D4;
+  color: #442918;
+}
+
+.ship-section {
+  font-size: 13px;
+}
+
+.see-detail-btn {
+  font-size: 13px;
+  text-decoration: none;
+  color: #D67832 ;
+}
+
+.see-detail-btn:hover {
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #D67832;
+  transform: translateX(10px);
+  transition: 0.3s ease;
+}
+
+.text-lg {
+  font-size: 20px;
+}
+
+.text-md {
+  font-size: 14px;
+}
+
+.text-oren {
+  color: #D67832;
+}
+
+.text-teal {
+  color: #3B7883;
+}
+
+.order-btn-group {
+  background-color: #FADB9A;
+  border: 1px solid #FADB9A;
+}
+
+.order-btn-group .btn {
+  font-size: 12px;
+  padding: 4px 10px;
+}
+
+.order-btn-group .btn:hover {
+  background-color: #FDF0D4;
+}
+
+.order-btn-group .btn:active {
+  border: 1px solid #D67832 !important;
+}
+
+.order-btn-active, .order-btn-active:hover {
+  background-color: #FDF0D4;
+  pointer-events: none;
+}
+
+.status-badge {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+@media (max-width: 800px) {
+
+}
+
+@media (max-width: 500px) {
+  .text-lg {
+    font-size: 17px;
+  }
+
+  .text-md {
+    font-size: 12px;
+  }
+
+  .status-badge {
+    width: 7px;
+    height: 7px;
+  }
+
+  .order-btn-group .btn {
+    font-size: 10px;
+    padding: 4px 7px;
+  }
+}
