@@ -7,8 +7,6 @@ const userSchema = new mongoose.Schema({
   phone: { type: String, required: true },
   address: {
     kota: { type: String },
-    kecamatan: { type: String },
-    kelurahan: { type: String },
     kodePos: { type: String },
     alamat: { type: String },   
   },

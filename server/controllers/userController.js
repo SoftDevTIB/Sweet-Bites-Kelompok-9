@@ -14,9 +14,9 @@ const getMe = async (req, res) => {
 const updateUserAddress = async (req, res) => {
   try {
     const userId = req.userId; // dari middleware verifyToken
-    const { kota, kecamatan, kelurahan, kodePos, alamat} = req.body;
+    const { kota, alamat, kodePos } = req.body;
 
-    if (!kota || !kecamatan || !kelurahan || !kodePos || !alamat ) {
+    if (!kota || !alamat || !kodePos) {
       return res.status(400).json({ message: 'Semua data alamat harus diisi' });
     }
 
@@ -26,7 +26,7 @@ const updateUserAddress = async (req, res) => {
     }
 
     // Update data alamat
-    user.address = { kota, kecamatan, kelurahan, kodePos, alamat }; // pastikan modelnya sesuai
+    user.address = { kota, alamat, kodePos }; // pastikan modelnya sesuai
     await user.save();
 
     res.status(200).json({ message: 'Alamat berhasil diperbarui' });
