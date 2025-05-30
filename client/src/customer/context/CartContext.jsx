@@ -121,9 +121,22 @@ export const CartProvider = ({ children }) => {
   };
 
   const clearCart = () => {
-    setCartItems([]);
-    syncApi('post', `/sync`, { items: [] });
-  };
+  setCartItems([]); // Kosongkan cart lokal
+  localStorage.removeItem('cart'); // Hapus cart dari localStorage
+
+  // Jika login, clear juga cart di backend
+  const token = localStorage.getItem('token');
+  if (token) {
+    fetch('http://localhost:5000/api/cart/clear', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    }).catch(err => console.error('Failed to clear cart on backend', err));
+  }
+};
+
 
   return (
     <CartContext.Provider

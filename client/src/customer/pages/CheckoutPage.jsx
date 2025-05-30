@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useCart } from '../context/CartContext';
+import { useCart} from '../context/CartContext';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import './CheckoutPage.css';
 
 const CheckoutPage = () => {
   const { cartItems } = useCart();
+  const { clearCart } = useCart();
 
   const [provinsi] = useState('DKI Jakarta');
   const [kota, setKota] = useState('');
@@ -59,48 +60,58 @@ const CheckoutPage = () => {
   const total = subtotal + ongkir;
 
   const handleSubmit = async () => {
-    const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
-    if (!kota || !alamat || !kodePos) {
-      setMessage('Mohon lengkapi semua data alamat.');
+  if (!kota || !alamat || !kodePos) {
+    setMessage('Mohon lengkapi semua data alamat.');
+    return;
+  }
+
+  const addressData = { province: provinsi, kota, alamat, kodePos };
+
+  // Map cartItems supaya ada productId
+  const cartItemsWithProductId = cartItems.map(item => ({
+    productId: item.id,
+    quantity: item.quantity,
+    price: item.price,
+  }));
+
+  try {
+    const updateAddressRes = await fetch('http://localhost:5000/api/users/update-address', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(addressData),
+    });
+
+    if (!updateAddressRes.ok) {
+      setMessage('Gagal memperbarui alamat.');
       return;
     }
 
-    const addressData = { province: provinsi, kota, alamat, kodePos };
+    const orderRes = await fetch('http://localhost:5000/api/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ ...addressData, cartItems: cartItemsWithProductId, deliveryFee: 10000 }),
+    });
 
-    try {
-      const updateAddressRes = await fetch('http://localhost:5000/api/users/update-address', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(addressData),
-      });
-
-      if (!updateAddressRes.ok) {
-        setMessage('Gagal memperbarui alamat.');
-        return;
-      }
-
-      const orderRes = await fetch('http://localhost:5000/api/orders', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ...addressData, cartItems }),
-      });
-
-      if (orderRes.ok) {
-        setMessage('Pesanan berhasil dikirim!');
-      } else {
-        setMessage('Gagal mengirim pesanan.');
-      }
-    } catch (error) {
-      console.error('Order error:', error);
-      setMessage('Terjadi kesalahan saat memproses.');
+    if (orderRes.ok) {
+      setMessage('Pesanan berhasil dikirim!');
+      clearCart(); 
+    } else {
+      setMessage('Gagal mengirim pesanan.');
     }
-  };
+  } catch (error) {
+    console.error('Order error:', error);
+    setMessage('Terjadi kesalahan saat memproses.');
+  }
+};
+
 
   return (
     <>

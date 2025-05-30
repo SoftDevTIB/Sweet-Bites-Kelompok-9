@@ -7,6 +7,7 @@ const authRouter = require('./routes/auth');
 const productRouter = require('./routes/productRoutes');
 const cartRouter = require('./routes/cartRoutes');
 const userRouter = require('./routes/userRoutes');
+const orderRouter = require('./routes/orderRoutes');
 
 const app = express();
 const PORT = 5000;
@@ -23,6 +24,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/products', productRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/users', userRouter);
+app.use('/api/orders', orderRouter);
 
 // New endpoint to receive order data
 app.post("/api/orders", (req, res) => {
