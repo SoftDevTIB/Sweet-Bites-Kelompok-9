@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';  // kalau kamu pakai react-router
 
-import AdminLayout from '../components/admin_layout';
+import AdminLayout from '../components/AdminLayout';
 import { BsBoxArrowRight, BsPersonFill } from 'react-icons/bs';
 
 const AdminPage = () => {

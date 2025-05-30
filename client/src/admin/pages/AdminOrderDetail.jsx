@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AdminLayout from '../components/admin_layout';
+import AdminLayout from '../components/AdminLayout';
 
 const statusColors = {
   Menunggu: '#FF55E5',
@@ -14,7 +14,7 @@ const AdminOrderDetailPage = () => {
   return (
     <AdminLayout>
       <section className="admin-section">
-        <div className="container" style={{ maxWidth: '900px' }}>
+        <div className="admin-container" style={{ maxWidth: '900px' }}>
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">Pesanan</li>

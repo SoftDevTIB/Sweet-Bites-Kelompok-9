@@ -3,7 +3,13 @@ const User = require('../models/User').default;
 const router = express.Router();
 const { verifyToken } = require('../middlewares/authMiddleware');
 
-const { login, logout, registerUser, changePassword } = require('../controllers/authController');
+const { 
+  login, 
+  logout, 
+  registerUser, 
+  changePassword,
+  updateUserAddress 
+} = require('../controllers/authController');
 
 router.get('/', async (req, res) => {
   const db = getDB();

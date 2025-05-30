@@ -3,7 +3,7 @@ import { BsArrowRightCircle, BsArrowLeftCircle, BsPencilSquare, BsTrash3, BsPlus
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import AdminLayout from '../components/admin_layout';
+import AdminLayout from '../components/AdminLayout';
 
 const AdminMenuPage = () => {
   const [products, setProducts] = useState([]);
@@ -61,7 +61,7 @@ const AdminMenuPage = () => {
   return (
     <AdminLayout>
       <section className='admin-section'>
-        <div className="container" style={{ maxWidth: '900px' }}>
+        <div className="admin-container" style={{ maxWidth: '900px' }}>
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">Produk</li>

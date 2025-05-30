@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { BsUpload } from 'react-icons/bs';
-import AdminLayout from '../components/admin_layout';
+import AdminLayout from '../components/AdminLayout';
 
 const EditProductPage = () => {
     const { productId } = useParams();

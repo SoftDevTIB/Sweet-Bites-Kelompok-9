@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { BsArrowRightCircle, BsArrowLeftCircle, BsSearch } from 'react-icons/bs';
 import { useState } from 'react';
-import AdminLayout from '../components/admin_layout';
+import AdminLayout from '../components/AdminLayout';
 
 const statusColors = {
   Menunggu: '#FF55E5',
@@ -72,7 +72,7 @@ const AdminOrdersPage = () => {
   return (
     <AdminLayout>
       <section className='admin-section'>
-        <div className="container" style={{ maxWidth: '1000px' }}>
+        <div className="admin-container" style={{ maxWidth: '1000px' }}>
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">Pesanan</li>
