@@ -1,20 +1,27 @@
+// src/admin/pages/AdminOrdersPage.jsx
 import { Link } from 'react-router-dom';
 import { BsArrowRightCircle, BsArrowLeftCircle, BsSearch } from 'react-icons/bs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import AdminLayout from '../components/AdminLayout';
 
 const statusColors = {
-  Menunggu: '#FF55E5',
-  Diproses: '#FF8C00',
-  Dikirim: '#FFD400',
-  Selesai: '#00FF3C',
+  menunggu: '#FF55E5',   // Warna pink lembut
+  diproses: '#FF8C00',   // Oranye
+  dikirim:  '#FFD400',   // Kuning
+  selesai:  '#00C851',   // Hijau
 };
 
 const StatusBadge = ({ status }) => {
-  const color = statusColors[status] || '#ccc';
+  // Buat key lowercase untuk lookup warna
+  const statusKey = status.toLowerCase();
+  const color = statusColors[statusKey] || '#ccc';
+
+  // Untuk teks ditampilkan kapitalisasi pertama
+  const statusLabel = status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
 
   return (
-    <div className="d-flex align-items-center gap-2">
+    <div className="d-flex align-items-center gap-2 justify-content-center">
       <span
         style={{
           backgroundColor: color,
@@ -24,50 +31,49 @@ const StatusBadge = ({ status }) => {
           display: 'inline-block',
         }}
       />
-      <span className="text-capitalize fw-medium">{status}</span>
+      <span className="text-capitalize fw-medium">{statusLabel}</span>
     </div>
   );
 };
 
-const dummyOrders = [
-  { id: 'ORD00027', waktu: '23 April 2025, 10:00', pelanggan: 'Vivian', total: 30000, status: 'Menunggu' },
-  { id: 'ORD00026', waktu: '23 April 2025, 09:20', pelanggan: 'Stefi', total: 30000, status: 'Diproses' },
-  { id: 'ORD00025', waktu: '22 April 2025, 15:00', pelanggan: 'Angel', total: 20000, status: 'Dikirim' },
-  { id: 'ORD00024', waktu: '22 April 2025, 17:45', pelanggan: 'Felix', total: 10000, status: 'Dikirim' },
-  { id: 'ORD00023', waktu: '21 April 2025, 10:00', pelanggan: 'Vivian', total: 10000, status: 'Selesai' },
-  { id: 'ORD00022', waktu: '21 April 2025, 11:20', pelanggan: 'Stefi', total: 10000, status: 'Selesai' },
-  { id: 'ORD00021', waktu: '21 April 2025, 15:00', pelanggan: 'Angel', total: 10000, status: 'Selesai' },
-  { id: 'ORD00020', waktu: '23 April 2025, 17:45', pelanggan: 'Felix', total: 10000, status: 'Selesai' },
-];
-
 const AdminOrdersPage = () => {
+  const [orders, setOrders] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('Semua');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-  const filteredOrders = dummyOrders.filter(order => {
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const res = await axios.get('/api/orders'); // Pastikan sudah populate user
+        setOrders(res.data);
+      } catch (err) {
+        console.error('Gagal mengambil data order:', err);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  const filteredOrders = orders.filter(order => {
+    const namaUser = order.userId?.name || '';
     const matchesSearch =
-      order.pelanggan.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      order.id.toLowerCase().includes(searchTerm.toLowerCase());
+      namaUser.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      order.orderId.toLowerCase().includes(searchTerm.toLowerCase());
+
     const matchesStatus =
-      statusFilter === 'Semua' || order.status === statusFilter;
+      statusFilter === 'Semua' ||
+      order.status.toLowerCase() === statusFilter.toLowerCase();
+
     return matchesSearch && matchesStatus;
   });
 
   const totalPages = Math.ceil(filteredOrders.length / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = filteredOrders.slice(startIndex, startIndex + itemsPerPage);
-
-  const handlePrevPage = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
-  };
-
-  const handleNextPage = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-  };
-
-  const statusOptions = ['Semua', 'Menunggu', 'Diproses', 'Dikirim', 'Selesai'];
+  const currentItems = filteredOrders.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   return (
     <AdminLayout>
@@ -82,26 +88,24 @@ const AdminOrdersPage = () => {
 
           <h4 className="fw-bold mb-3">Daftar Pesanan</h4>
 
-          {/* Tabel Pesanan */}
           <div className="container border border-2 border-primary rounded-4 px-0 pt-2 pb-0">
-            {/* Filter dan Search */}
             <div className="mb-3 mx-3 filter-search">
               <div className="d-flex flex-wrap gap-2 align-items-center filter-group">
-                {statusOptions.map(status => (
+                {['Semua', 'Menunggu', 'Diproses', 'Dikirim', 'Selesai'].map(option => (
                   <button
-                    key={status}
+                    key={option}
                     className={`btn btn-sm rounded-pill px-3 fw-semibold d-flex align-items-center gap-2 ${
-                      statusFilter === status ? 'filter-btn-active' : 'filter-btn'
+                      statusFilter === option ? 'filter-btn-active' : 'filter-btn'
                     }`}
                     onClick={() => {
-                      setStatusFilter(status);
+                      setStatusFilter(option);
                       setCurrentPage(1);
                     }}
                   >
-                    {status === 'Semua' ? (
-                      <span className="text-capitalize">{status}</span>
+                    {option === 'Semua' ? (
+                      <span>{option}</span>
                     ) : (
-                      <StatusBadge status={status} />
+                      <StatusBadge status={option} />
                     )}
                   </button>
                 ))}
@@ -118,10 +122,9 @@ const AdminOrdersPage = () => {
                     setCurrentPage(1);
                   }}
                 />
-                <BsSearch className='order-src-btn'/>
+                <BsSearch className="order-src-btn" />
               </div>
             </div>
-
 
             <div className="card shadow-sm rounded-4 border-0 admin-table admin-order-table">
               <div className="card-body p-0">
@@ -140,16 +143,15 @@ const AdminOrdersPage = () => {
                     <tbody className="text-center align-middle">
                       {currentItems.length > 0 ? (
                         currentItems.map((order, index) => (
-                          <tr key={order.id || index}>
-                            <td>{order.id}</td>
-                            <td>{order.waktu}</td>
-                            <td className="fw-semibold">{order.pelanggan}</td>
-                            <td>Rp {order.total.toLocaleString('id-ID')}</td>
+                          <tr key={order._id || index}>
+                            <td>{order.orderId}</td>
+                            <td>{new Date(order.orderDate).toLocaleString('id-ID')}</td>
+                            <td className="fw-semibold">{order.userId?.name || '—'}</td>
+                            <td>Rp {order.totalAmount.toLocaleString('id-ID')}</td>
                             <td><StatusBadge status={order.status} /></td>
                             <td>
-                              <Link to="/admin/orders/detail" className="link-no-style">
-                                <BsSearch className="text-primary cursor-pointer detail-btn" />
-                                Detail
+                              <Link to={`/admin/orders/detail/${order.orderId}`} className="link-no-style">
+                                <BsSearch className="text-primary cursor-pointer detail-btn" /> Detail
                               </Link>
                             </td>
                           </tr>
@@ -166,22 +168,19 @@ const AdminOrdersPage = () => {
             </div>
           </div>
 
-          {/* Pagination */}
           {totalPages > 1 && (
             <div className="d-flex justify-content-center align-items-center mt-4 gap-3">
               <button
                 className="btn btn-outline-teal"
-                onClick={handlePrevPage}
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
               >
                 <BsArrowLeftCircle />
               </button>
-              <span className="text-center">
-                Menampilkan {currentPage} dari {totalPages} halaman
-              </span>
+              <span>Menampilkan {currentPage} dari {totalPages} halaman</span>
               <button
                 className="btn btn-outline-teal"
-                onClick={handleNextPage}
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
               >
                 <BsArrowRightCircle />

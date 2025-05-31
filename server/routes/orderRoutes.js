@@ -6,15 +6,19 @@ const { verifyToken } = require('../middlewares/authMiddleware');
 const { 
   createOrder,
   getAllOrders,
-  getOrderById
+  getOrderById,
+  updateOrderStatus
 } = require('../controllers/orderController');
 
 router.post('/', verifyToken, createOrder);
 
 // Ambil semua order
-router.get('/', getAllOrders);
+router.get('/', verifyToken, getAllOrders);
 
 // Ambil order berdasarkan orderId
-router.get('/:orderId', getOrderById);
+router.get('/:orderId', verifyToken, getOrderById);
+
+// Update status order darri orderId
+router.patch('/:orderId/status', verifyToken, updateOrderStatus);
 
 module.exports = router;

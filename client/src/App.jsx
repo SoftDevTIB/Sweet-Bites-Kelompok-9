@@ -27,6 +27,7 @@ import AdminOrderDetailPage from './admin/pages/AdminOrderDetail';
 
 
 
+
 function App() {
   return (
     <main>
@@ -88,7 +89,7 @@ function App() {
             }
           />
         <Route
-            path="/admin/orders/detail"
+            path="/admin/orders/detail/:orderId"
             element={
               <ProtectedRoute allowedRoles={['admin']}>
                 <AdminOrderDetailPage />

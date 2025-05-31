@@ -1,15 +1,99 @@
-import React, { useState } from 'react';
+// src/admin/pages/AdminOrderDetailPage.jsx
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import AdminLayout from '../components/AdminLayout';
+import axios from 'axios';
 
 const statusColors = {
-  Menunggu: '#FF55E5',
-  Diproses: '#FF8C00',
-  Dikirim: '#FFD400',
-  Selesai: '#00FF3C',
+  menunggu: '#FF55E5',   // Warna pink lembut
+  diproses: '#FF8C00',   // Oranye
+  dikirim:  '#FFD400',   // Kuning
+  selesai:  '#00FF3C',   // Hijau
 };
 
 const AdminOrderDetailPage = () => {
-  const [status, setStatus] = useState('Menunggu');
+  const { orderId } = useParams();
+  const navigate = useNavigate();
+
+  const [order, setOrder] = useState(null);
+  const [status, setStatus] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchOrder = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await axios.get(`/api/orders/${orderId}`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setOrder(res.data);
+        setStatus(res.data.status);
+      } catch (err) {
+        console.error('Gagal load order detail:', err);
+        setError('Gagal mengambil detail pesanan');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchOrder();
+  }, [orderId]);
+
+  const handleStatusChange = async (e) => {
+    const newStatus = e.target.value.toLowerCase();
+    try {
+      const token = localStorage.getItem('token');
+      const res = await axios.patch(
+        `http://localhost:5000/api/orders/${orderId}/status`,
+        { status: newStatus },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      setOrder(res.data);
+      setStatus(res.data.status);
+    } catch (err) {
+      console.error('Gagal update status:', err);
+      alert('Tidak dapat memperbarui status.');
+    }
+  };
+
+  if (loading) {
+    return (
+      <AdminLayout>
+        <div className="text-center p-5">Loading detail pesanan...</div>
+      </AdminLayout>
+    );
+  }
+  if (!order) {
+    return (
+      <AdminLayout>
+        <div className="text-center p-5 text-danger">
+          {error || 'Pesanan tidak ditemukan.'}
+        </div>
+      </AdminLayout>
+    );
+  }
+
+  // Format tanggal order menjadi "DD MMMM YYYY"
+  const formattedDate = new Date(order.orderDate).toLocaleDateString('id-ID', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+  });
+
+  // Ambil nama dan alamat user (asumsi di‐populate di backend)
+  const customerName = order.userId?.name || '-';
+  const alamatUser = order.userId?.address
+    ? `${order.userId.address.alamat}, ${order.userId.address.kota}`
+    : '-';
+
+  // Hitung subtotal: jumlah tiap item = price * quantity
+  const subtotal = order.items.reduce((sum, item) => {
+    const hargaSatuan = item.productId?.price || 0;
+    return sum + hargaSatuan * item.quantity;
+  }, 0);
+
+  const ongkir = order.deliveryFee || 0;
+  const totalBayar = subtotal + ongkir;
 
   return (
     <AdminLayout>
@@ -18,22 +102,40 @@ const AdminOrderDetailPage = () => {
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">Pesanan</li>
-              <li className="breadcrumb-item">Daftar Pesanan</li>
+              <li
+                className="breadcrumb-item"
+                style={{ cursor: 'pointer' }}
+                onClick={() => navigate('/admin/orders')}
+              >
+                Daftar Pesanan
+              </li>
               <li className="breadcrumb-item active" aria-current="page">
-                Detail Pesanan ORD00027
+                Detail Pesanan {order.orderId}
               </li>
             </ol>
           </nav>
 
           <h4 className="fw-bold mb-3">Detail Pesanan</h4>
 
-          <div className="rounded-3 p-4 m-2 m-lg-5" style={{ backgroundColor: '#ffeecc' }}>
-            <h4 className="text-center mb-4 text-red">ORD 00027</h4>
+          <div
+            className="rounded-3 p-4 m-2 m-lg-5"
+            style={{ backgroundColor: '#ffeecc' }}
+          >
+            <h4 className="text-center mb-4 text-red">{order.orderId}</h4>
 
             <div className="mb-3">
-              <p><span className="fw-bold me-md-3 me-2">Pembeli:</span>Vivian</p>
-              <p><span className="fw-bold me-md-3 me-2">Waktu:</span>23 April 2025</p>
-              <p><span className="fw-bold me-md-3 me-2">Alamat:</span>Jl. Mawar No. 10, Jakarta Barat</p>
+              <p>
+                <span className="fw-bold me-md-3 me-2">Pembeli:</span>
+                {customerName}
+              </p>
+              <p>
+                <span className="fw-bold me-md-3 me-2">Waktu:</span>
+                {formattedDate}
+              </p>
+              <p>
+                <span className="fw-bold me-md-3 me-2">Alamat:</span>
+                {alamatUser}
+              </p>
 
               <div className="d-flex align-items-center">
                 <strong className="me-2">Status:</strong>
@@ -41,12 +143,17 @@ const AdminOrderDetailPage = () => {
                   <span
                     className="me-2 rounded-circle status-color-circle"
                     style={{
-                      backgroundColor: statusColors[status] || '#ccc'
+                      backgroundColor: statusColors[status.toLowerCase()] || '#ccc'
                     }}
                   ></span>
                   <select
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value)}
+                    value={status.charAt(0).toUpperCase() + status.slice(1).toLowerCase()}
+                    onChange={(e) => {
+                      // Ambil value option, ubah jadi lowercase
+                      const selected = e.target.value;
+                      setStatus(selected.toLowerCase());
+                      handleStatusChange({ target: { value: selected } });
+                    }}
                     className="form-select border-0 p-0 bg-transparent select-box"
                   >
                     <option>Menunggu</option>
@@ -69,28 +176,37 @@ const AdminOrderDetailPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>Choco Oreo</td>
-                    <td>1x</td>
-                    <td>Rp 10.000</td>
-                    <td>Rp 10.000</td>
-                  </tr>
-                  <tr>
-                    <td>Cheese Tart</td>
-                    <td>1x</td>
-                    <td>Rp 10.000</td>
-                    <td>Rp 10.000</td>
-                  </tr>
+                  {order.items.map((item, idx) => {
+                    const namaProduk = item.productId?.productName || '-';
+                    const hargaSatuan = item.productId?.price || 0;
+                    const totalItem = hargaSatuan * item.quantity;
+                    return (
+                      <tr key={idx}>
+                        <td>{namaProduk}</td>
+                        <td>{item.quantity}x</td>
+                        <td>Rp {hargaSatuan.toLocaleString('id-ID')}</td>
+                        <td>Rp {totalItem.toLocaleString('id-ID')}</td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
 
             <div className="text-end px-sm-1 px-md-5">
-              <p><span className="me-md-3 me-2">Sub Total:</span> Rp 20.000</p>
-              <p><span className="me-md-3 me-2">Ongkir:</span> Rp 10.000</p>
+              <p>
+                <span className="me-md-3 me-2">Sub Total:</span> Rp{' '}
+                {subtotal.toLocaleString('id-ID')}
+              </p>
+              <p>
+                <span className="me-md-3 me-2">Ongkir:</span> Rp{' '}
+                {ongkir.toLocaleString('id-ID')}
+              </p>
               <p className="fw-bold">
                 <span className="me-md-3 me-2 text-teal">Total Bayar:</span>
-                <span className="text-red">Rp 30.000</span>
+                <span className="text-red">
+                  Rp {totalBayar.toLocaleString('id-ID')}
+                </span>
               </p>
             </div>
           </div>

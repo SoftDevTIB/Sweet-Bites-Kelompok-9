@@ -67,6 +67,11 @@ const CheckoutPage = () => {
     return;
   }
 
+  if (!/^\d{5}$/.test(kodePos)) {
+    setMessage('Kode pos harus 5 digit angka.');
+    return;
+  }
+
   const addressData = { province: provinsi, kota, alamat, kodePos };
 
   // Map cartItems supaya ada productId
