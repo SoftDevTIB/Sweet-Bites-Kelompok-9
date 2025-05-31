@@ -13,10 +13,10 @@ const {
 router.post('/', verifyToken, createOrder);
 
 // Ambil semua order
-router.get('/', verifyToken, getAllOrders);
+router.get('/', getAllOrders);
 
 // Ambil order berdasarkan orderId
-router.get('/:orderId', verifyToken, getOrderById);
+router.get('/:orderId', getOrderById);
 
 // Update status order darri orderId
 router.patch('/:orderId/status', verifyToken, updateOrderStatus);
