@@ -49,5 +49,33 @@ const createOrder = async (req, res) => {
   }
 };
 
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find().sort({ orderDate: -1 }); // Urut terbaru dulu
+    res.status(200).json(orders);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Gagal mengambil data order' });
+  }
+};
 
-module.exports = { createOrder };
+// Fungsi untuk dapatkan order by orderId
+const getOrderById = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+
+    const order = await Order.findOne({ orderId });
+
+    if (!order) {
+      return res.status(404).json({ message: 'Order tidak ditemukan' });
+    }
+
+    res.status(200).json(order);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Gagal mengambil data order' });
+  }
+};
+
+
+module.exports = { createOrder, getAllOrders, getOrderById };
