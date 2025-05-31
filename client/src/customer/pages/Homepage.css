@@ -8,7 +8,7 @@
 
 .homepage-main {
   background-color: #FFF2F2;
-  font-family: 'Roboto';
+  font-family: 'Poppins', sans-serif;
   padding: 0;
 }
 
@@ -19,17 +19,46 @@
 
 .hero-section {
   background-color: #FFF2F2;
-  text-align: center;
-  padding: 3rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 10rem;
+  gap: 0;
+}
+.hero-text {
+  flex: 1;
+  text-align: left;
+}
+
+.hero-title {
+  color: #D67832;
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.hero-text p {
+  font-size: 1rem;
+  color: #000000;
+  max-width: 400px;
+}
+
+.hero-image-container {
+  flex: 1;
+  display: block;
+  background: none !important;
+  padding: 0 !important;
+  margin: 0 rem 0 0 !important;
+  justify-content: flex-end;
+}
+.hero-image {
+  max-width: 400px;
+  border-radius: 10px;
 }
 
 .hero-title {
   color: #D67832;
   margin-bottom: 1rem;
-}
-
-.hero-image {
-  max-width: 300px;
 }
 
 .highlight-section {
@@ -48,6 +77,35 @@
   padding-top: 0;
 }
 
+.btn-rekomendasi {
+  background-color: #D67832;
+  color: white;
+  border-radius: 50px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  margin-right: 2rem !important;
+}
+
+.btn-rekomendasi:hover {
+  background-color: #e96e0f;
+  color: white;
+  transform: scale(1.1);
+}
+
+.btn-menu {
+  background-color: transparent;
+  border: 1px solid black;
+  color: #2D2D2D;
+  border-radius: 50px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-menu:hover {
+  transform: scale(1.1);
+  border: 1px solid black;
+}
+
 .highlight-container {
   display: flex;
   justify-content: center;
@@ -58,8 +116,8 @@
 }
 
 .highlight-image {
-  width: 180px;
-  margin-right: 20px;
+  width: 250px;
+  margin-right: 50px;
   border-radius: 15px;
   cursor: pointer;
 }

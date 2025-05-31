@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { BsUpload } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
-import AdminLayout from '../components/admin_layout';
+import AdminLayout from '../components/AdminLayout';
 
 const AddProductPage = () => {
     const [productName, setProductName] = useState('');

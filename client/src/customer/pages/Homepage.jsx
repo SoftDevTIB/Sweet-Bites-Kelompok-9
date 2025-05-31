@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import ProductCard from '../components/ProductCard';
+import tiramisuImage from '../../assets/tiramisu.png';
 import './Homepage.css';
 
 const HomePage = () => {
-  const navigate = useNavigate();
+  
   const [products, setProducts] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -26,6 +26,17 @@ const HomePage = () => {
     return () => clearInterval(interval);
   }, [carouselImages.length]);
 
+  const formatPrice = (price) => {
+    if (typeof price === 'number') {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+    if (typeof price === 'string') {
+      const numericPrice = price.replace(/\D/g, '');
+      return numericPrice.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+    return price;
+  };
+
   return (
     <>
       <Header />
@@ -33,8 +44,13 @@ const HomePage = () => {
         <div className="container">
           {/* Hero Section */}
           <section className="hero-section">
-            <h2 className="hero-title">Manisnya Seporsi Kebahagiaan</h2>
-            <p>Nikmati kue dan cookies lezat dengan harga terjangkau, pas untuk ngemil atau teman santai</p>
+            <div className="hero-text">
+              <h2 className="hero-title">Manisnya Seporsi Kebahagiaan</h2>
+              <p>Nikmati kue dan cookies lezat dengan harga terjangkau, pas untuk ngemil atau teman santai</p>
+            </div>
+            <div className="hero-image-container">
+              <img src={tiramisuImage} alt="Tiramisu" className="hero-image" />
+            </div>
           </section>
         </div>
 
@@ -63,26 +79,23 @@ const HomePage = () => {
               <h4>Porsi Pas, Rasa Kelas!</h4>
               <p>Cocok dinikmati sendiri, atau berbagi dengan orang tersayang</p>
               <button
-                className="btn me-2"
-                style={{ backgroundColor: '#D67832', color: 'white' }}
+                className="btn me-2 btn-rekomendasi"
                 onClick={() => {
                   const element = document.getElementById('recommendation-section');
                   if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
+                    const yOffset = -80;
+                    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
                   }
                 }}
               >
                 Lihat Rekomendasi
               </button>
               <button
-                className="btn me-2"
-                style={{
-                  backgroundColor: 'transparent',
-                  border: '1px solid #2D2D2D',
-                  color: '#2D2D2D',
-                  borderRadius: '0.375rem',
+                className="btn me-2 btn-menu"
+                onClick={() => {
+                  window.location.href = '/menu#top';
                 }}
-                onClick={() => navigate('/menu')}
               >
                 Cek Menu
               </button>
@@ -100,7 +113,7 @@ const HomePage = () => {
                   key={product._id}
                   id={product._id}
                   name={product.productName}
-                  price={product.price}
+                  price={formatPrice(product.price)}
                   available={product.stock > 0}
                   imageUrl={product.photo ? `/uploads/${product.photo}` : ''}
                 />

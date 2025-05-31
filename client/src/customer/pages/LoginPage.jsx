@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './LoginPage.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [touched, setTouched] = useState({ email: false, password: false });
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const { setCartItems } = useCart();
 
   const validateEmail = (email) => {
     if (!email) return 'Email wajib diisi';
@@ -14,10 +20,7 @@ const LoginPage = () => {
 
   const validatePassword = (password) => {
     if (!password) return 'Password wajib diisi';
-    if (
-      // kamu bisa perbaiki validasi password ini sesuai kebutuhan
-      password.length < 8
-    ) {
+    if (password.length < 8) {
       return 'Password min. 8 karakter, ada huruf besar, kecil, angka, simbol';
     }
     return '';
@@ -26,41 +29,58 @@ const LoginPage = () => {
   const emailError = validateEmail(email);
   const passwordError = validatePassword(password);
 
-  // Fungsi sinkronisasi cart ke backend
+  // Fungsi sinkronisasi cart lokal ke server setelah login
   async function syncCartAfterLogin(token) {
-  // grab your anonymous cart
-  const localCart = JSON.parse(localStorage.getItem('cart')) || [];
-  if (localCart.length === 0) return;
+    const localCart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (localCart.length === 0) return;
 
-  // transform each item → { productId, name, price, imageUrl, quantity }
-  const payloadItems = localCart.map(item => ({
-    productId: item.id,      // ← must match your Mongoose schema
-    name:      item.name,
-    price:     item.price,
-    imageUrl:  item.imageUrl,
-    quantity:  item.quantity
-  }));
-  console.log(payloadItems);
-  try {
-    const res = await fetch('http://localhost:5000/api/cart/sync', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
+    const payloadItems = localCart.map(item => ({
+      productId: item.id,
+      name:      item.name,
+      price:     item.price,
+      imageUrl:  item.imageUrl,
+      quantity:  item.quantity
+    }));
 
-    if (!res.ok) {
-      const data = await res.json();
-      throw new Error(data.message || 'Gagal sinkronisasi cart');
+    try {
+      const res = await fetch('http://localhost:5000/api/cart/overwrite', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ items: payloadItems })
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Gagal overwrite cart');
+      }
+
+      // berhasil, hapus cart lokal
+      localStorage.removeItem('cart');
+
+      // fetch ulang cart dari server untuk update context
+      const cartRes = await fetch('http://localhost:5000/api/cart', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const cartData = await cartRes.json();
+      const normalized = (cartData.items || []).map(i => ({
+        id:        i.productId.toString(),
+        name:      i.name,
+        price:     i.price,
+        imageUrl:  i.imageUrl,
+        quantity:  i.quantity
+      }));
+      setCartItems(normalized);
+
+    } catch (error) {
+      console.error('Sync cart error:', error.message);
     }
-
-    // only clear localStorage once the sync actually succeeded
-    localStorage.removeItem('cart');
-  } catch (error) {
-    console.error('Sync cart error:', error.message);
   }
-}
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -74,26 +94,25 @@ const LoginPage = () => {
       const res = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password })
       });
 
       const data = await res.json();
-
       if (!res.ok) throw new Error(data.message || 'Login gagal');
 
       localStorage.setItem('token', data.token);
       localStorage.setItem('role', data.role);
 
-      // Panggil fungsi sync setelah login berhasil
+      // overwrite cart server dengan cart lokal
       await syncCartAfterLogin(data.token);
 
+      // redirect berdasarkan role
       if (data.role === 'admin') {
-        window.location.href = '/admin';
-      } else if (data.role === 'user') {
-        window.location.href = '/';
+        navigate('/admin');
       } else {
-        alert('Login gagal: role tidak valid');
+        navigate('/checkout');
       }
+
     } catch (err) {
       alert(err.message || 'Login gagal');
     }
@@ -111,30 +130,54 @@ const LoginPage = () => {
               className="form-control custom-input"
               id="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
+              onChange={e => setEmail(e.target.value)}
+              onBlur={() => setTouched(prev => ({ ...prev, email: true }))}
               required
+              autoComplete="email"
             />
             {touched.email && emailError && <div className="error-text mt-1">{emailError}</div>}
           </div>
-          <div className="mb-4">
+          <div className="mb-4 position-relative">
             <label htmlFor="password" className="form-label">Password:</label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               className="form-control custom-input"
               id="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              onBlur={() => setTouched((prev) => ({ ...prev, password: true }))}
+              onChange={e => setPassword(e.target.value)}
+              onBlur={() => setTouched(prev => ({ ...prev, password: true }))}
               required
+              autoComplete="password"
             />
+            <span
+              className="password-toggle"
+              onClick={() => setShowPassword(!showPassword)}
+              style={{ position: 'absolute', top: '40px', right: '15px', cursor: 'pointer' }}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
             {touched.password && passwordError && <div className="error-text mt-1">{passwordError}</div>}
           </div>
-          <div className="d-flex justify-content-center">
-            <button type="submit" className="btn btn-teal rounded-pill px-5">
+           <div className="d-flex justify-content-center ">
+            <div className="row gap-3 m-3">
+               <button type="submit" className="btn btn-teal rounded-pill px-5">
               Login
             </button>
+            <button
+              type="button"
+              className="btn btn-outline-secondary rounded-pill px-5  "
+              onClick={() => navigate('/')}
+            >
+              Home
+            </button>
+            </div>
+           
+            
           </div>
+          <div className="d-flex justify-content-center gap-3 mt-4">
+            <Link to="/registration" className="text-login">Tidak punya akun?</Link>
+          </div>
+         
         </form>
       </div>
     </div>

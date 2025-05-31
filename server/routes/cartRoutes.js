@@ -6,7 +6,6 @@ const {
   addToCart,
   updateQuantity,
   removeFromCart,
-  syncCart,
   overwriteCart
 } = require('../controllers/cartController');
 
@@ -16,7 +15,7 @@ router.get('/', verifyToken, getCart);
 router.post('/', verifyToken, addToCart);
 router.put('/:productId', verifyToken, updateQuantity);    // <= baru
 router.delete('/:productId', verifyToken, removeFromCart);
-router.post('/sync', verifyToken, syncCart);   
+// router.post('/sync', verifyToken, syncCart);   
 router.post('/overwrite', verifyToken, overwriteCart);            // <= kalau mau sync seluruh cart
 
 module.exports = router;

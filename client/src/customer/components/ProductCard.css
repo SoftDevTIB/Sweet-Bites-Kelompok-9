@@ -32,6 +32,11 @@
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+  color: #3B7883;
 }
 
 .add-to-cart-btn:disabled {
