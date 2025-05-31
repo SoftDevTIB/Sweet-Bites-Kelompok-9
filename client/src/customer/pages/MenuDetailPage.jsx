@@ -5,6 +5,7 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import { useCart } from '../context/CartContext';
 import './MenuDetailPage.css';
+import Toast from '../components/Toast';
 
 const MenuDetailPage = () => {
   const { id } = useParams();
@@ -13,6 +14,8 @@ const MenuDetailPage = () => {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [headerHeight, setHeaderHeight] = useState(0);
+  const [toastShow, setToastShow] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   const formatPrice = (price) => {
     if (typeof price === 'number') {
@@ -87,11 +90,14 @@ const MenuDetailPage = () => {
       description: product.description,
       stock: product.stock,
     });
+    setToastMessage('Berhasil ditambahkan ke keranjang!');
+    setToastShow(true);
   };
 
   return (
     <>
       <Header />
+      <Toast message={toastMessage} show={toastShow} onClose={() => setToastShow(false)} />
       <div className="header-spacer" />
       <main className="container p-5 menu-detail-padding" style={{ backgroundColor: '#FFF2F2', paddingTop: headerHeight }}>
         <div className="row align-items-center">
@@ -108,7 +114,13 @@ const MenuDetailPage = () => {
             <button className="btn btn-add-to-cart me-4" disabled={product.stock <= 0} onClick={handleAddToCart}>
               <FaShoppingCart /> Add To Cart
             </button>
-            <button className="btn btn-outline-secondary">
+            <button
+              className="btn btn-outline-secondary"
+              onClick={() => {
+                handleAddToCart();
+                navigate('/checkout');
+              }}
+            >
               Beli Sekarang
             </button>
           </div>

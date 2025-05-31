@@ -7,7 +7,7 @@
 }
 
 .checkout-content-container {
-  max-width: 800px;
+  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 40px;
@@ -42,7 +42,7 @@
   font-size: 18px;
   flex-basis: auto;
   text-align: left;
-  width: 710px;
+  width: 800px;
   padding-left: 0;
   text-align: left;
 }
