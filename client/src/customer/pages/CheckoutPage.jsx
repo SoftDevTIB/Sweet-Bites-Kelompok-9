@@ -154,7 +154,7 @@ const CheckoutPage = () => {
           </div>
 
           <div className="order-section" style={{ display: 'flex', gap: '50px', justifyContent: 'space-between' }}>
-            <div className="order-items" style={{ flex: '1 1 60%' }}>
+            <div className="order-items" style={{ flex: '1 1 50%' }}>
               <h5>Pesanan</h5>
               {cartItems.map((item) => (
                 <div key={item.id} className="order-item">
@@ -178,9 +178,9 @@ const CheckoutPage = () => {
               }}
             >
               <p>Total Item <span style={{ float: 'right' }}>{totalItems} buah</span></p>
+              <hr />
               <p className="subtotal">SubTotal <span style={{ float: 'right' }}>{formatPrice(subtotal)}</span></p>
               <p className="ongkir">Ongkir <span style={{ float: 'right' }}>{formatPrice(ongkir)}</span></p>
-              <hr />
               <p className="total">TOTAL <span style={{ float: 'right' }}>{formatPrice(total)}</span></p>
 
               <button className="payment-button" onClick={handleSubmit}>

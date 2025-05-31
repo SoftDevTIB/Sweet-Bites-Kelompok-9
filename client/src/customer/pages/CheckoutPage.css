@@ -18,7 +18,7 @@
   color: #D67832;
   text-align: center;
   margin-bottom: 10px;
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 600;
 }
 
@@ -149,6 +149,7 @@
   color:black;
   box-sizing: border-box;
   font-size: 14px;
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
 }
 
 .order-summary p {
@@ -163,11 +164,12 @@
 .order-summary hr {
   margin: 15px 0;
   border: none;
-  border-top: 1px solid #F4C6A0;
+  border-top: 2px solid #000000;
 }
 
 .order-summary .total {
-  font-weight: 700;
+  padding-top: 5rem;
+  font-weight: 600;
   font-size: 16px;
 }
 
