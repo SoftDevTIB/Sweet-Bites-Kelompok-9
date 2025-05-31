@@ -130,6 +130,15 @@
   color: white;
 }
 
+.checkout-btn:active,
+.checkout-btn:focus,
+.checkout-btn:focus-visible {
+  background-color: #e96e0f !important;
+  color: white !important;
+  transform: none;
+  outline: none;
+}
+
 .trash-btn {
   color: #3B7883;
   font-size: 22px;

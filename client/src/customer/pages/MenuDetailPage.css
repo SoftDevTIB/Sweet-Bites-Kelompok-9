@@ -1,0 +1,69 @@
+.menu-detail-padding {
+  padding-top: 70px;
+  background-color: #FFF2F2;
+}
+
+.menu-detail-heading {
+  color: #3B7883;
+}
+
+.menu-detail-description {
+  color: black;
+  text-align: justify;
+}
+
+.menu-detail-stock-available {
+  color: #D67832;
+}
+
+.menu-detail-stock-unavailable {
+  color: gray;
+}
+
+.menu-detail-price {
+  color: black;
+  margin-bottom: 20px;
+}
+
+.btn-add-to-cart {
+  background-color: #3B7883;
+  border-color: #3B7883;
+  color: white;
+  transition: transform 0.3s ease;
+  border-radius: 20px;
+}
+
+.btn-add-to-cart:hover {
+  background-color: #0b767f;
+  color: white;
+  transform: scale(1.1);
+  border-radius: 20px;
+}
+
+.btn-add-to-cart:active {
+  background-color: #0b767f !important;
+  color: white !important;
+  border-radius: 20px;
+}
+
+.btn-add-to-cart:focus,
+.btn-add-to-cart:focus-visible {
+  background-color: #0b767f !important;
+  color: white !important;
+  border-radius: 20px;
+  outline: none;
+}
+
+.btn-outline-secondary {
+  transition: transform 0.3s ease;
+  border-radius: 20px;
+}
+
+.btn-outline-secondary:hover {
+  background-color: inherit !important;
+  color: inherit !important;
+  transform: scale(1.05);
+  border-color: #3B7883 ;
+  color: #3B7883 !important;
+  border-radius: 20px;
+}

@@ -21,7 +21,7 @@ import DetailPesananPage from './customer/pages/DetailPesananPage';
 import AdminPage from './admin/pages/AdminDashboard';
 import AdminMenuPage from './admin/pages/AdminMenu';
 import AdminOrdersPage from './admin/pages/AdminOrders';
-import AddProductPage from './admin/pages/AdminAddProduct.jsx';
+import AddProductPage from './admin/pages/AdminAddProduct';
 import EditProductPage from './admin/pages/AdminEditProduct';
 import AdminOrderDetailPage from './admin/pages/AdminOrderDetail';
 

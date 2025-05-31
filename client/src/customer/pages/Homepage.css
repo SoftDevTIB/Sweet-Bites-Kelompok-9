@@ -92,6 +92,16 @@
   transform: scale(1.1);
 }
 
+.btn-rekomendasi:active,
+.btn-rekomendasi:focus,
+.btn-rekomendasi:focus-visible {
+  background-color: #e96e0f !important;
+  color: white !important;
+  transform: none;
+  outline: none;
+  transform: scale(1.1);
+}
+
 .btn-menu {
   background-color: transparent;
   border: 1px solid black;
