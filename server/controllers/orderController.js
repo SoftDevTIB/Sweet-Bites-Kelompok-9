@@ -32,7 +32,7 @@ const createOrder = async (req, res) => {
       orderDate: new Date(),
       deliveryDate: deliveryDate ? new Date(deliveryDate) : undefined,
       deliveryFee,
-      status: 'Menunggu',
+      status: 'menunggu',
       totalAmount,
       items: cartItems.map(item => ({
         productId: item.productId,

@@ -121,7 +121,7 @@ const AdminOrderDetailPage = () => {
             className="rounded-3 p-4 m-2 m-lg-5"
             style={{ backgroundColor: '#ffeecc' }}
           >
-            <h4 className="text-center mb-4 text-red">{order.orderId}</h4>
+            <h4 className="text-center fw-semibold mb-4 text-oren">{order.orderId}</h4>
 
             <div className="mb-3">
               <p>
@@ -204,7 +204,7 @@ const AdminOrderDetailPage = () => {
               </p>
               <p className="fw-bold">
                 <span className="me-md-3 me-2 text-teal">Total Bayar:</span>
-                <span className="text-red">
+                <span className="text-oren">
                   Rp {totalBayar.toLocaleString('id-ID')}
                 </span>
               </p>
