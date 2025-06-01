@@ -7,13 +7,17 @@ const {
   createOrder,
   getAllOrders,
   getOrderById,
-  updateOrderStatus
+  updateOrderStatus,
+  getOrdersByUser
 } = require('../controllers/orderController');
 
 router.post('/', verifyToken, createOrder);
 
 // Ambil semua order
 router.get('/', getAllOrders);
+
+// Ambil order berdasarkan user
+router.get('/user', verifyToken, getOrdersByUser);
 
 // Ambil order berdasarkan orderId
 router.get('/:orderId', getOrderById);

@@ -1,7 +1,8 @@
 .pp-container {
-  margin-top: 70px;
+  margin-top: 30px;
   padding: 30px 1rem 0 1rem;
   overflow-x: hidden;
+  min-height: 70vh;
 }
 .mini-nav-btn-active, .mini-nav-btn-active:hover {
   font-size: 15px;

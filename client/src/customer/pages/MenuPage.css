@@ -30,11 +30,15 @@
 .filter-select {
   background-color: white;
   color: black;
-  border-radius: 20px;
-  border: 1px solid #D67832;
-  height: 40px;
+  border-radius: 10px !important;
+  border: none !important;
+  height: 30px !important;
   padding: 0 10px;
   min-width: 150px;
+}
+
+.filter-select:active {
+  border: none !important;
 }
 
 .search-filter-container {

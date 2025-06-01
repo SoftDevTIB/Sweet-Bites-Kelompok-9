@@ -50,13 +50,13 @@
 
 .icons {
     display: flex;
-    gap: 20px;
+    gap: 10px;
     align-items: center;
     height: 100%;
 }
 
 .icon {
-    color: #e59538;
+    color: #D67832;
     font-size: 18px;
     cursor: pointer;
     display: flex;
@@ -64,16 +64,20 @@
     vertical-align: middle;
 }
 
+.icon:hover {
+  color: #3B7883;
+}
+
 .cart-badge {
     position: absolute;
-    top: -5px;
-    right: -10px;
-    background-color: #e59538;
-    color: white;
+    top: -8px;
+    right: -8px;
+    background-color: red;
+    color: #FFFFFF;
     border-radius: 50%;
-    padding: 2px 6px;
-    font-size: 12px;
-    font-weight: bold;
+    padding: 0.5px 2px;
+    font-size: 10px;
+    font-weight: bold;
 }
 
 .modal-backdrop {
@@ -140,11 +144,23 @@
 }
 
 .btn-login {
-   color: #3B7883; 
-   border: 1px solid #3B7883;
+   color: #3B7883 !important; 
+   border: 1px solid #3B7883 !important;
+}
+
+.btn-login:hover {
+   color: #3B7883 !important; 
+   border: 1px solid #3B7883 !important;
+   background-color: #FDF0D4;
 }
 
 .btn-logout{
     color: #D67832;
+    border: none;
+}
+
+.btn-logout:hover {
+    color: #D67832;
     border: 1px solid #D67832;
+    background-color: #FADB9A;
 }

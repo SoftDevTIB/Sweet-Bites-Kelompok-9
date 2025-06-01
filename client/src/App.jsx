@@ -42,7 +42,7 @@ function App() {
         <Route path="/tentang" element={<TentangKamiPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/pesanan" element={<PesananPage />} />
-        <Route path="/pesanan/detail" element={<DetailPesananPage/>} />
+        <Route path="/pesanan/detail/:orderId" element={<DetailPesananPage/>} />
         <Route path="/menu/:id" element={<MenuDetailPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />

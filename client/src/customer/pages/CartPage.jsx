@@ -51,7 +51,7 @@ const CartPage = () => {
         <div className="container">
           <h2 className="cart-title mb-4" style={{ color: '#D67832', textAlign: 'center', fontSize: '2rem' }}>Shopping Cart</h2>
           {cartItems.length === 0 ? (
-            <p>Your cart is empty.</p>
+            <p className='text-center pt-3'>Your cart is empty.</p>
           ) : (
             <div className="row justify-content-center">
               <div className="col-md-6">

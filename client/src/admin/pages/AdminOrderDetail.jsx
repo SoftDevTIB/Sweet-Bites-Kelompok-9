@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import AdminLayout from '../components/AdminLayout';
 import axios from 'axios';
+import Toast from '../../customer/components/Toast';
 
 const statusColors = {
   menunggu: '#FF55E5',   // Warna pink lembut
@@ -19,6 +20,7 @@ const AdminOrderDetailPage = () => {
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -50,6 +52,7 @@ const AdminOrderDetailPage = () => {
       );
       setOrder(res.data);
       setStatus(res.data.status);
+      setShowToast(true);
     } catch (err) {
       console.error('Gagal update status:', err);
       alert('Tidak dapat memperbarui status.');
@@ -94,6 +97,10 @@ const AdminOrderDetailPage = () => {
 
   const ongkir = order.deliveryFee || 0;
   const totalBayar = subtotal + ongkir;
+
+  const handleToastClose = () => {
+    setShowToast(false);
+  };
 
   return (
     <AdminLayout>
@@ -211,6 +218,12 @@ const AdminOrderDetailPage = () => {
             </div>
           </div>
         </div>
+
+        <Toast
+        message="Status pesanan berhasil diperbarui"
+        show={showToast}
+        onClose={handleToastClose}
+      />
       </section>
     </AdminLayout>
   );

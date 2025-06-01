@@ -144,6 +144,7 @@ body {
 .logout-btn:hover {
   background-color: #ffcc99;
   color: #D67832;
+  border: 1px solid #D67832;
 }
 
 /* logout pop up */
