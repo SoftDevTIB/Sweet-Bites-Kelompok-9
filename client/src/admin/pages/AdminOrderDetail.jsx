@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import AdminLayout from '../components/AdminLayout';
-import axios from 'axios';
 
 const statusColors = {
   menunggu: '#FF55E5',   // Warna pink lembut
@@ -24,7 +23,7 @@ const AdminOrderDetailPage = () => {
     const fetchOrder = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get(`/api/orders/${orderId}`, {
+        const res = await fetch(`/api/orders/${orderId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setOrder(res.data);
@@ -43,13 +42,18 @@ const AdminOrderDetailPage = () => {
     const newStatus = e.target.value.toLowerCase();
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.patch(
-        `http://localhost:5000/api/orders/${orderId}/status`,
-        { status: newStatus },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      setOrder(res.data);
-      setStatus(res.data.status);
+      const res = await fetch(`/api/orders/${orderId}/status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ status: newStatus })
+      });
+      const data = await res.json();
+      setOrder(data);
+      setStatus(data.status);
+
     } catch (err) {
       console.error('Gagal update status:', err);
       alert('Tidak dapat memperbarui status.');

@@ -14,6 +14,9 @@ const CheckoutPage = () => {
   const [kodePos, setKodePos] = useState('');
   const [message, setMessage] = useState(''); // untuk pesan status
 
+  const token = localStorage.getItem('token');
+  const [user, setUser] = useState(null);
+
   const kotaList = [
     'Jakarta Pusat',
     'Jakarta Utara',
@@ -22,6 +25,29 @@ const CheckoutPage = () => {
     'Jakarta Barat',
     'Kepulauan Seribu',
   ];
+
+   useEffect(() => {
+    if (token) {
+      fetch('http://localhost:5000/api/users/me', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(res => res.json())
+      .then(data => {
+        setUser(data);
+        console.log('User dataaaaaaaaaa:', data);
+        // juga simpan ke localStorage supaya bisa dipakai ulang
+        localStorage.setItem('userName', data.name);
+        localStorage.setItem('userEmail', data.email);
+        localStorage.setItem('userId', data._id);
+        localStorage.setItem('userPhone', data.phone);
+      })
+      .catch(err => {
+        console.error('Failed to fetch user data:', err);
+      });
+    }
+  }, [token]);
 
   useEffect(() => {
     const savedKota = localStorage.getItem('checkout_kota') || '';
@@ -59,8 +85,11 @@ const CheckoutPage = () => {
   const ongkir = 10000;
   const total = subtotal + ongkir;
 
-  const handleSubmit = async () => {
-  const token = localStorage.getItem('token');
+const handleSubmit = async () => {
+  if (!user) {
+    setMessage('Data user belum dimuat, silakan coba lagi.');
+    return;
+  }
 
   if (!kota || !alamat || !kodePos) {
     setMessage('Mohon lengkapi semua data alamat.');
@@ -73,8 +102,6 @@ const CheckoutPage = () => {
   }
 
   const addressData = { province: provinsi, kota, alamat, kodePos };
-
-  // Map cartItems supaya ada productId
   const cartItemsWithProductId = cartItems.map(item => ({
     productId: item.id,
     quantity: item.quantity,
@@ -82,6 +109,7 @@ const CheckoutPage = () => {
   }));
 
   try {
+    // Update alamat dulu
     const updateAddressRes = await fetch('http://localhost:5000/api/users/update-address', {
       method: 'POST',
       headers: {
@@ -96,26 +124,68 @@ const CheckoutPage = () => {
       return;
     }
 
+    // Buat transaksi order di backend dan minta token Midtrans
     const orderRes = await fetch('http://localhost:5000/api/orders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ ...addressData, cartItems: cartItemsWithProductId, deliveryFee: 10000 }),
+      body: JSON.stringify({
+        userId: user._id,
+        customer: {
+          name: user.name,
+          email: user.email || '',
+          phone: user.phone || '',
+        },
+        addressData,
+        cartItems: cartItemsWithProductId,
+        deliveryFee: ongkir,
+        totalAmount: total,
+        deliveryDate: '', // kalau ada, isi tanggal pengiriman
+      }),
     });
 
-    if (orderRes.ok) {
-      setMessage('Pesanan berhasil dikirim!');
-      clearCart(); 
-    } else {
-      setMessage('Gagal mengirim pesanan.');
+    if (!orderRes.ok) {
+      setMessage('Gagal membuat transaksi.');
+      return;
     }
+
+    const responseData = await orderRes.json();
+    const transactionToken = responseData.token;
+
+    if (!transactionToken) {
+      setMessage('Token transaksi tidak ditemukan.');
+      return;
+    }
+
+
+    window.snap.pay(transactionToken, {
+      onSuccess: function(result) {
+        setMessage('Pembayaran berhasil!');
+        clearCart();
+        console.log(result);
+      },
+      onPending: function(result) {
+        setMessage('Pembayaran pending, silakan selesaikan.');
+        console.log(result);
+      },
+      onError: function(result) {
+        setMessage('Terjadi kesalahan saat pembayaran.');
+        console.log(result);
+      },
+      onClose: function() {
+        setMessage('Pembayaran dibatalkan.');
+      }
+    });
+
   } catch (error) {
     console.error('Order error:', error);
     setMessage('Terjadi kesalahan saat memproses.');
   }
 };
+
+
 
 
   return (

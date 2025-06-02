@@ -2,6 +2,7 @@
 const Order = require('../models/Order');
 const User  = require('../models/User');
 const Product = require('../models/Product');
+const midtransClient = require('midtrans-client');
 
 const generateOrderId = async () => {
   const lastOrder = await Order.findOne().sort({ orderId: -1 });
@@ -12,43 +13,79 @@ const generateOrderId = async () => {
 };
 
 // Buat order baru (sama seperti sebelumnya)
-const createOrder = async (req, res) => {
+const createOrderWithTransaction = async (req, res) => {
   try {
-    const userId = req.userId;
-    const { cartItems, deliveryFee, deliveryDate } = req.body;
+    const { userId, cartItems, deliveryFee, deliveryDate, totalAmount, customer } = req.body;
+    console.log(req.body)
+    console.log('userId:', userId)
 
     if (!Array.isArray(cartItems) || cartItems.length === 0) {
       return res.status(400).json({ message: 'Keranjang kosong' });
     }
 
+    // Generate orderId pakai fungsi yang sudah ada
     const orderId = await generateOrderId();
-    const totalAmount = cartItems.reduce((total, item) => {
-      return total + item.price * item.quantity;
-    }, deliveryFee);
 
+
+    // Siapkan parameter transaksi Midtrans
+    const snap = new midtransClient.Snap({
+      isProduction: false,
+      serverKey: process.env.MIDTRANS_SERVER_KEY,
+    });
+
+    const parameter = {
+      transaction_details: {
+        order_id: orderId,
+        gross_amount: totalAmount,
+      },
+      credit_card: {
+        secure: true,
+      },
+      customer_details: {
+        first_name: customer.name,
+        last_name: '',
+        email: customer.email,
+        phone: customer.phone || '',
+      },
+      custom_field1: JSON.stringify({
+        userId,
+        cartItems,
+        deliveryFee,
+        deliveryDate,
+        totalAmount,
+      }),
+    };
+
+    // Buat transaksi di Midtrans dan dapatkan token
+    const transaction = await snap.createTransaction(parameter);
+
+    // Simpan order ke database
     const newOrder = new Order({
       orderId,
       userId,
       orderDate: new Date(),
       deliveryDate: deliveryDate ? new Date(deliveryDate) : undefined,
       deliveryFee,
-      status: 'Menunggu',
+      status: 'menunggu',
       totalAmount,
       items: cartItems.map(item => ({
         productId: item.productId,
-        quantity: item.quantity
-      }))
+        quantity: item.quantity,
+      })),
     });
+
+    console.log(newOrder)
 
     await newOrder.save();
 
     return res.status(201).json({
       message: 'Order berhasil dibuat',
-      orderId
+      orderId,
+      token: transaction.token,
     });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ message: 'Gagal membuat order' });
+    return res.status(500).json({ message: 'Gagal membuat order dan transaksi' });
   }
 };
 
@@ -111,9 +148,10 @@ const updateOrderStatus = async (req, res) => {
   }
 };
 
+
 module.exports = {
-  createOrder,
+  createOrderWithTransaction,
   getAllOrders,
   getOrderById,
-  updateOrderStatus
+  updateOrderStatus,
 };

@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     alamat: { type: String },   
   },
   password: { type: String, required: true },
-  role: { type: String, enum: ['admin', 'user'], default: 'user' },
+  role: { type: String, required: true, enum: ['admin', 'user'], default: 'user' },
 });
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
