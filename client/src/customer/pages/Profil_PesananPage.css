@@ -126,6 +126,7 @@
 
 .back-button {
   color: inherit;
+  font-size: 17px;
 }
 
 .back-button:hover {
@@ -138,9 +139,57 @@
   margin: 0 auto;
 }
 
+.profil-box {
+  background-color: #FDF0D4; 
+  border: 1px solid #D67832;
+  border-radius: 1rem;
+}
+
+.data-box {
+  background-color: #FFC8C8; 
+  border: 1px solid #D67832;
+  border-radius: 1rem;
+}
+
+.btn-outline-dark {
+  padding: 10px 20px;
+}
+
+.btn-outline-dark:hover {
+  background-color: grey;
+  border: 1px solid grey;
+}
+
+.user-icon {
+  background-color: #FFC8C8;
+  color: #442918;
+}
+
+.btn-responsive-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
 @media (max-width: 768px) {
   .order-box, .title-box {
     margin: 0 50px;
+  }
+}
+
+@media (max-width: 516px) {
+  .btn-responsive-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-responsive {
+    width: 100%;
+    padding: 10px 15px !important;
+    font-size: 15px;
   }
 }
 
@@ -165,5 +214,9 @@
 
   .order-box, .title-box {
     margin: 0 10px;
+  }
+
+  .profil-box {
+    padding: 25px !important;
   }
 }

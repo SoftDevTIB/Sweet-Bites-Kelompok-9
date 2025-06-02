@@ -18,6 +18,7 @@
 .custom-input {
   background-color: white;
   border: 1px solid #D67832;
+  max-height: 30px;
 }
 
 .btn-teal {
@@ -36,3 +37,8 @@
   margin-top: 4px;
 }
 
+@media (max-width: 570px) {
+  .registration-page {
+    margin: 20px;
+  }
+}

@@ -116,14 +116,27 @@ const PesananPage = () => {
     order => order.status.toLowerCase() === activeStatus.toLowerCase()
   );
 
-  if (loading) return <p className="text-center mt-5">Loading...</p>;
+  if (loading) {
+    return (
+      <>
+        <Header />
+        <main className="py-5 text-center">
+          <div className="pp-container d-flex justify-content-center align-items-center">
+            <p className='fs-4 text-oren'>Loading...</p>
+          </div>
+        </main>
+        <Footer />
+      </>
+    );
+  }
+
 
   return (
     <>
       <Header />
       <main className="py-5 text-center">
         <div className="pp-container">
-          <h3 className="mb-4 font-est">Pesanan</h3>
+          <h2 className="mb-4 text-oren">Pesanan</h2>
 
           <StatusButtonGroup
             activeStatus={activeStatus}
