@@ -15,7 +15,11 @@ const HomePage = () => {
   useEffect(() => {
     fetch('/api/products')
       .then(res => res.json())
-      .then(data => setProducts(data))
+      .then(data => {
+        const shuffled = data.sort(() => 0.5 - Math.random());
+        const selected = shuffled.slice(0, 8);
+        setProducts(selected);
+      })
       .catch(err => console.error('Failed to fetch products:', err));
   }, []);
 

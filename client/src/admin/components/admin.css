@@ -144,6 +144,7 @@ body {
 .logout-btn:hover {
   background-color: #ffcc99;
   color: #D67832;
+  border: 1px solid #D67832;
 }
 
 /* logout pop up */
@@ -176,12 +177,13 @@ body {
 
 /* Admin Menu */
 .admin-btn-teal {
+  padding: 10px 20px;
   background-color: #3B7883;
   color: white;
   border: none;
 }
 .admin-btn-teal:hover {
-  background-color: grey;
+  background-color: #2e5859;
   color: white;
 }
 .border-primary {

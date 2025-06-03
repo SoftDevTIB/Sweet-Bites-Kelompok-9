@@ -47,11 +47,11 @@ const CartPage = () => {
   return (
     <>
       <Header />
-      <div className="cart-page-wrapper" style={{ minHeight: 'calc(100vh - 120px)', backgroundColor: '#FFF2F2', padding: '2rem 0' }}>
-        <div className="container">
+      <div className="cart-page-wrapper py-5" style={{ minHeight: 'calc(100vh - 120px)', backgroundColor: '#FFF2F2', padding: '2rem 0' }}>
+        <div className="container mt-5">
           <h2 className="cart-title mb-4" style={{ color: '#D67832', textAlign: 'center', fontSize: '2rem' }}>Shopping Cart</h2>
           {cartItems.length === 0 ? (
-            <p>Your cart is empty.</p>
+            <p className='text-center pt-3'>Your cart is empty.</p>
           ) : (
             <div className="row justify-content-center">
               <div className="col-md-6">

@@ -3,6 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import AdminLayout from '../components/AdminLayout';
 
+
+
+import Toast from '../../customer/components/Toast';
+
+
 const statusColors = {
   menunggu: '#FF55E5',   // Warna pink lembut
   diproses: '#FF8C00',   // Oranye
@@ -18,6 +23,7 @@ const AdminOrderDetailPage = () => {
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [showToast, setShowToast] = useState(false);
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -42,6 +48,7 @@ const AdminOrderDetailPage = () => {
     const newStatus = e.target.value.toLowerCase();
     try {
       const token = localStorage.getItem('token');
+
       const res = await fetch(`/api/orders/${orderId}/status`, {
         method: 'PATCH',
         headers: {
@@ -99,6 +106,10 @@ const AdminOrderDetailPage = () => {
   const ongkir = order.deliveryFee || 0;
   const totalBayar = subtotal + ongkir;
 
+  const handleToastClose = () => {
+    setShowToast(false);
+  };
+
   return (
     <AdminLayout>
       <section className="admin-section">
@@ -125,7 +136,7 @@ const AdminOrderDetailPage = () => {
             className="rounded-3 p-4 m-2 m-lg-5"
             style={{ backgroundColor: '#ffeecc' }}
           >
-            <h4 className="text-center mb-4 text-red">{order.orderId}</h4>
+            <h4 className="text-center fw-semibold mb-4 text-oren">{order.orderId}</h4>
 
             <div className="mb-3">
               <p>
@@ -208,13 +219,19 @@ const AdminOrderDetailPage = () => {
               </p>
               <p className="fw-bold">
                 <span className="me-md-3 me-2 text-teal">Total Bayar:</span>
-                <span className="text-red">
+                <span className="text-oren">
                   Rp {totalBayar.toLocaleString('id-ID')}
                 </span>
               </p>
             </div>
           </div>
         </div>
+
+        <Toast
+        message="Status pesanan berhasil diperbarui"
+        show={showToast}
+        onClose={handleToastClose}
+      />
       </section>
     </AdminLayout>
   );

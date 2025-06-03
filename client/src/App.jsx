@@ -21,7 +21,7 @@ import DetailPesananPage from './customer/pages/DetailPesananPage';
 import AdminPage from './admin/pages/AdminDashboard';
 import AdminMenuPage from './admin/pages/AdminMenu';
 import AdminOrdersPage from './admin/pages/AdminOrders';
-import AddProductPage from './admin/pages/AdminAddProduct.jsx';
+import AddProductPage from './admin/pages/AdminAddProduct';
 import EditProductPage from './admin/pages/AdminEditProduct';
 import AdminOrderDetailPage from './admin/pages/AdminOrderDetail';
 
@@ -42,7 +42,7 @@ function App() {
         <Route path="/tentang" element={<TentangKamiPage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/pesanan" element={<PesananPage />} />
-        <Route path="/pesanan/detail" element={<DetailPesananPage/>} />
+        <Route path="/pesanan/detail/:orderId" element={<DetailPesananPage/>} />
         <Route path="/menu/:id" element={<MenuDetailPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />

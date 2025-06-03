@@ -67,12 +67,12 @@
   justify-content: center;
   align-items: center;
   padding: 0 1.5rem 1.5rem 1.5rem;
-  width: 100vw;
+  width: 100%;
   position: relative;
   left: 50%;
   right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
+  margin-left: -50%;
+  margin-right: -50%;
   margin-top: 0;
   padding-top: 0;
 }
@@ -89,6 +89,16 @@
 .btn-rekomendasi:hover {
   background-color: #e96e0f;
   color: white;
+  transform: scale(1.1);
+}
+
+.btn-rekomendasi:active,
+.btn-rekomendasi:focus,
+.btn-rekomendasi:focus-visible {
+  background-color: #e96e0f !important;
+  color: white !important;
+  transform: none;
+  outline: none;
   transform: scale(1.1);
 }
 

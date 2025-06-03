@@ -4,7 +4,16 @@ require('dotenv').config();
 
 const getMe = async (req, res) => {
   try {
-    const user = await User.findById(req.userId).select('email name address');
+    const user = await User.findById(req.userId).select('email name address phone');
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: 'Gagal memuat profil' });
+  }
+};
+
+const getId = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select('_id');
     res.json(user);
   } catch (err) {
     res.status(500).json({ message: 'Gagal memuat profil' });
@@ -36,4 +45,4 @@ const updateUserAddress = async (req, res) => {
   }
 };
 
-module.exports = {getMe, updateUserAddress };
+module.exports = {getMe, getId, updateUserAddress };

@@ -67,6 +67,7 @@ const createOrderWithTransaction = async (req, res) => {
       deliveryDate: deliveryDate ? new Date(deliveryDate) : undefined,
       deliveryFee,
       status: 'menunggu',
+      status: 'menunggu',
       totalAmount,
       items: cartItems.map(item => ({
         productId: item.productId,

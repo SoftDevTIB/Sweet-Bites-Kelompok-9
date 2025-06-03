@@ -39,10 +39,16 @@
   color: #ff8e38;
 }
 
-.password-toggle {
+.password-toggle-login {
   position: absolute;
-  top: 40px; 
-  right: 15px; 
+  top: 35px !important; 
+  right: 15px !important; 
   cursor: pointer;
   color:#3B7883;
+}
+
+@media (max-width: 500px) {
+  .login-page {
+    margin: 20px;
+  }
 }
