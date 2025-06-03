@@ -95,12 +95,6 @@
   }
 }
 
-@media (max-width: 767px) {
-  .kontak-container {
-    padding: 4rem 5%;
-  }
-}
-
 @media (max-width: 500px) {
   .kontak-container p {
     text-align: justify;

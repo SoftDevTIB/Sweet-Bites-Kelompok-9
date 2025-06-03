@@ -48,9 +48,13 @@
 
 .nav-links a {
     text-decoration: none;
-    color: black;
+    color: #000;
     font-weight: 500;
     line-height: 70px;
+}
+
+.nav-links a:hover, .navbar-collapse .nav-link:hover {
+    color: #D67832;
 }
 
 .icons {
@@ -183,6 +187,11 @@
 }
 
 .small-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
   background-color: #FFFFFF;
 }
 

@@ -49,13 +49,13 @@ const Header = () => {
       {/* Large screen header */}
       <header className="header d-none d-md-flex justify-content-between align-items-center py-3 px-4">
         <div className="logo-nav">
-          <img src={logo} alt="Sweet Bites Logo" style={{ height: '50px' }} />
+          <img src={logo} alt="Sweet Bites Logo" />
         </div>
         <nav className="nav-links d-flex gap-4">
-          <Link to="/" className="text-decoration-none text-dark fw-medium">HOME</Link>
-          <Link to="/menu" className="text-decoration-none text-dark fw-medium">MENU</Link>
-          <Link to="/kontak" className="text-decoration-none text-dark fw-medium">KONTAK</Link>
-          <Link to="/tentang" className="text-decoration-none text-dark fw-medium">TENTANG KAMI</Link>
+          <Link to="/">HOME</Link>
+          <Link to="/menu">MENU</Link>
+          <Link to="/kontak">KONTAK</Link>
+          <Link to="/tentang">TENTANG KAMI</Link>
         </nav>
 
         <div className="icons d-flex align-items-center position-relative">
@@ -91,11 +91,11 @@ const Header = () => {
       {/* Small screen navbar with collapse */}
       <nav className="navbar navbar-expand-md navbar-light d-md-none px-3 small-header">
         <div className="container-fluid p-0 d-flex align-items-center justify-content-between">
-          <Link className="navbar-brand" to="/">
-            <img src={logo} alt="Sweet Bites Logo" style={{ height: '40px' }} />
+          <Link className="navbar-brand pt-0" to="/">
+            <img src={logo} alt="Sweet Bites Logo" style={{ height: '50px' }} />
           </Link>
           <button
-            className="navbar-toggler"
+            className="navbar-toggler pt-0"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarCollapseContent"

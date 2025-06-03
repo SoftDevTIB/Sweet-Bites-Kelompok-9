@@ -1,68 +1,83 @@
 .footer {
-    background-color: white;
-    padding: 30px 40px;
-    border-top: 1px solid #ddd;
+  background-color: white;
+  padding: 30px 40px;
+  border-top: 1px solid #ddd;
 }
 
 .footer-content {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 30px;
+  display: flex;
+  justify-content: center; 
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .footer-logo img {
-    height: 80px;
-    margin-left: 40px; 
+  height: 80px;
 }
 
 .footer-links {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 100px;
+  flex-wrap: wrap;
 }
 
-.footer-links > div:last-child {
-    padding-right: 20px;
-}
-
-.footer-links div p {
-    margin: 2px 0;
-    font-size: 14px;
-}
-
-.footer-links > div:last-child {
-    padding-right: 20px;
+.footer-links > div {
+  text-align: left;
 }
 
 .footer-links div p {
-    margin: 2px 0;
-    font-size: 14px;
-}
-
-.footer-links > div:last-child {
-    padding-right: 20px;
-}
-
-.footer-links {
-    display: flex;
-    gap: 10px;
-}
-
-.footer-links > div:last-child {
-    padding-right: 20px;
-}
-
-.footer-links div p {
-    margin: 2px 0;
-    font-size: 14px;
-}
-
-.footer p {
-    color: #333;
+  margin: 2px 0;
+  font-size: 14px;
+  color: #333;
 }
 
 .footer .copyright {
-    text-align: center;
-    margin-top: 30px;
-    font-size: 14px;
+  text-align: center;
+  margin-top: 30px;
+  font-size: 14px;
+  color: #333;
+}
+
+@media (max-width: 780px) {
+    .footer {
+        padding: 20px 30px;
+    }
+
+    .footer-content {
+       gap: 20px;
+    }
+
+    .footer-links {
+       gap: 50px;
+    }
+}
+
+@media (max-width: 505px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .footer-logo {
+    justify-content: center;
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .footer-links > div {
+    width: 100%;
+    text-align: left;
+  }
 }

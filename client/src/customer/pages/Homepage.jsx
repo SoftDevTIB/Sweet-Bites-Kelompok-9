@@ -50,7 +50,7 @@ const HomePage = () => {
           <section className="hero-section">
             <div className="hero-text">
               <h2 className="hero-title">Manisnya Seporsi Kebahagiaan</h2>
-              <p>Nikmati kue dan cookies lezat dengan harga terjangkau, pas untuk ngemil atau teman santai</p>
+              <span>Nikmati kue dan cookies lezat dengan harga terjangkau, pas untuk ngemil atau teman santai</span>
             </div>
             <div className="hero-image-container">
               <img src={tiramisuImage} alt="Tiramisu" className="hero-image" />
@@ -96,7 +96,7 @@ const HomePage = () => {
                 Lihat Rekomendasi
               </button>
               <button
-                className="btn me-2 btn-menu"
+                className="btn me-2 btn-menu px-5"
                 onClick={() => {
                   window.location.href = '/menu#top';
                 }}
