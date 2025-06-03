@@ -5,6 +5,7 @@ import gambarTentangKami from '../../assets/gambar_tentangkami.jpg';
 import './TentangKamiPage.css';
 
 const TentangKamiPage = () => {
+
   return (
     <>
       <Header />

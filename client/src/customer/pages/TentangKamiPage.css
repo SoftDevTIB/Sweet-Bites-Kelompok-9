@@ -1,7 +1,7 @@
 .tentang-wrapper {
   padding: 8rem 15%;
   background-color: #ffecec;
-} 
+}
 
 .tentang-title {
   font-size: 2.5rem;
@@ -14,8 +14,10 @@
 .tentang-content {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
   align-items: center;
+  gap: 2rem;
+  padding: 0 1rem; 
+  box-sizing: border-box;
 }
 
 .tentang-image {
@@ -27,11 +29,14 @@
 }
 
 .tentang-text {
+  width: 100%;
   max-width: 700px;
   color: #333;
   font-size: 1.1rem;
   line-height: 1.7;
   text-align: justify;
+  padding: 0 1rem; 
+  box-sizing: border-box;
 }
 
 @media (min-width: 768px) {
@@ -41,12 +46,8 @@
     justify-content: center;
   }
 
-  .tentang-image {
-    flex: 1;
-  }
-
   .tentang-text {
-    flex: 1;
-    padding-left: 2rem;
+    padding-left: 2rem; 
+    padding-right: 0;  
   }
 }

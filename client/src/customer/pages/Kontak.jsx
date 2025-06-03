@@ -36,11 +36,11 @@ const Kontak = () => {
             mengisi formulir di samping.
           </p>
           <div className="kontak-info">
-            <BsWhatsapp />
+            <BsWhatsapp className="kontak-icon" />
             <span>0813 XXXX XXXX</span>
           </div>
           <div className="kontak-info">
-            <BsInstagram />
+            <BsInstagram className="kontak-icon" />
             <span>@sweetBites</span>
           </div>
         </div>
