@@ -149,10 +149,25 @@ const updateOrderStatus = async (req, res) => {
   }
 };
 
+const getOrdersByUser = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const orders = await Order.find({ userId })
+      .sort({ createdAt: -1 });
+ 
+    // orders contain productId in items but no product details
+ 
+    res.status(200).json(orders);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to get orders', error });
+  }
+};
+
 
 module.exports = {
   createOrderWithTransaction,
   getAllOrders,
   getOrderById,
   updateOrderStatus,
+  getOrdersByUser
 };
