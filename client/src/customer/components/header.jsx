@@ -46,8 +46,9 @@ const Header = () => {
 
   return (
     <>
-      <header className="header d-flex justify-content-between align-items-center py-3 px-4">
-        <div className="logo">
+      {/* Large screen header */}
+      <header className="header d-none d-md-flex justify-content-between align-items-center py-3 px-4">
+        <div className="logo-nav">
           <img src={logo} alt="Sweet Bites Logo" style={{ height: '50px' }} />
         </div>
         <nav className="nav-links d-flex gap-4">
@@ -86,6 +87,72 @@ const Header = () => {
           </button>
         </div>
       </header>
+
+      {/* Small screen navbar with collapse */}
+      <nav className="navbar navbar-expand-md navbar-light d-md-none px-3 small-header">
+        <div className="container-fluid p-0 d-flex align-items-center justify-content-between">
+          <Link className="navbar-brand" to="/">
+            <img src={logo} alt="Sweet Bites Logo" style={{ height: '40px' }} />
+          </Link>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapseContent"
+            aria-controls="navbarCollapseContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+        </div>
+
+        <div className="collapse navbar-collapse" id="navbarCollapseContent">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0  d-flex align-items-center">
+            <li className="nav-item">
+              <Link className="nav-link" to="/">HOME</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/menu">MENU</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/kontak">KONTAK</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/tentang">TENTANG KAMI</Link>
+            </li>
+          </ul>
+
+          <div className="d-flex justify-content-center align-items-center gap-3 mt-2 mt-md-0">
+            {isLoggedIn ? (
+              <button onClick={handleLogoutClick} className="btn btn-logout px-3 py-1 rounded d-flex align-items-center gap-2">
+                <BsBoxArrowRight size={20} /> Logout
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                className="btn btn-login px-3 py-1 rounded d-flex align-items-center gap-2"
+                style={{ color: '#198754', fontWeight: '600', textDecoration: 'none' }}
+              >
+                <BsBoxArrowInRight size={20} /> Login
+              </Link>
+            )}
+
+            <Link to="/cart" className="position-relative icon">
+              <FiShoppingCart size={20} />
+              {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
+            </Link>
+
+            <button onClick={() => handleProtectedClick('/pesanan')} className="icon bg-transparent border-0 p-0">
+              <FiShoppingBag size={20} />
+            </button>
+
+            <button onClick={() => handleProtectedClick('/profile')} className="icon bg-transparent border-0 p-0">
+              <FiUser size={20} />
+            </button>
+          </div>
+        </div>
+      </nav>
 
       {/* Logout Modal */}
       {showLogoutModal && (
