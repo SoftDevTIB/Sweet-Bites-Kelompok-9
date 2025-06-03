@@ -86,7 +86,9 @@ const Kontak = () => {
               required
             ></textarea>
 
-            <button type="submit">Kirim</button>
+            <div className="d-flex justify-content-center">
+              <button type="submit" className='btn btn-teal rounded-pill px-5'>Kirim</button>
+            </div>
           </form>
         </div>
       </div>
