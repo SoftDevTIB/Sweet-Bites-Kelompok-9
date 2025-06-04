@@ -107,9 +107,9 @@ const HomePage = () => {
           </div>
         </section>
 
-        <div className="container">
+        <div className="container recommendation-container">
           {/* Recommendation Section */}
-          <section className="p-4 text-center">
+          <section className="py-4 text-center">
             <h3 id="recommendation-section" className="recommendation-title">Rekomendasi</h3>
             <div className="d-flex flex-wrap justify-content-center product-cards-container">
               {products.map(product => (

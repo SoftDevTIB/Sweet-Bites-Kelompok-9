@@ -44,42 +44,56 @@ const MenuPage = () => {
   return (
     <>
       <Header />
-      <main className="menu-container" style={{ backgroundColor: '#FFF2F2' }}>
-        <img src={bannerImage} alt="Banner" className="menu-banner" />
-        <h2 className="text-center mb-4" style={{ color: '#D67832' }}>Temukan Pilihanmu</h2>
+      <main className="menu-main">
+        <div className="banner-container">
+          <img src={bannerImage} alt="Banner" className="menu-banner" />
+        </div>
+        <h2 className="text-center mb-4 text-oren">Temukan Pilihanmu</h2>
 
-        <div className="search-filter-container mb-4 d-flex justify-content-center align-items-center flex-wrap gap-3 px-5" style={{ maxWidth: '920px', margin: '0 auto' }}>
-          <div className="d-flex align-items-center input-box">
-            <input
-              type="text"
-              placeholder="Cari nama produk..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="search-input"
-              style={{ backgroundColor: 'white', borderRadius: '20px', border: '1px solid #D67832', height: '40px', width: '100%', paddingLeft: '15px', paddingRight: '40px', color: 'black', textAlign: 'center' }}
+        <div className="search-filter-container">
+          <div className="search-filter-top">
+            <div className="input-box">
+              <input
+                type="text"
+                placeholder="Cari nama produk..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="search-input"
+              />
+              <FiSearch className="search-icon" size={20} />
+            </div>
+            <FiFilter
+              className="filter-icon"
+              size={20}
+              onClick={() => setShowFilters(!showFilters)}
             />
-            <FiSearch style={{ position: 'absolute', right: '10px', cursor: 'pointer', color: '#D67832' }} size={20} />
           </div>
 
-          <FiFilter
-            style={{ cursor: 'pointer', color: '#D67832', marginLeft: '10px' }}
-            size={20}
-            onClick={() => setShowFilters(!showFilters)}
-          />
-
           {showFilters && (
-            <div className="d-flex flex-wrap justify-content-center gap-3" style={{ backgroundColor: 'white', padding: '10px', borderRadius: '20px', border: '1px solid #D67832' }}>
-              <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="filter-select" style={{ backgroundColor: 'white', color: 'black', borderRadius: '20px', border: '1px solid #D67832', height: '40px', padding: '0 10px', minWidth: '150px' }}>
+            <div className="filter-dropdown">
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="filter-select"
+              >
                 <option value="name">Nama Produk</option>
                 <option value="price">Harga</option>
               </select>
 
-              <select value={order} onChange={(e) => setOrder(e.target.value)} className="filter-select" style={{ backgroundColor: 'white', color: 'black', borderRadius: '20px', border: '1px solid #D67832', height: '40px', padding: '0 10px', minWidth: '100px' }}>
+              <select
+                value={order}
+                onChange={(e) => setOrder(e.target.value)}
+                className="filter-select"
+              >
                 <option value="asc">Asc</option>
                 <option value="desc">Desc</option>
               </select>
 
-              <select value={available} onChange={(e) => setAvailable(e.target.value)} className="filter-select" style={{ backgroundColor: 'white', color: 'black', borderRadius: '20px', border: '1px solid #D67832', height: '40px', padding: '0 10px', minWidth: '150px' }}>
+              <select
+                value={available}
+                onChange={(e) => setAvailable(e.target.value)}
+                className="filter-select"
+              >
                 <option value="true">Tersedia</option>
                 <option value="false">Tidak tersedia</option>
               </select>
@@ -87,18 +101,18 @@ const MenuPage = () => {
           )}
         </div>
 
-      <div className="d-flex flex-wrap justify-content-center product-cards-container">
-        {products.map(product => (
-          <ProductCard
-            key={product._id}
-            id={product._id}
-            name={product.productName}
-            price={formatPrice(product.price)}
-            available={product.stock > 0}
-            imageUrl={product.photo ? `/uploads/${product.photo}` : ''}
-          />
-        ))}
-      </div>
+        <div className="d-flex flex-wrap justify-content-center container cards-container mb-5">
+          {products.map(product => (
+            <ProductCard
+              key={product._id}
+              id={product._id}
+              name={product.productName}
+              price={formatPrice(product.price)}
+              available={product.stock > 0}
+              imageUrl={product.photo ? `/uploads/${product.photo}` : ''}
+            />
+          ))}
+        </div>
       </main>
       <Footer />
     </>

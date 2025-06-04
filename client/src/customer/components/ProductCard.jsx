@@ -28,13 +28,15 @@ const ProductCard = ({ id, name, price, available, imageUrl }) => {
 
   return (
     <>
-      <div className="card m-2" style={{ width: '14rem', cursor: 'pointer' }} onClick={handleCardClick}>
+      <div className="card m-2" style={{ cursor: 'pointer' }} onClick={handleCardClick}>
         <img src={imageUrl} className="card-img-top" alt={name} />
         <div className="card-body p-0">
           <div className='p-2'>
-            <h6 className="card-title font-est fs-5">{name}</h6>
+            <div className="title-wrapper">
+              <h6 className="card-title font-est">{name}</h6>
+            </div>
             <p className="card-text">Rp {price}</p>
-            <p className={available ? 'available-text' : 'text-muted'}>
+            <p className={available ? 'available-text' : 'not-available-text'}>
               {available ? 'Tersedia' : 'Tidak tersedia'}
             </p>
           </div>

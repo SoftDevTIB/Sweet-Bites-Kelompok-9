@@ -89,8 +89,8 @@ const Header = () => {
       </header>
 
       {/* Small screen navbar with collapse */}
-      <nav className="navbar navbar-expand-md navbar-light d-md-none px-3 small-header">
-        <div className="container-fluid p-0 d-flex align-items-center justify-content-between">
+      <nav className="navbar navbar-expand-md navbar-light d-md-none small-header">
+        <div className="container-fluid py-1 px-3 d-flex align-items-center justify-content-between">
           <Link className="navbar-brand pt-0" to="/">
             <img src={logo} alt="Sweet Bites Logo" style={{ height: '50px' }} />
           </Link>

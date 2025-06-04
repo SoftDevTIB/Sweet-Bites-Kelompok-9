@@ -12,11 +12,6 @@
   padding: 0;
 }
 
-.product-cards-container {
-  position: static;
-  z-index: auto;
-}
-
 .hero-section {
   background-color: #FFF2F2;
   display: flex;
@@ -193,6 +188,8 @@
 .product-cards-container {
   position: relative;
   z-index: 1;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
 }
 
 .highlight-wrapper {
@@ -217,8 +214,19 @@
     max-width: 350px;
   }
 
-  .btn-rekomendasi, .btn-menu {
+  .btn-rekomendasi {
     font-size: 13px;
+  }
+
+  .btn-menu {
+    font-size: 13px;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .product-cards-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
   }
 }
 
@@ -307,7 +315,9 @@
 
   .btn-menu {
     font-size: 11px;
-    padding-left: 20px !important;
-    padding-right: 20px !important;
+  }
+
+  .recommendation-container {
+    padding: 0;
   }
 }
