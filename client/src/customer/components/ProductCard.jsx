@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FiShoppingCart } from 'react-icons/fi';
 import './ProductCard.css';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
@@ -41,7 +41,7 @@ const ProductCard = ({ id, name, price, available, imageUrl }) => {
             disabled={!available}
             onClick={handleAddToCart}
           >
-            <FaShoppingCart /> Add To Cart
+            <FiShoppingCart /> Add To Cart
           </button>
         </div>
       </div>
