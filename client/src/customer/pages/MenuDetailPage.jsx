@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FiShoppingCart } from 'react-icons/fi';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import { useCart } from '../context/CartContext';
@@ -112,7 +112,7 @@ const MenuDetailPage = () => {
             </p>
             <h4 className="menu-detail-price">Rp {formatPrice(product.price)}</h4>
             <button className="btn btn-add-to-cart me-4" disabled={product.stock <= 0} onClick={handleAddToCart}>
-              <FaShoppingCart /> Add To Cart
+              <FiShoppingCart /> Add To Cart
             </button>
             <button
               className="btn btn-outline-secondary"
