@@ -1,6 +1,11 @@
 .menu-detail-padding {
-  padding-top: 70px;
+  margin-top: 70px;
   background-color: #FFF2F2;
+}
+
+.menu-detail-padding .col-md-4 img {
+  margin: 0 auto;
+  display: block;
 }
 
 .menu-detail-heading {
@@ -66,4 +71,30 @@
   border-color: #3B7883 ;
   color: #3B7883 !important;
   border-radius: 20px;
+}
+
+@media (max-width: 767.5px) {
+  .menu-detail-padding .col-md-4 img {
+    width: 50%;
+  }
+
+  .menu-detail-heading {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 550px) {
+  .menu-detail-padding .col-md-4 img {
+    width: 80%;
+  }
+}
+
+@media (max-width: 420px) {
+  .menu-detail-description {
+    font-size: 12px;
+  }
+
+  .detail-btn-group .btn {
+    font-size: 12px;
+  }
 }

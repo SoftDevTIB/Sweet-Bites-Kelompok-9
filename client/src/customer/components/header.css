@@ -184,3 +184,19 @@ ul.navbar-nav {
 .modal-actions {
   margin-top: 20px;
 }
+
+/* Simple Header */
+.simple-header {
+  background-color: #FFFFFF;
+  height: 80px;
+  border-bottom: 2px solid #ccc;
+  position: sticky;
+  z-index: 1000;
+  top: 0;
+}
+
+.simple-header .logo {
+  height: 78px;
+  object-fit: contain;
+  z-index: 1;
+}

@@ -98,31 +98,36 @@ const MenuDetailPage = () => {
     <>
       <Header />
       <Toast message={toastMessage} show={toastShow} onClose={() => setToastShow(false)} />
-      <div className="header-spacer" />
-      <main className="container p-5 menu-detail-padding" style={{ backgroundColor: '#FFF2F2', paddingTop: headerHeight }}>
-        <div className="row align-items-center">
-          <div className="col-md-6">
+      <main className="container p-5 menu-detail-padding">
+        <div className="row">
+          <div className="col-md-4">
             <img src={product.photo ? `/uploads/${product.photo}` : ''} alt={product.productName} className="img-fluid rounded" />
           </div>
-          <div className="col-md-6">
+          <div className="col-md-8">
             <h2 className="menu-detail-heading">{product.productName}</h2>
             <p className="menu-detail-description">{product.description}</p>
             <p className={product.stock > 0 ? 'menu-detail-stock-available' : 'menu-detail-stock-unavailable'}>
               {product.stock > 0 ? 'Tersedia' : 'Tidak tersedia'}
             </p>
             <h4 className="menu-detail-price">Rp {formatPrice(product.price)}</h4>
-            <button className="btn btn-add-to-cart me-4" disabled={product.stock <= 0} onClick={handleAddToCart}>
-              <FiShoppingCart /> Add To Cart
-            </button>
-            <button
-              className="btn btn-outline-secondary"
-              onClick={() => {
-                handleAddToCart();
-                navigate('/checkout');
-              }}
-            >
-              Beli Sekarang
-            </button>
+            <div className="d-flex flex-wrap gap-3 mt-3 detail-btn-group">
+              <button
+                className="btn btn-add-to-cart"
+                disabled={product.stock <= 0}
+                onClick={handleAddToCart}
+              >
+                <FiShoppingCart /> Add To Cart
+              </button>
+              <button
+                className="btn btn-outline-secondary"
+                onClick={() => {
+                  handleAddToCart();
+                  navigate('/checkout');
+                }}
+              >
+                Beli Sekarang
+              </button>
+            </div>
           </div>
         </div>
       </main>
