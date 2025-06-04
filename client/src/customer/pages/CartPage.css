@@ -151,6 +151,10 @@
   color: #e96e0f;
 }
 
+.cart-title {
+  padding-top: 70px;
+}
+
 .empty-cart-message {
   margin-top: 50px;
   line-height: 1.8;
