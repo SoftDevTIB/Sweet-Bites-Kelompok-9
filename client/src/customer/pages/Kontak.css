@@ -4,7 +4,7 @@
   align-items: flex-start;
   gap: 2rem;
   padding: 8rem 15%;
-  background-color: #ffecec; 
+  background-color: #FFF2F2; 
   flex-wrap: wrap;
 }
 
@@ -55,7 +55,7 @@
   flex: 1;
   min-width: 300px;
   max-width: 500px;
-  background-color: #fff0f0;
+  background-color: #FFF2F2;
   padding: 2rem;
   border: 1px solid #D67832;
   border-radius: 20px;

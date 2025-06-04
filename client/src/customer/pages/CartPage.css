@@ -150,3 +150,21 @@
 .trash-btn:hover {
   color: #e96e0f;
 }
+
+.empty-cart-message {
+  margin-top: 50px;
+  line-height: 1.8;
+  color: #3B7883;
+}
+
+.empty-cart-message br {
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.empty-cart-message svg {
+  fill: #D67832 !important;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  font-size: 1.5rem;
+}
