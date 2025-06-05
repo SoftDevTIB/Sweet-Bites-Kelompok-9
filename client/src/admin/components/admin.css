@@ -313,6 +313,10 @@ body {
   color: #3B7883;
 }
 
+.card-admin {
+  width: auto !important;
+}
+
 @media (max-width: 1050px) {
   .filter-search {
     flex-direction: column;

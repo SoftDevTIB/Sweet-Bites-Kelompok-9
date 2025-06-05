@@ -95,7 +95,7 @@ const AdminMenuPage = () => {
               </div>
             </div>
 
-            <div className="card shadow-sm rounded-4 border-0 admin-table">
+            <div className="card card-admin shadow-sm rounded-4 border-0 admin-table">
               <div className="card-body p-0">
                 <div className="table-responsive rounded-bottom admin-wrapper">
                   <table className="table table-borderless mb-0">
