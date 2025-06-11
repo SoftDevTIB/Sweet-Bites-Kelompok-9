@@ -4,14 +4,14 @@ const router = express.Router();
 const { verifyToken } = require('../middlewares/authMiddleware');
 
 const { 
-  createOrder,
+  createOrderWithTransaction,
   getAllOrders,
   getOrderById,
   updateOrderStatus,
   getOrdersByUser
 } = require('../controllers/orderController');
 
-router.post('/', verifyToken, createOrder);
+router.post('/', createOrderWithTransaction);
 
 // Ambil semua order
 router.get('/', getAllOrders);

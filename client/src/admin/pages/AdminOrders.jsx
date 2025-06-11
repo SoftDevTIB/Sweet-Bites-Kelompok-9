@@ -2,7 +2,6 @@
 import { Link } from 'react-router-dom';
 import { BsArrowRightCircle, BsArrowLeftCircle, BsSearch } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import AdminLayout from '../components/AdminLayout';
 
 const statusColors = {
@@ -46,8 +45,11 @@ const AdminOrdersPage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get('/api/orders'); // Pastikan sudah populate user
-        setOrders(res.data);
+        const res = await fetch('/api/orders');
+        if (!res.ok) throw new Error('Gagal mengambil data');
+
+        const data = await res.json();
+        setOrders(data);
       } catch (err) {
         console.error('Gagal mengambil data order:', err);
       }

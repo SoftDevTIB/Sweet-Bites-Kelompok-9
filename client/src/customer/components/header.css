@@ -119,15 +119,29 @@ ul.navbar-nav {
 }
 
 .cart-badge {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background-color: #3B7883;
-  color: #FFFFFF;
-  border-radius: 50%;
-  padding: 0.5px 3px;
-  font-size: 10px;
-  font-weight: bold;
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #3B7883;
+    color: #FFFFFF;
+    border-radius: 50%;
+    padding: 0.5px 5px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+  border: #3B7883;
 }
 
 .btn-login,
