@@ -5,46 +5,45 @@ const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  // Load cart: from server if logged in, else from localStorage
-    useEffect(() => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        fetch('http://localhost:5000/api/cart', {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
+  // ✅ Load cart hanya sekali saat pertama kali render
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      fetch('http://localhost:5000/api/cart', {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to fetch cart');
+          return res.json();
         })
-          .then(res => {
-            if (!res.ok) throw new Error('Failed to fetch cart');
-            return res.json();
-          })
-          .then(data => {
-            const normalized = (data.items || []).map(i => ({
-              id:        i.productId.toString(),
-              name:      i.name,
-              price:     i.price,
-              imageUrl:  i.imageUrl,
-              quantity:  i.quantity,
-            }));
-            setCartItems(normalized);
-          })
-          .catch(() => {
-            const local = JSON.parse(localStorage.getItem('cart')) || [];
-            setCartItems(local);
-          });
-      } else {
-        const local = JSON.parse(localStorage.getItem('cart')) || [];
-        setCartItems(local);
-      }
-    }, [localStorage.getItem('token')]);
+        .then(data => {
+          const normalized = (data.items || []).map(i => ({
+            id: i.productId.toString(),
+            name: i.name,
+            price: i.price,
+            imageUrl: i.imageUrl,
+            quantity: i.quantity,
+          }));
+          setCartItems(normalized);
+        })
+        .catch(() => {
+          const local = JSON.parse(localStorage.getItem('cart')) || [];
+          setCartItems(local);
+        });
+    } else {
+      const local = JSON.parse(localStorage.getItem('cart')) || [];
+      setCartItems(local);
+    }
+  }, []); // ✅ hanya dijalankan sekali
 
-    // Mirror to localStorage whenever cartItems change
-    useEffect(() => {
-      localStorage.setItem('cart', JSON.stringify(cartItems));
-    }, [cartItems]);
+  // Mirror to localStorage whenever cartItems change
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+  }, [cartItems]);
 
-  // Helper to call backend endpoints
   const syncApi = async (method, url, body) => {
     const token = localStorage.getItem('token');
     if (!token) return;
@@ -79,7 +78,6 @@ export const CartProvider = ({ children }) => {
     setCartItems(updated);
   };
 
-    // di dalam CartProvider:
   const overwriteCartApi = async (items) => {
     const token = localStorage.getItem('token');
     if (!token) return;
@@ -93,10 +91,10 @@ export const CartProvider = ({ children }) => {
         body: JSON.stringify({
           items: items.map(i => ({
             productId: i.id,
-            name:      i.name,
-            price:     i.price,
-            imageUrl:  i.imageUrl,
-            quantity:  i.quantity
+            name: i.name,
+            price: i.price,
+            imageUrl: i.imageUrl,
+            quantity: i.quantity
           }))
         })
       });
@@ -104,7 +102,6 @@ export const CartProvider = ({ children }) => {
       console.error('Failed to overwrite cart', err);
     }
   };
-
 
   const updateQuantity = (id, quantity) => {
     const updated = cartItems.map(item =>
@@ -121,31 +118,28 @@ export const CartProvider = ({ children }) => {
   };
 
   const clearCart = () => {
-  setCartItems([]); // Kosongkan cart lokal
-  localStorage.removeItem('cart'); // Hapus cart dari localStorage
+    setCartItems([]);
+    localStorage.removeItem('cart');
 
-  // Jika login, clear juga cart di backend
-  const token = localStorage.getItem('token');
-  if (token) {
-    fetch('http://localhost:5000/api/cart/clear', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    }).catch(err => console.error('Failed to clear cart on backend', err));
-  }
-};
-
+    const token = localStorage.getItem('token');
+    if (token) {
+      fetch('http://localhost:5000/api/cart/clear', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      }).catch(err => console.error('Failed to clear cart on backend', err));
+    }
+  };
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, updateQuantity, removeFromCart, clearCart, overwriteCart:overwriteCartApi}}
+      value={{ cartItems, addToCart, updateQuantity, removeFromCart, clearCart, overwriteCart: overwriteCartApi }}
     >
       {children}
     </CartContext.Provider>
   );
 };
-
 
 export const useCart = () => useContext(CartContext);

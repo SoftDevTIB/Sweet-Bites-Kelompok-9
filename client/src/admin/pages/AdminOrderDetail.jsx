@@ -29,8 +29,13 @@ const AdminOrderDetailPage = () => {
         const res = await fetch(`/api/orders/${orderId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        setOrder(res.data);
-        setStatus(res.data.status);
+
+        if (!res.ok) throw new Error('Fetch gagal');
+
+        const data = await res.json();
+        setOrder(data);
+        setStatus(data.status);
+
       } catch (err) {
         console.error('Gagal load order detail:', err);
         setError('Gagal mengambil detail pesanan');
