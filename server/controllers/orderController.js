@@ -16,8 +16,8 @@ const generateOrderId = async () => {
 const createOrderWithTransaction = async (req, res) => {
   try {
     const { userId, cartItems, deliveryFee, deliveryDate, totalAmount, customer } = req.body;
-    console.log(req.body)
-    console.log('userId:', userId)
+    console.log(req.body);
+    console.log('userId:', userId);
 
     if (!Array.isArray(cartItems) || cartItems.length === 0) {
       return res.status(400).json({ message: 'Keranjang kosong' });
@@ -25,7 +25,6 @@ const createOrderWithTransaction = async (req, res) => {
 
     // Generate orderId pakai fungsi yang sudah ada
     const orderId = await generateOrderId();
-
 
     // Siapkan parameter transaksi Midtrans
     const snap = new midtransClient.Snap({
@@ -67,7 +66,6 @@ const createOrderWithTransaction = async (req, res) => {
       deliveryDate: deliveryDate ? new Date(deliveryDate) : undefined,
       deliveryFee,
       status: 'menunggu',
-      status: 'menunggu',
       totalAmount,
       items: cartItems.map(item => ({
         productId: item.productId,
@@ -75,9 +73,20 @@ const createOrderWithTransaction = async (req, res) => {
       })),
     });
 
-    console.log(newOrder)
-
     await newOrder.save();
+
+    // Kurangi stok produk
+    for (const item of cartItems) {
+      const product = await Product.findById(item.productId);
+      if (!product || product.stock < item.quantity) {
+        return res.status(400).json({
+          message: `Stok produk ${product?.productName || item.productId} tidak mencukupi`,
+        });
+      }
+
+      product.stock -= item.quantity;
+      await product.save(); // ⬅️ ini yang membuat stok tersimpan
+    }
 
     return res.status(201).json({
       message: 'Order berhasil dibuat',
