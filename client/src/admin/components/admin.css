@@ -126,6 +126,20 @@ body {
   font-size: 100px;
   color: #D67832;
 }
+.dash-box {
+  background-color: #FDF0D4;
+  color: #D67832;
+  border: 1px solid #D67832;
+}
+.dash-chart {
+  /* background-color: #FEC0C6; */
+  background-color: rgba(254, 192, 198, 0.4);
+}
+.dash-icon {
+  margin-left: 10px;
+  color: #3B7883;
+  font-size: 25px;
+}
 
 /* Logout Button */
 .logout-btn {
