@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Toast from '../components/Toast';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import './RegistrationPage.css';
 import SimpleHeader from '../components/header_nonav';
 
@@ -12,6 +13,9 @@ const RegistrationPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const navigate = useNavigate();
   const [showToast, setShowToast] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
 
   const [errors, setErrors] = useState({});
 
@@ -120,29 +124,52 @@ const RegistrationPage = () => {
 
             <div className="mb-4">
               <label htmlFor="password" className="form-label mb-0 text-md">Password:</label>
-              <input
-                type="password"
-                className="form-control custom-input"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+              <div className="position-relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  className="form-control custom-input"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                <span
+                  className="password-toggle-login"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{ position: 'absolute', top: '40px', right: '15px', cursor: 'pointer', transform: 'translateY(-135%)', }}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
               {errors.password && <div className="error-text">{errors.password}</div>}
             </div>
 
-            <div className="mb-4">
-              <label htmlFor="confirmPassword" className="form-label mb-0 text-md">Konfirmasi Password:</label>
+
+          <div className="mb-4">
+            <label htmlFor="confirmPassword" className="form-label mb-0 text-md">Konfirmasi Password:</label>
+            <div className="position-relative">
               <input
-                type="password"
+                type={showConfirmPassword ? 'text' : 'password'}
                 className="form-control custom-input"
                 id="confirmPassword"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
               />
+              <span
+                className="password-toggle-login"
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                style={{ position: 'absolute', top: '40px', right: '15px', cursor: 'pointer', transform: 'translateY(-135%)', }}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
+
+
+
               {errors.confirmPassword && <div className="error-text">{errors.confirmPassword}</div>}
             </div>
+
 
             <div className="d-flex justify-content-center gap-3 flex-wrap btn-responsive-box">
               <button type="submit" className="btn btn-teal rounded-pill px-5 btn-responsive" >
