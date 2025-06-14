@@ -2,6 +2,15 @@ const User = require('../models/User');
 const Product = require('../models/Product');
 const Order = require('../models/Order');
 
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({ role: 'user' }).select('_id name email phone');
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: 'Gagal memuat daftar pengguna' });
+  }
+};
+
 const getAdminStats = async (req, res) => {
   try {
     const totalUsers = await User.countDocuments();
@@ -78,4 +87,4 @@ const getAdminStats = async (req, res) => {
   }
 };
 
-module.exports = { getAdminStats };
+module.exports = { getAllUsers, getAdminStats };

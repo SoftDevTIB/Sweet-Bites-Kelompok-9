@@ -3,9 +3,11 @@
   const { verifyToken, allowRoles } = require('../middlewares/authMiddleware');
 
   const {
-  getAdminStats
-} = require('../controllers/adminController');
+    getAllUsers,
+    getAdminStats
+  } = require('../controllers/adminController');
 
+  router.get('/users', verifyToken, allowRoles('admin'), getAllUsers);
   router.get('/stats', verifyToken, allowRoles('admin'), getAdminStats);
 
   module.exports = router;

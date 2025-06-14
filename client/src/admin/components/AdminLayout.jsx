@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { BsHouse, BsGrid, BsHandbag } from 'react-icons/bs';
+import { FiUser } from 'react-icons/fi';
 
 import logo from '../../assets/logo.png';
 import './Admin.css';
@@ -34,6 +35,10 @@ const AdminLayout = ({ children }) => {
           <Link to="/admin/orders" className='nav-link'>
             <BsHandbag className="icon" />
             <span className='desc'>Pesanan</span>
+          </Link>
+          <Link to="/admin/users" className='nav-link'>
+            <FiUser className="icon" />
+            <span className='desc'>Pelanggan</span>
           </Link>
         </nav>
       </div>
