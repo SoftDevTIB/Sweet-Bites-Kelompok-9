@@ -134,6 +134,15 @@ body {
 .dash-chart {
   background-color: rgba(254, 192, 198, 0.4);
 }
+.chart-btn {
+  background-color: #FDF0D4;
+  color: #D67832;
+  border: 1px solid #D67832;
+}
+.chart-btn:focus {
+  border-color: #D67832;
+  box-shadow: 0 0 0 .25rem rgba(253, 240, 212, 0.2);
+}
 .dash-icon {
   margin-left: 10px;
   color: #3B7883;
