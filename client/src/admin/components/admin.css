@@ -132,13 +132,18 @@ body {
   border: 1px solid #D67832;
 }
 .dash-chart {
-  /* background-color: #FEC0C6; */
   background-color: rgba(254, 192, 198, 0.4);
 }
 .dash-icon {
   margin-left: 10px;
   color: #3B7883;
   font-size: 25px;
+}
+.bestseller-box {
+  background-color: rgba(254, 192, 198, 0.4);
+}
+.bestseller-product {
+  background-color: #FDF0D4;
 }
 
 /* Logout Button */

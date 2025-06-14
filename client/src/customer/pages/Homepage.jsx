@@ -83,7 +83,7 @@ const HomePage = () => {
               <h4>Porsi Pas, Rasa Kelas!</h4>
               <p>Cocok dinikmati sendiri, atau berbagi dengan orang tersayang</p>
               <button
-                className="btn me-2 btn-rekomendasi"
+                className="btn me-3 btn-rekomendasi"
                 onClick={() => {
                   const element = document.getElementById('recommendation-section');
                   if (element) {
