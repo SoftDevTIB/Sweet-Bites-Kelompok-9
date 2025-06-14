@@ -319,6 +319,9 @@ body {
   flex-wrap: wrap;
   gap: 0.5rem;
 }
+.search-group {
+  width: 30%;
+}
 .status-color-circle {
   width: 10px;
   height: 10px;

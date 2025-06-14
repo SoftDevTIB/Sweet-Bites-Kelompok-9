@@ -82,7 +82,7 @@ const AdminMenuPage = () => {
                 <input
                   type="text"
                   className="form-control search"
-                  placeholder="Search..."
+                  placeholder="Ketik nama produk"
                   value={searchTerm}
                   onChange={e => {
                     setSearchTerm(e.target.value);

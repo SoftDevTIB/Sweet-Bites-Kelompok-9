@@ -117,7 +117,7 @@ const AdminOrdersPage = () => {
                 <input
                   type="text"
                   className="form-control search"
-                  placeholder="Search pelanggan / ID"
+                  placeholder="Ketik pelanggan / ID pesanan"
                   value={searchTerm}
                   onChange={e => {
                     setSearchTerm(e.target.value);

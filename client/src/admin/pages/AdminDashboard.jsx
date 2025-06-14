@@ -43,8 +43,6 @@ const AdminPage = () => {
         const data = await response.json();
         setDashboardData(data);
 
-        console.log(data);
-
         const photoMap = {};
         await Promise.all(
           data.bestSellers.map(async (product) => {

@@ -75,7 +75,7 @@ const AdminUserListPage = () => {
                 <input
                   type="text"
                   className="form-control search"
-                  placeholder="Search nama..."
+                  placeholder="Ketik nama pelanggan"
                   value={searchTerm}
                   onChange={e => {
                     setSearchTerm(e.target.value);
