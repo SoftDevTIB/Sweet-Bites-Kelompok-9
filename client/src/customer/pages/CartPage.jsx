@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { FaRegTrashAlt } from 'react-icons/fa';
 import { GiCakeSlice } from 'react-icons/gi';
@@ -9,11 +9,15 @@ import { CiCirclePlus, CiCircleMinus } from 'react-icons/ci';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import { useNavigate } from 'react-router-dom';
+import Toast from '../components/Toast';
 import './CartPage.css';
 
 const CartPage = () => {
   const { cartItems, removeFromCart, updateQuantity } = useCart();
   const navigate = useNavigate();
+
+  const [toastShow, setToastShow] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   useEffect(() => {
     console.log('Cart items in CartPage:', cartItems);
@@ -27,7 +31,11 @@ const CartPage = () => {
   };
 
   const handleIncrease = (id, quantity) => {
-    updateQuantity(id, quantity + 1);
+    const success = updateQuantity(id, quantity + 1);
+    if (!success) {
+      setToastMessage('Stock tidak cukup');
+      setToastShow(true);
+    }
   };
 
   const handleDecrease = (id, quantity) => {
@@ -51,6 +59,7 @@ const CartPage = () => {
   return (
     <>
       <Header />
+      <Toast message={toastMessage} show={toastShow} onClose={() => setToastShow(false)} />
       <div className="cart-page-wrapper" style={{ minHeight: 'calc(100vh - 120px)', backgroundColor: '#FFF2F2', padding: '2rem 0' }}>
         <div className="container">
           <h2 className="cart-title mb-4" style={{ color: '#D67832', textAlign: 'center', fontSize: '2rem'}}>Shopping Cart</h2>
@@ -66,6 +75,9 @@ const CartPage = () => {
                     <div className="flex-grow-1 d-flex flex-column justify-content-center">
                       <h5 className="product-name">{item.name}</h5>
                       <p>{formatPrice(item.price)}</p>
+                      <p className={item.stock > 0 ? 'menu-detail-stock-available' : 'menu-detail-stock-unavailable'}>
+                        {item.stock > 0 ? `Tersedia - Stok: ${item.stock}` : 'Tidak tersedia'}
+                      </p>
                       <div className="d-flex align-items-center justify-content-between">
                         <div className="quantity-btn">
                           <button onClick={() => handleDecrease(item.id, item.quantity)}><CiCircleMinus className="quantity-icon" /></button>

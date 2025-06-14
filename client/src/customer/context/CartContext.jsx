@@ -19,15 +19,27 @@ export const CartProvider = ({ children }) => {
           if (!res.ok) throw new Error('Failed to fetch cart');
           return res.json();
         })
-        .then(data => {
+        .then(async data => {
           const normalized = (data.items || []).map(i => ({
             id: i.productId.toString(),
             name: i.name,
             price: i.price,
             imageUrl: i.imageUrl,
             quantity: i.quantity,
+            stock: 0, // placeholder
           }));
-          setCartItems(normalized);
+          // Fetch latest stock for each product
+          const updatedItems = await Promise.all(normalized.map(async item => {
+            try {
+              const res = await fetch(`http://localhost:5000/api/products/${item.id}`);
+              if (!res.ok) throw new Error('Failed to fetch product');
+              const product = await res.json();
+              return { ...item, stock: product.stock };
+            } catch {
+              return item;
+            }
+          }));
+          setCartItems(updatedItems);
         })
         .catch(() => {
           const local = JSON.parse(localStorage.getItem('cart')) || [];
@@ -61,12 +73,20 @@ export const CartProvider = ({ children }) => {
     const existing = cartItems.find(i => i.id === item.id);
     let updated;
     if (existing) {
+      if (existing.quantity + 1 > existing.stock) {
+        // Stock exceeded, do not add
+        return false;
+      }
       updated = cartItems.map(i =>
         i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
       );
       syncApi('put', `/${item.id}`, { productId: item.id, quantity: existing.quantity + 1 });
     } else {
-      updated = [...cartItems, { ...item, quantity: 1 }];
+      if (item.quantity > item.stock) {
+        // Stock exceeded, do not add
+        return false;
+      }
+      updated = [...cartItems, { ...item, quantity: 1, stock: item.stock }];
       syncApi('post', ``, {
         productId: item.id,
         name: item.name,
@@ -76,6 +96,7 @@ export const CartProvider = ({ children }) => {
       });
     }
     setCartItems(updated);
+    return true;
   };
 
   const overwriteCartApi = async (items) => {
@@ -104,11 +125,18 @@ export const CartProvider = ({ children }) => {
   };
 
   const updateQuantity = (id, quantity) => {
-    const updated = cartItems.map(item =>
-      item.id === id ? { ...item, quantity } : item
+    const item = cartItems.find(i => i.id === id);
+    if (!item) return false;
+    if (quantity > item.stock) {
+      // Stock exceeded, do not update
+      return false;
+    }
+    const updated = cartItems.map(i =>
+      i.id === id ? { ...i, quantity } : i
     );
     setCartItems(updated);
     syncApi('put', `/${id}`, { productId: id, quantity });
+    return true;
   };
 
   const removeFromCart = id => {

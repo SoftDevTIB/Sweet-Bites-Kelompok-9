@@ -108,7 +108,7 @@ const MenuPage = () => {
               id={product._id}
               name={product.productName}
               price={formatPrice(product.price)}
-              available={product.stock > 0}
+              stock={product.stock}
               imageUrl={product.photo ? `/uploads/${product.photo}` : ''}
             />
           ))}
