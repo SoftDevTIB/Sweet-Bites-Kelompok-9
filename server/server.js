@@ -1,32 +1,32 @@
-const express = require('express');
-const mongoose = require('mongoose');
-require('dotenv').config()
+const express = require("express");
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-const cors = require('cors');
-const authRouter = require('./routes/auth');
-const productRouter = require('./routes/productRoutes');
-const cartRouter = require('./routes/cartRoutes');
-const userRouter = require('./routes/userRoutes');
-const orderRouter = require('./routes/orderRoutes');
-const adminRouter = require('./routes/adminRoutes');
+const cors = require("cors");
+const authRouter = require("./routes/auth");
+const productRouter = require("./routes/productRoutes");
+const cartRouter = require("./routes/cartRoutes");
+const userRouter = require("./routes/userRoutes");
+const orderRouter = require("./routes/orderRoutes");
+const adminRouter = require("./routes/adminRoutes");
 
 const app = express();
-const PORT = 5000;
+const PORT = 5001;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const path = require('path');
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+const path = require("path");
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // prefix semua route auth dengan /api/auth
-app.use('/api/auth', authRouter);
-app.use('/api/products', productRouter);
-app.use('/api/cart', cartRouter);
-app.use('/api/users', userRouter);
-app.use('/api/orders', orderRouter);
-app.use('/api/admin', adminRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/products", productRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api/users", userRouter);
+app.use("/api/orders", orderRouter);
+app.use("/api/admin", adminRouter);
 
 // New endpoint to receive order data
 app.post("/api/orders", (req, res) => {
@@ -43,9 +43,10 @@ app.post("/api/orders", (req, res) => {
 });
 
 // Connect ke MongoDB
-mongoose.connect(process.env.ATLAS_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error(err));
+mongoose
+  .connect(process.env.ATLAS_URI)
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error(err));
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
