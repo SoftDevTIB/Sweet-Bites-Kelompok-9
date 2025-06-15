@@ -6,6 +6,8 @@ import ProductCard from '../components/ProductCard';
 import bannerImage from '../../assets/banner.png';
 import './MenuPage.css';
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
+
 const MenuPage = () => {
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState('');
@@ -109,7 +111,7 @@ const MenuPage = () => {
               name={product.productName}
               price={formatPrice(product.price)}
               stock={product.stock}
-              imageUrl={product.photo ? `${import.meta.env.VITE_BACKEND_URL}/uploads/${product.photo}` : ''}
+              imageUrl={product.photo ? `${backendUrl}/uploads/${product.photo}` : ''}
             />
           ))}
         </div>
