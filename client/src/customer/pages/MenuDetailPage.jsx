@@ -81,7 +81,7 @@ const MenuDetailPage = () => {
   const normalizedPrice = typeof product.price === 'string' ? parseFloat(product.price.replace(/\./g, '').replace(',', '.')) : product.price;
 
   const handleAddToCart = () => {
-    addToCart({
+    const success = addToCart({
       id: product._id,
       name: product.productName,
       price: normalizedPrice,
@@ -90,7 +90,11 @@ const MenuDetailPage = () => {
       description: product.description,
       stock: product.stock,
     });
-    setToastMessage('Berhasil ditambahkan ke keranjang!');
+    if (success) {
+      setToastMessage('Berhasil ditambahkan ke keranjang!');
+    } else {
+      setToastMessage('Stock tidak cukup');
+    }
     setToastShow(true);
   };
 
@@ -107,8 +111,11 @@ const MenuDetailPage = () => {
             <h2 className="menu-detail-heading">{product.productName}</h2>
             <p className="menu-detail-description">{product.description}</p>
             <p className={product.stock > 0 ? 'menu-detail-stock-available' : 'menu-detail-stock-unavailable'}>
-              {product.stock > 0 ? 'Tersedia' : 'Tidak tersedia'}
+              {product.stock > 0 ? `Tersedia - Stok: ${product.stock}` : 'Tidak tersedia'}
             </p>
+            {product.stick && (
+              <p className="menu-detail-stick"><strong>Stick:</strong> {product.stick}</p>
+            )}
             <h4 className="menu-detail-price">Rp {formatPrice(product.price)}</h4>
             <div className="d-flex flex-wrap gap-3 mt-3 detail-btn-group">
               <button

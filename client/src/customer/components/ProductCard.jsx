@@ -5,7 +5,7 @@ import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import Toast from './Toast';
 
-const ProductCard = ({ id, name, price, available, imageUrl }) => {
+const ProductCard = ({ id, name, price, stock, imageUrl }) => {
   const { addToCart } = useCart();
   const navigate = useNavigate();
   const [showToast, setShowToast] = useState(false);
@@ -14,7 +14,7 @@ const ProductCard = ({ id, name, price, available, imageUrl }) => {
 
   const handleAddToCart = (e) => {
     e.stopPropagation();
-    addToCart({ id, name, price: normalizedPrice, available, imageUrl });
+    addToCart({ id, name, price: normalizedPrice, stock, imageUrl });
     setShowToast(true);
   };
 
@@ -36,13 +36,13 @@ const ProductCard = ({ id, name, price, available, imageUrl }) => {
               <h6 className="card-title font-est">{name}</h6>
             </div>
             <p className="card-text">Rp {price}</p>
-            <p className={available ? 'available-text' : 'not-available-text'}>
-              {available ? 'Tersedia' : 'Tidak tersedia'}
+            <p className={stock > 0 ? 'available-text' : 'not-available-text'}>
+              {stock > 0 ? 'Tersedia' : 'Tidak tersedia'}
             </p>
           </div>
           <button
             className="btn add-to-cart-btn"
-            disabled={!available}
+            disabled={stock <= 0}
             onClick={handleAddToCart}
           >
             <FiShoppingCart /> Add To Cart
