@@ -109,7 +109,7 @@ const MenuPage = () => {
               name={product.productName}
               price={formatPrice(product.price)}
               stock={product.stock}
-              imageUrl={product.photo ? `/uploads/${product.photo}` : ''}
+              imageUrl={product.photo ? `${import.meta.env.VITE_BACKEND_URL}/uploads/${product.photo}` : ''}
             />
           ))}
         </div>
