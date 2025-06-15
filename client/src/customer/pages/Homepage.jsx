@@ -13,7 +13,7 @@ const HomePage = () => {
   const carouselImages = products.map(product => product.photo ? `/uploads/${product.photo}` : '/src/assets/Choco_oreo.jpg');
 
   useEffect(() => {
-    fetch('/api/products')
+    fetch(`${import.meta.env.VITE_API_URL}/api/products`)
       .then(res => res.json())
       .then(data => {
         const shuffled = data.sort(() => 0.5 - Math.random());
@@ -22,6 +22,7 @@ const HomePage = () => {
       })
       .catch(err => console.error('Failed to fetch products:', err));
   }, []);
+  
 
   useEffect(() => {
     const interval = setInterval(() => {
