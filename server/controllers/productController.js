@@ -3,14 +3,16 @@ const Product = require("../models/Product");
 const createProduct = async (req, res) => {
   try {
     const { productName, stock, price, description } = req.body;
-    const photo = req.file ? req.file.filename : null;
+    const photoUrl = req.file
+      ? `https://sweet-bites-server-production-d2b9.up.railway.app/uploads/${req.file.filename}`
+      : null;
 
     const product = new Product({
       productName,
       stock,
       price,
       description,
-      photo,
+      photo: photoUrl,
     });
     await product.save();
 
