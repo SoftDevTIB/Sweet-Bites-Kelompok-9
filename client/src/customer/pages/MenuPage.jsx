@@ -1,36 +1,116 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { FiSearch, FiFilter } from 'react-icons/fi';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import ProductCard from '../components/ProductCard';
-import gambar1 from '../../assets/Choco_oreo.jpg';
+import bannerImage from '../../assets/banner.png';
+import './MenuPage.css';
 
 const MenuPage = () => {
-  const staticProducts = [
-    { id: '1', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: '2', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: '3', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: '4', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: '5', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: '6', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-  ];
+  const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState('');
+  const [sortBy, setSortBy] = useState('');
+  const [order, setOrder] = useState('asc');
+  const [available, setAvailable] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
+
+  const fetchProducts = () => {
+    let url = '/api/products?';
+    if (search) url += `search=${encodeURIComponent(search)}&`;
+    if (sortBy) url += `sortBy=${sortBy}&order=${order}&`;
+    if (available) url += `available=${available}&`;
+
+    fetch(url)
+      .then(res => res.json())
+      .then(data => setProducts(data))
+      .catch(err => console.error('Failed to fetch products:', err));
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, [search, sortBy, order, available]);
+
+  const formatPrice = (price) => {
+    if (typeof price === 'number') {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+    if (typeof price === 'string') {
+      const numericPrice = price.replace(/\D/g, '');
+      return numericPrice.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+    return price;
+  };
 
   return (
     <>
       <Header />
-      <main className="container-fluid p-4" style={{ backgroundColor: '#FFFFFF' }}>
-        <h2 className="text-center mb-4" style={{ color: '#D67832' }}>Menu Kami</h2>
-        <div className="d-flex flex-wrap justify-content-center">
-          {staticProducts.map(product => (
-            <Link key={product.id} to={`/menu/${product.id}`} style={{ textDecoration: 'none' }}>
-              <ProductCard
-                id={product.id}
-                name={product.name}
-                price={product.price}
-                available={product.available}
-                imageUrl={product.imageUrl}
+      <main className="menu-main">
+        <div className="banner-container">
+          <img src={bannerImage} alt="Banner" className="menu-banner" />
+        </div>
+        <h2 className="text-center mb-4 text-oren">Temukan Pilihanmu</h2>
+
+        <div className="search-filter-container">
+          <div className="search-filter-top">
+            <div className="input-box">
+              <input
+                type="text"
+                placeholder="Cari nama produk..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="search-input"
               />
-            </Link>
+              <FiSearch className="search-icon" size={20} />
+            </div>
+            <FiFilter
+              className="filter-icon"
+              size={20}
+              onClick={() => setShowFilters(!showFilters)}
+            />
+          </div>
+
+          {showFilters && (
+            <div className="filter-dropdown">
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="filter-select"
+              >
+                <option value="name">Nama Produk</option>
+                <option value="price">Harga</option>
+              </select>
+
+              <select
+                value={order}
+                onChange={(e) => setOrder(e.target.value)}
+                className="filter-select"
+              >
+                <option value="asc">Asc</option>
+                <option value="desc">Desc</option>
+              </select>
+
+              <select
+                value={available}
+                onChange={(e) => setAvailable(e.target.value)}
+                className="filter-select"
+              >
+                <option value="true">Tersedia</option>
+                <option value="false">Tidak tersedia</option>
+              </select>
+            </div>
+          )}
+        </div>
+
+        <div className="d-flex flex-wrap justify-content-center container cards-container mb-5">
+          {products.map(product => (
+            <ProductCard
+              key={product._id}
+              id={product._id}
+              name={product.productName}
+              price={formatPrice(product.price)}
+              available={product.stock > 0}
+              imageUrl={product.photo ? `/uploads/${product.photo}` : ''}
+            />
           ))}
         </div>
       </main>

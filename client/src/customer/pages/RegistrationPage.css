@@ -18,15 +18,27 @@
 .custom-input {
   background-color: white;
   border: 1px solid #D67832;
+  max-height: 30px;
 }
 
 .btn-teal {
-  background-color: #3B7883;
+  background-color: #3B7883 !important; 
   color: white;
 }
 
 .btn-teal:hover {
-  background-color: #2e5859;
+  background-color: #2e5859 !important;
   color:white;
 }
 
+.error-text {
+  font-size: 0.9rem;
+  color: #3B7883;
+  margin-top: 4px;
+}
+
+@media (max-width: 570px) {
+  .registration-page {
+    margin: 20px;
+  }
+}

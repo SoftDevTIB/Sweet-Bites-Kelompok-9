@@ -1,0 +1,323 @@
+.container {
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.homepage-main {
+  background-color: #FFF2F2;
+  font-family: 'Poppins', sans-serif;
+  padding: 0;
+}
+
+.hero-section {
+  background-color: #FFF2F2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 70px;
+  padding: 3rem 10rem;
+  gap: 10px;
+}
+.hero-text {
+  flex: 1;
+  text-align: left;
+}
+
+.hero-title {
+  color: #D67832;
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.hero-text span {
+  font-size: 1rem;
+  color: #000000;
+  max-width: 400px;
+}
+
+.hero-image-container {
+  flex: 1;
+  display: block;
+  background: none !important;
+  padding: 0 !important;
+  justify-content: flex-end;
+}
+
+.hero-image {
+  max-width: 400px;
+  border-radius: 10px;
+}
+
+.hero-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #D67832;
+  line-height: 1.3;
+  margin-bottom: 1rem;
+}
+
+.highlight-section {
+  background-color: #FEC0C6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1.5rem 1.5rem 1.5rem;
+  width: 100%;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50%;
+  margin-right: -50%;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.btn-rekomendasi {
+  background-color: #D67832;
+  color: white;
+  border-radius: 50px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-rekomendasi:hover {
+  background-color: #e96e0f;
+  color: white;
+  transform: scale(1.1);
+}
+
+.btn-rekomendasi:active,
+.btn-rekomendasi:focus,
+.btn-rekomendasi:focus-visible {
+  background-color: #e96e0f !important;
+  color: white !important;
+  transform: none;
+  outline: none;
+  transform: scale(1.1);
+}
+
+.btn-menu {
+  background-color: transparent;
+  border: 1px solid black;
+  color: #2D2D2D;
+  border-radius: 50px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-menu:hover {
+  transform: scale(1.1);
+  border: 1px solid black;
+}
+
+.highlight-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.highlight-image {
+  width: 250px;
+  margin-right: 50px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.highlight-text h4 {
+  color: #D67832;
+  font-weight: bold;
+  font-size: 35px;
+}
+
+.recommendation-title {
+  color: #D67832;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.highlight-text p {
+  color: #7B4F4F;
+  margin-bottom: 1rem;
+}
+
+.highlight-text .btn {
+  margin-right: 0.5rem;
+}
+
+/* BUTTON STYLES */
+.btn-filled {
+  background-color: #D67832;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-filled:hover {
+  background-color: #b55d28;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-outlined {
+  background-color: transparent;
+  color: #2D2D2D;
+  padding: 0.6rem 1.2rem;
+  border: 1.5px solid #2D2D2D;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.product-cards-container {
+  position: relative;
+  z-index: 1;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+.highlight-wrapper {
+  margin-top: 1rem !important;
+  padding-top: 1rem !important;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 50px 70px;
+  }
+
+  .hero-title {
+    font-size: 30px;
+  }
+
+  .hero-text span {
+    font-size: 15px;
+  }
+
+  .hero-image {
+    max-width: 350px;
+  }
+
+  .btn-rekomendasi {
+    font-size: 13px;
+  }
+
+  .btn-menu {
+    font-size: 13px;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .product-cards-container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+@media (max-width: 675px) {
+  .highlight-section {
+    flex-direction: column;
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .highlight-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .highlight-image {
+    margin: 0 0 1rem 0;
+    width: 70%;
+    max-width: 350px;
+  }
+
+  .highlight-text h4 {
+    font-size: 1.5rem;
+  }
+
+  .highlight-text p {
+    font-size: 1rem;
+  }
+
+  .highlight-text .btn {
+    margin-top: 0.5rem;
+  }
+}
+
+
+@media (max-width: 650px) {
+  .hero-section {
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    text-align: center;
+    gap: 0;
+  }
+
+  .hero-text {
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 30px;
+  }
+
+  .hero-text span {
+    font-size: 15px;
+  }
+
+  .hero-image {
+    max-width: 350px;
+    position: relative;
+    top: -50px;
+  }
+}
+
+@media (max-width: 460px) {
+  .hero-title {
+    font-size: 25px;
+  }
+
+  .hero-text span {
+    font-size: 12px;
+  }
+
+  .hero-image {
+    max-width: 250px;
+    top: -30px;
+  }
+
+  .highlight-text p {
+    font-size: 15px;
+  }
+
+  .btn-rekomendasi {
+    font-size: 11px;
+  }
+
+  .btn-menu {
+    font-size: 11px;
+  }
+
+  .recommendation-container {
+    padding: 0;
+  }
+}

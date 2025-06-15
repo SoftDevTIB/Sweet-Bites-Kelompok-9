@@ -1,0 +1,80 @@
+.tentang-wrapper {
+  padding: 8rem 15%;
+  background-color: #FFF2F2;
+}
+
+.tentang-title {
+  font-size: 2.5rem;
+  color: #D67832;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.tentang-content {
+  padding: 0 1rem;
+  box-sizing: border-box;
+  overflow: hidden; 
+}
+
+.tentang-image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  float: left;
+  margin: 0 1.5rem 1rem 0;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.tentang-text {
+  color: #333;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  text-align: justify;
+}
+
+@media (max-width: 850px) {
+  .tentang-wrapper {
+    padding: 8rem 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .tentang-image {
+    float: none;
+    display: block;
+    margin: 0 auto 2rem auto;
+  }
+
+  .tentang-title {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tentang-wrapper {
+    padding: 4rem 1.5rem;
+    padding-top: 6rem;
+  }
+
+  .tentang-title {
+    font-size: 2rem;
+  }
+
+  .tentang-text {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .tentang-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  .tentang-text {
+    font-size: 0.8rem;
+  }
+}

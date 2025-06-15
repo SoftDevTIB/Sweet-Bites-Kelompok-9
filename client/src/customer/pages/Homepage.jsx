@@ -1,60 +1,130 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import ProductCard from '../components/ProductCard';
-import gambar1 from '../../assets/Choco_oreo.jpg';
+import tiramisuImage from '../../assets/tiramisu.png';
+import './Homepage.css';
 
 const HomePage = () => {
-  const navigate = useNavigate();
+  
+  const [products, setProducts] = useState([]);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const staticProducts = [
-    { id: '1', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: '2', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: '3', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: '4', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: '5', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-    { id: '6', name: 'Choco Oreo', price: '10.000', available: true, imageUrl: gambar1 },
-  ];
+  const carouselImages = products.map(product => product.photo ? `/uploads/${product.photo}` : '/src/assets/Choco_oreo.jpg');
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => {
+        const shuffled = data.sort(() => 0.5 - Math.random());
+        const selected = shuffled.slice(0, 8);
+        setProducts(selected);
+      })
+      .catch(err => console.error('Failed to fetch products:', err));
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % carouselImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [carouselImages.length]);
+
+  const formatPrice = (price) => {
+    if (typeof price === 'number') {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+    if (typeof price === 'string') {
+      const numericPrice = price.replace(/\D/g, '');
+      return numericPrice.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+    return price;
+  };
 
   return (
     <>
       <Header />
-      <main className="container-fluid p-0" style={{ backgroundColor: '#FFF2F2' }}>
-        {/* Hero Section */}
-        <section className="text-center p-5" style={{ backgroundColor: '#FFF2F2' }}>
-          <h2 className="mb-3" style={{ color: '#D67832' }}>Manisnya Seporsi Kebahagiaan</h2>
-          <p>Nikmati kue dan cookies lezat dengan harga terjangkau, pas untuk ngemil atau teman santai</p>
-          <img src={gambar1} alt="Sweet Bites" style={{ maxWidth: '300px' }} />
-        </section>
+      <main className="homepage-main">
+        <div className="container">
+          {/* Hero Section */}
+          <section className="hero-section">
+            <div className="hero-text">
+              <h2 className="hero-title">Manisnya Seporsi Kebahagiaan</h2>
+              <span>Nikmati kue dan cookies lezat dengan harga terjangkau, pas untuk ngemil atau teman santai</span>
+            </div>
+            <div className="hero-image-container">
+              <img src={tiramisuImage} alt="Tiramisu" className="hero-image" />
+            </div>
+          </section>
+        </div>
 
         {/* Highlight Section */}
-        <section className="d-flex justify-content-center align-items-center p-4" style={{ backgroundColor: '#FEC0C6' }}>
-          <img src={gambar1} alt="Highlight" style={{ width: '150px', marginRight: '20px' }} />
-          <div>
-            <h4 style={{ color: '#D67832' }}>Porsi Pas, Rasa Kelas!</h4>
-            <p>Cocok dinikmati sendiri, atau berbagi dengan orang tersayang</p>
-            <button className="btn btn-warning me-2">Lihat Rekomendasi</button>
-            <button className="btn btn-warning me-2" onClick={() => navigate('/menu')}>Cek Menu</button>
+        <section className="highlight-section highlight-carousel">
+          <div className="container highlight-container highlight-wrapper">
+            <div className="highlight-image-container">
+              <img
+                src={carouselImages[currentImageIndex]}
+                alt="Product"
+                className="highlight-image"
+                onClick={() => setCurrentImageIndex((currentImageIndex + 1) % carouselImages.length)}
+                style={{ cursor: 'pointer' }}
+              />
+              <div className="carousel-indicators">
+                {carouselImages.map((_, index) => (
+                  <span
+                    key={index}
+                    className={`carousel-indicator ${index === currentImageIndex ? 'active' : ''}`}
+                    onClick={() => setCurrentImageIndex((index + 1) % carouselImages.length)}
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="highlight-text">
+              <h4>Porsi Pas, Rasa Kelas!</h4>
+              <p>Cocok dinikmati sendiri, atau berbagi dengan orang tersayang</p>
+              <button
+                className="btn me-3 btn-rekomendasi"
+                onClick={() => {
+                  const element = document.getElementById('recommendation-section');
+                  if (element) {
+                    const yOffset = -80;
+                    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                    window.scrollTo({ top: y, behavior: 'smooth' });
+                  }
+                }}
+              >
+                Lihat Rekomendasi
+              </button>
+              <button
+                className="btn me-2 btn-menu px-5"
+                onClick={() => {
+                  window.location.href = '/menu#top';
+                }}
+              >
+                Cek Menu
+              </button>
+            </div>
           </div>
         </section>
 
-        {/* Recommendation Section */}
-        <section className="p-4 text-center">
-          <h3 className="mb-4 fw-bold" style={{ color: '#D67832' }}>Rekomendasi</h3>
-          <div className="d-flex flex-wrap justify-content-center">
-            {staticProducts.map(product => (
-              <Link key={product.id} to={`/menu/${product.id}`} style={{ textDecoration: 'none' }}>
+        <div className="container recommendation-container">
+          {/* Recommendation Section */}
+          <section className="py-4 text-center">
+            <h3 id="recommendation-section" className="recommendation-title">Rekomendasi</h3>
+            <div className="d-flex flex-wrap justify-content-center product-cards-container">
+              {products.map(product => (
                 <ProductCard
-                  name={product.name}
-                  price={product.price}
-                  available={product.available}
-                  imageUrl={product.imageUrl}
+                  key={product._id}
+                  id={product._id}
+                  name={product.productName}
+                  price={formatPrice(product.price)}
+                  available={product.stock > 0}
+                  imageUrl={product.photo ? `/uploads/${product.photo}` : ''}
                 />
-              </Link>
-            ))}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
+        </div>
       </main>
       <Footer />
     </>

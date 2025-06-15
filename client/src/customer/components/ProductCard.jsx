@@ -1,29 +1,56 @@
-import React from 'react';
-import { FaShoppingCart } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FiShoppingCart } from 'react-icons/fi';
 import './ProductCard.css';
 import { useCart } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
+import Toast from './Toast';
 
 const ProductCard = ({ id, name, price, available, imageUrl }) => {
   const { addToCart } = useCart();
+  const navigate = useNavigate();
+  const [showToast, setShowToast] = useState(false);
 
-  const handleAddToCart = () => {
-    addToCart({ id, name, price, available, imageUrl });
+  const normalizedPrice = typeof price === 'string' ? parseFloat(price.replace(/\./g, '').replace(',', '.')) : price;
+
+  const handleAddToCart = (e) => {
+    e.stopPropagation();
+    addToCart({ id, name, price: normalizedPrice, available, imageUrl });
+    setShowToast(true);
+  };
+
+  const handleToastClose = () => {
+    setShowToast(false);
+  };
+
+  const handleCardClick = () => {
+    navigate(`/menu/${id}`);
   };
 
   return (
-    <div className="card m-2" style={{ width: '14rem' }}>
-      <img src={imageUrl} className="card-img-top" alt={name} />
-      <div className="card-body p-2">
-        <h6 className="card-title">{name}</h6>
-        <p className="card-text">Rp {price}</p>
-        <p className={available ? 'available-text' : 'text-muted'}>
-          {available ? 'Tersedia' : 'Tidak tersedia'}
-        </p>
-        <button className="btn btn-sm btn-success" disabled={!available} onClick={handleAddToCart}>
-          <FaShoppingCart /> Add To Cart
-        </button>
+    <>
+      <div className="card m-2" style={{ cursor: 'pointer' }} onClick={handleCardClick}>
+        <img src={imageUrl} className="card-img-top" alt={name} />
+        <div className="card-body p-0">
+          <div className='p-2'>
+            <div className="title-wrapper">
+              <h6 className="card-title font-est">{name}</h6>
+            </div>
+            <p className="card-text">Rp {price}</p>
+            <p className={available ? 'available-text' : 'not-available-text'}>
+              {available ? 'Tersedia' : 'Tidak tersedia'}
+            </p>
+          </div>
+          <button
+            className="btn add-to-cart-btn"
+            disabled={!available}
+            onClick={handleAddToCart}
+          >
+            <FiShoppingCart /> Add To Cart
+          </button>
+        </div>
       </div>
-    </div>
+      <Toast message="Berhasil ditambahkan ke keranjang!" show={showToast} onClose={handleToastClose} />
+    </>
   );
 };
 

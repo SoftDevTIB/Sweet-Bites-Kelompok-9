@@ -1,0 +1,222 @@
+.pp-container {
+  margin-top: 30px;
+  padding: 30px 1rem 0 1rem;
+  overflow-x: hidden;
+  min-height: 70vh;
+}
+.mini-nav-btn-active, .mini-nav-btn-active:hover {
+  font-size: 15px;
+  color: #FFFFFF;
+  border: none;
+  background-color: #D67832;
+  pointer-events: none;
+}
+.mini-nav-btn {
+  font-size: 15px;
+  border: none;
+  background-color: #FDF0D4;
+}
+.mini-nav-btn:hover {
+  background-color: #FADB9A;
+}
+.history-items {
+  font-size: 12px;
+}
+.history-items .item {
+  background-color: #FFF2F2;
+}
+
+.font-est {
+  font-family: 'Esteban';
+}
+
+.order-card {
+  background-color: #FDF0D4;
+  color: #442918;
+}
+
+.ship-section {
+  font-size: 13px;
+}
+
+.see-detail-btn {
+  font-size: 13px;
+  text-decoration: none;
+  color: #D67832 ;
+}
+
+.see-detail-btn:hover {
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #D67832;
+  transform: translateX(10px);
+  transition: 0.3s ease;
+}
+
+.text-lg {
+  font-size: 20px;
+}
+
+.text-md {
+  font-size: 14px;
+}
+
+.text-oren {
+  color: #D67832;
+}
+
+.text-teal {
+  color: #3B7883;
+}
+
+.order-btn-group {
+  background-color: #FADB9A;
+  border: 1px solid #FADB9A;
+}
+
+.order-btn-group .btn {
+  font-size: 12px;
+  padding: 4px 10px;
+}
+
+.order-btn-group .btn:hover {
+  background-color: #FDF0D4;
+}
+
+.order-btn-group .btn:active {
+  border: 1px solid #D67832 !important;
+}
+
+.order-btn-active, .order-btn-active:hover {
+  background-color: #FDF0D4;
+  pointer-events: none;
+}
+
+.status-badge {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.order-box {
+  background-color: #FDF0D4;
+  border: 1px solid #D67832;
+}
+
+.detail-border {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #D67832;
+}
+
+.order-detail-item {
+  border-bottom: 2px solid #D67832;
+}
+
+.price-box {
+  border-radius: 20px;
+  border: 1px solid #3B7883;
+}
+
+.total-box {
+  border-radius: 10px;
+  background-color: #FFC8C8;
+}
+
+.back-button {
+  color: inherit;
+  font-size: 17px;
+}
+
+.back-button:hover {
+  color: inherit;
+  transform: translateX(-7px);
+  transition: 0.3s ease;
+}
+
+.title-box {
+  margin: 0 auto;
+}
+
+.profil-box {
+  background-color: #FDF0D4; 
+  border: 1px solid #D67832;
+  border-radius: 1rem;
+}
+
+.data-box {
+  background-color: #FFC8C8; 
+  border: 1px solid #D67832;
+  border-radius: 1rem;
+}
+
+.btn-outline-dark {
+  padding: 10px 20px;
+}
+
+.btn-outline-dark:hover {
+  background-color: grey;
+  border: 1px solid grey;
+}
+
+.user-icon {
+  background-color: #FFC8C8;
+  color: #442918;
+}
+
+.btn-responsive-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .order-box, .title-box {
+    margin: 0 50px;
+  }
+}
+
+@media (max-width: 516px) {
+  .btn-responsive-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-responsive {
+    width: 100%;
+    padding: 10px 15px !important;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 500px) {
+  .text-lg {
+    font-size: 17px;
+  }
+
+  .text-md {
+    font-size: 12px;
+  }
+
+  .status-badge {
+    width: 7px;
+    height: 7px;
+  }
+
+  .order-btn-group .btn {
+    font-size: 10px;
+    padding: 4px 7px;
+  }
+
+  .order-box, .title-box {
+    margin: 0 10px;
+  }
+
+  .profil-box {
+    padding: 25px !important;
+  }
+}
