@@ -126,7 +126,17 @@ body {
   font-size: 100px;
   color: #D67832;
 }
-.dash-box {
+.dash-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+.dash-card {
+  flex: 1 1 calc(33.333% - 1rem); 
+  min-width: 250px;
+  max-width: 350px;
+  box-sizing: border-box;
   background-color: #FDF0D4;
   color: #D67832;
   border: 1px solid #D67832;
@@ -347,6 +357,11 @@ body {
 .card-admin {
   width: auto !important;
 }
+.user-detail-box {
+  background-color: #FDF0D4; 
+  border: 1px solid #D67832;
+  border-radius: 1rem;
+}
 
 @media (max-width: 1050px) {
   .filter-search {
@@ -369,6 +384,20 @@ body {
   .admin-order-table th, .admin-order-table td {
     font-size: 13px !important;
     padding: 10px !important;
+  }
+
+  .dashboard-flex {
+    flex-direction: column !important;
+  }
+
+  .dashboard-flex > .col-md-8,
+  .dashboard-flex > .col-md-4 {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .bestseller-name {
+    font-size: 15px;
   }
 }
 
@@ -478,6 +507,10 @@ body {
 
   .admin-order-detail-scroll table {
     min-width: 250px; 
+  }
+
+  .user-detail-box {
+    padding: 25px !important;
   }
 }
 

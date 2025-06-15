@@ -220,10 +220,12 @@ const AdminPage = () => {
           </div>
 
           {loading ? (
-            <p>Loading...</p>
+            <div className="d-flex justify-content-center align-items-center">
+                <p className="fs-4 text-oren">Loading...</p>
+            </div>
           ) : (
             <>
-              <div className="row g-4 mb-5">
+              <div className="dash-flex mb-5">
                 {[{
                   label: 'Total Produk', value: dashboardData.totalProducts, icon: <FiShoppingBag className='dash-icon' />
                 }, {
@@ -231,16 +233,14 @@ const AdminPage = () => {
                 }, {
                   label: 'Total User', value: dashboardData.totalUsers, icon: <FiUser className='dash-icon' />
                 }].map((item, i) => (
-                  <div className="col-md-4" key={i}>
-                    <div className="dash-box p-4 rounded-4 text-center shadow-sm">
-                      <h3 className="fw-bold">{item.value}</h3>
-                      <span className='text-muted'>{item.label} {item.icon}</span>
-                    </div>
+                  <div className="dash-card p-4 rounded-4 text-center shadow-sm" key={i}>
+                    <h3 className="fw-bold">{item.value}</h3>
+                    <span className='text-muted'>{item.label} {item.icon}</span>
                   </div>
                 ))}
               </div>
 
-              <div className="row g-4">
+              <div className="row g-4 dashboard-flex d-flex flex-md-row flex-column">
                 <div className="col-md-8">
                   <div className="dash-chart p-4 rounded-4 shadow-sm h-100">
                     <div className="d-flex justify-content-between align-items-center mb-3">
@@ -295,7 +295,7 @@ const AdminPage = () => {
                                 }}
                               />
 
-                              <div style={{ lineHeight: '1.2' }}>{product.productName}</div>
+                              <div className='bestseller-name' style={{ lineHeight: '1.2' }}>{product.productName}</div>
                             </li>
                           ))}
                       </ul>
