@@ -5,7 +5,7 @@ import { BsHouse, BsGrid, BsHandbag } from 'react-icons/bs';
 import { FiUser } from 'react-icons/fi';
 
 import logo from '../../assets/logo.png';
-import './Admin.css';
+import './admin.css';
 
 const AdminLayout = ({ children }) => {
   return (
