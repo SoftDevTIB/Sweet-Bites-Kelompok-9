@@ -7,6 +7,8 @@ import Toast from '../components/Toast';
 import './Profil_PesananPage.css';
 import { BsArrowRight } from "react-icons/bs";
 
+const backendUrl = import.meta.env.VITE_API_URL;
+
 const statusColors = {
   Menunggu: '#FF55E5',
   Diproses: '#FF8C00',
@@ -60,7 +62,7 @@ const PesananPage = () => {
 
     const fetchOrders = async () => {
       try {
-        const res = await axios.get('/api/orders/user', {
+        const res = await axios.get(`${backendUrl}/api/orders/user`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const ordersData = res.data;
@@ -72,7 +74,7 @@ const PesananPage = () => {
         // Fetch product details for all unique products
         const productDetailsArr = await Promise.all(
           uniqueProductIds.map(id =>
-            axios.get(`/api/products/${id}`, {
+            axios.get(`${backendUrl}/api/products/${id}`, {
               headers: { Authorization: `Bearer ${token}` },
             }).then(res => res.data)
           )

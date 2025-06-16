@@ -6,6 +6,8 @@ import Footer from '../components/footer';
 import Toast from '../components/Toast';
 import './Profil_PesananPage.css';
 
+const backendUrl = import.meta.env.VITE_API_URL;
+
 const ProfilePage = () => {
     const navigate = useNavigate();
 
@@ -23,7 +25,7 @@ const ProfilePage = () => {
         }
 
         // Fetch user profile from backend
-        fetch('/api/users/me', {
+        fetch(`${backendUrl}/api/users/me`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

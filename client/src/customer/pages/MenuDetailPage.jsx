@@ -7,6 +7,8 @@ import { useCart } from '../context/CartContext';
 import './MenuDetailPage.css';
 import Toast from '../components/Toast';
 
+const backendUrl = import.meta.env.VITE_API_URL;
+
 const MenuDetailPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ const MenuDetailPage = () => {
   }, []);
 
   useEffect(() => {
-    fetch(`/api/products/${id}`)
+    fetch(`${backendUrl}/api/products/${id}`)
       .then(res => {
         if (!res.ok) {
           throw new Error('Product not found');
@@ -86,7 +88,7 @@ const MenuDetailPage = () => {
       name: product.productName,
       price: normalizedPrice,
       photo: product.photo,
-      imageUrl: product.photo ? `/uploads/${product.photo}` : '',
+      imageUrl: product.photo ? `${backendUrl}/uploads/${product.photo}` : '',
       description: product.description,
       stock: product.stock,
     });
@@ -105,7 +107,7 @@ const MenuDetailPage = () => {
       <main className="container p-5 menu-detail-padding">
         <div className="row">
           <div className="col-md-4">
-            <img src={product.photo ? `/uploads/${product.photo}` : ''} alt={product.productName} className="img-fluid rounded" />
+            <img src={product.photo ? `${backendUrl}/uploads/${product.photo}` : ''} alt={product.productName} className="img-fluid rounded" />
           </div>
           <div className="col-md-8">
             <h2 className="menu-detail-heading">{product.productName}</h2>

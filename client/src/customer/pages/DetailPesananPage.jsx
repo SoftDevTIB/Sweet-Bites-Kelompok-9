@@ -6,6 +6,8 @@ import Footer from '../components/footer';
 import Toast from '../components/Toast';
 import { BsArrowLeft } from "react-icons/bs";
 
+const backendUrl = import.meta.env.VITE_API_URL;
+
 const DetailPesananPage = () => {
   const { orderId } = useParams();
   const navigate = useNavigate();
@@ -30,13 +32,13 @@ const DetailPesananPage = () => {
         setLoading(true);
 
         // Ambil userId dari endpoint /api/users/id
-        const meRes = await axios.get('/api/users/id', {
+        const meRes = await axios.get(`${backendUrl}/api/users/id`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const userId = meRes.data._id;
 
         // Ambil detail order
-        const res = await axios.get(`/api/orders/${orderId}`, {
+        const res = await axios.get(`${backendUrl}/api/orders/${orderId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         const orderData = res.data;
@@ -55,7 +57,7 @@ const DetailPesananPage = () => {
 
         const productDetailsArr = await Promise.all(
           uniqueProductIds.map(id =>
-            axios.get(`/api/products/${id}`, {
+            axios.get(`${backendUrl}/api/products/${id}`, {
               headers: { Authorization: `Bearer ${token}` }
             }).then(res => res.data)
           )
@@ -182,7 +184,7 @@ const DetailPesananPage = () => {
                 <div className="flex-grow-1">
                   {order.items.map((item, idx) => (
                     <div key={idx} className={`d-flex align-items-start py-3 order-detail-item ${idx === order.items.length - 1 ? 'border-0' : ''}`}>
-                      <img src={item.photo ? `/uploads/${item.photo}` : ''} alt={item.productName} className="rounded me-3" style={{ width: '64px', height: '64px', objectFit: 'cover' }} />
+                      <img src={item.photo ? `${backendUrl}/uploads/${item.photo}` : ''} alt={item.productName} className="rounded me-3" style={{ width: '64px', height: '64px', objectFit: 'cover' }} />
                       <div className="flex-grow-1 text-start">
                         <div className="fw-medium text-lg text-teal font-est">{item.productName}</div>
                         <div className='text-md'>{formatRupiah(item.price)}</div>
