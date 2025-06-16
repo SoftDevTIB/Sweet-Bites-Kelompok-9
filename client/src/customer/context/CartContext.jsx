@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
+const backendUrl = import.meta.env.VITE_API_URL;
+
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
@@ -9,7 +11,7 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      fetch('http://localhost:5000/api/cart', {
+      fetch(`${backendUrl}/api/cart`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
@@ -31,7 +33,7 @@ export const CartProvider = ({ children }) => {
           // Fetch latest stock for each product
           const updatedItems = await Promise.all(normalized.map(async item => {
             try {
-              const res = await fetch(`http://localhost:5000/api/products/${item.id}`);
+              const res = await fetch(`${backendUrl}/api/products/${item.id}`);
               if (!res.ok) throw new Error('Failed to fetch product');
               const product = await res.json();
               return { ...item, stock: product.stock };
@@ -59,7 +61,7 @@ export const CartProvider = ({ children }) => {
   const syncApi = async (method, url, body) => {
     const token = localStorage.getItem('token');
     if (!token) return;
-    await fetch(`http://localhost:5000/api/cart${url}`, {
+    await fetch(`${backendUrl}/api/cart${url}`, {
       method,
       headers: {
         'Content-Type': 'application/json',
@@ -103,7 +105,7 @@ export const CartProvider = ({ children }) => {
     const token = localStorage.getItem('token');
     if (!token) return;
     try {
-      await fetch('http://localhost:5000/api/cart/overwrite', {
+      await fetch(`${backendUrl}/api/cart/overwrite`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -151,7 +153,7 @@ export const CartProvider = ({ children }) => {
 
     const token = localStorage.getItem('token');
     if (token) {
-      fetch('http://localhost:5000/api/cart/clear', {
+      fetch(`${backendUrl}/api/cart/clear`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
