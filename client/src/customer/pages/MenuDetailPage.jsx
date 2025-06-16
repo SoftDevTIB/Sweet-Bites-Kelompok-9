@@ -36,6 +36,7 @@ const MenuDetailPage = () => {
   }, []);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetch(`/api/products/${id}`)
       .then(res => {
         if (!res.ok) {
