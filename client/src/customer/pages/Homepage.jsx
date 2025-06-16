@@ -10,7 +10,10 @@ const HomePage = () => {
   const [products, setProducts] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const carouselImages = products.map(product => product.photo ? `/uploads/${product.photo}` : '/src/assets/Choco_oreo.jpg');
+  const carouselImages = products.map(product => product.photo
+  ? `${import.meta.env.VITE_API_URL}/uploads/${product.photo}`
+  : '/src/assets/Choco_oreo.jpg');
+
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/products`)
