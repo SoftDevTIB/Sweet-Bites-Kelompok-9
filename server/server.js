@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5001;
 
 app.use(
   cors({
-    origin: "https://sweetbites-three.vercel.app",
+    origin: "https://sweet-bites-three.vercel.app",
     credentials: true,
   })
 );
