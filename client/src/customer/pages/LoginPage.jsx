@@ -6,6 +6,8 @@ import Toast from '../components/Toast';
 import SimpleHeader from '../components/header_nonav';
 import './LoginPage.css';
 
+const backendUrl = import.meta.env.VITE_API_URL;
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,7 +48,7 @@ const LoginPage = () => {
     }));
 
     try {
-      const res = await fetch('http://localhost:5000/api/cart/overwrite', {
+      const res = await fetch(`${backendUrl}/api/cart/overwrite`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -64,7 +66,7 @@ const LoginPage = () => {
       localStorage.removeItem('cart');
 
       // fetch ulang cart dari server untuk update context
-      const cartRes = await fetch('http://localhost:5000/api/cart', {
+      const cartRes = await fetch(`${backendUrl}/api/cart`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -94,7 +96,7 @@ const LoginPage = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/auth/login', {
+      const res = await fetch(`${backendUrl}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
