@@ -81,6 +81,11 @@ const MenuDetailPage = () => {
   const normalizedPrice = typeof product.price === 'string' ? parseFloat(product.price.replace(/\./g, '').replace(',', '.')) : product.price;
 
   const handleAddToCart = () => {
+    if (product.stock <= 0) {
+      setToastMessage('Stok tidak tersedia');
+      setToastShow(true);
+      return false;
+    }
     const success = addToCart({
       id: product._id,
       name: product.productName,
@@ -93,9 +98,10 @@ const MenuDetailPage = () => {
     if (success) {
       setToastMessage('Berhasil ditambahkan ke keranjang!');
     } else {
-      setToastMessage('Stock tidak cukup');
+      setToastMessage('Stok tidak tersedia');
     }
     setToastShow(true);
+    return success;
   };
 
   return (
@@ -123,13 +129,15 @@ const MenuDetailPage = () => {
                 disabled={product.stock <= 0}
                 onClick={handleAddToCart}
               >
-                <FiShoppingCart /> Add To Cart
+              <FiShoppingCart /> Add To Cart
               </button>
               <button
                 className="btn btn-outline-secondary"
                 onClick={() => {
-                  handleAddToCart();
-                  navigate('/checkout');
+                  const success = handleAddToCart();
+                  if (success) {
+                    navigate('/checkout');
+                  }
                 }}
               >
                 Beli Sekarang
