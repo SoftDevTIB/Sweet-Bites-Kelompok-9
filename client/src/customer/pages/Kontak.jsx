@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import './Kontak.css';
-import { BsWhatsapp,BsInstagram } from "react-icons/bs";
-
+import { BsWhatsapp, BsInstagram } from "react-icons/bs";
+import axios from 'axios';
 
 const Kontak = () => {
   const [form, setForm] = useState({
@@ -18,11 +18,32 @@ const Kontak = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form dikirim:', form);
-    alert('Pesan berhasil dikirim!');
-    setForm({ name: '', email: '', phone: '', message: '' });
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert('Silakan login terlebih dahulu untuk mengirim pesan');
+        return;
+      }
+
+      const response = await axios.post('http://localhost:5000/api/contact', form, {
+        headers: {
+          'Authorization': `Bearer ${token}`  // ✅ perbaikan di sini
+        }
+      });
+
+      console.log('Form dikirim:', response.data);
+      alert('Pesan berhasil dikirim!');
+      setForm({ name: '', email: '', phone: '', message: '' });
+    } catch (error) {
+      console.error('Error:', error);
+      if (error.response?.status === 401) {
+        alert('Silakan login terlebih dahulu untuk mengirim pesan');
+      } else {
+        alert('Gagal mengirim pesan. Silakan coba lagi.');
+      }
+    }
   };
 
   return (
@@ -95,6 +116,6 @@ const Kontak = () => {
       <Footer />
     </>
   );
-}; 
+};
 
 export default Kontak;
