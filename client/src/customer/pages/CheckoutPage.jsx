@@ -4,6 +4,8 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import './CheckoutPage.css';
 
+const backendUrl = import.meta.env.VITE_API_URL;
+
 const CheckoutPage = () => {
   const { cartItems } = useCart();
   const { clearCart } = useCart();
@@ -28,7 +30,7 @@ const CheckoutPage = () => {
 
    useEffect(() => {
     if (token) {
-      fetch('http://localhost:5000/api/users/me', {
+      fetch(`${backendUrl}/api/users/me`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -110,7 +112,7 @@ const handleSubmit = async () => {
 
   try {
     // Update alamat dulu
-    const updateAddressRes = await fetch('http://localhost:5000/api/users/update-address', {
+    const updateAddressRes = await fetch(`${backendUrl}/api/users/update-address`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -125,7 +127,7 @@ const handleSubmit = async () => {
     }
 
     // Buat transaksi order di backend dan minta token Midtrans
-    const orderRes = await fetch('http://localhost:5000/api/orders', {
+    const orderRes = await fetch(`${backendUrl}/api/orders`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -3,8 +3,10 @@ import { useNavigate, Link } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Header from '../components/header';
 import Footer from '../components/footer';
-import Toast from '../components/Toast'; // Pastikan ini ada
+import Toast from '../components/Toast'; 
 import './ChangePasswordPage.css';
+
+const backendUrl = import.meta.env.VITE_API_URL;
 
 const ChangePasswordPage = () => {
   const navigate = useNavigate();
@@ -93,7 +95,7 @@ const ChangePasswordPage = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/auth/change-password', {
+      const res = await fetch(`${backendUrl}/api/auth/change-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
