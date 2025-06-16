@@ -3,6 +3,7 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import ProductCard from '../components/ProductCard';
 import tiramisuImage from '../../assets/tiramisu.png';
+import { Link } from 'react-router-dom';
 import './Homepage.css';
 
 const HomePage = () => {
@@ -99,14 +100,9 @@ const HomePage = () => {
               >
                 Lihat Rekomendasi
               </button>
-              <button
-                className="btn me-2 btn-menu px-5"
-                onClick={() => {
-                  window.location.href = '/menu#top';
-                }}
-              >
-                Cek Menu
-              </button>
+              <Link to="/menu#menu-list" className="btn me-2 btn-menu px-5">
+                Lihat Menu
+              </Link>
             </div>
           </div>
         </section>

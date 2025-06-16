@@ -55,7 +55,7 @@ const MenuPage = () => {
         <div className="banner-container">
           <img src={bannerImage} alt="Banner" className="menu-banner" />
         </div>
-        <h2 className="text-center mb-4 text-oren">Temukan Pilihanmu</h2>
+        <h2 className="text-center mb-4 text-oren" id="menu-list">Temukan Pilihanmu</h2>
 
         <div className="search-filter-container">
           <div className="search-filter-top">
