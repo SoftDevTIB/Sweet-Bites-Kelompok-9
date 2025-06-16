@@ -3,6 +3,8 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { BsUpload } from 'react-icons/bs';
 import AdminLayout from '../components/AdminLayout';
 
+const backendUrl = import.meta.env.VITE_API_URL;
+
 const EditProductPage = () => {
     const { productId } = useParams();
     const navigate = useNavigate();
@@ -18,13 +20,13 @@ const EditProductPage = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/api/products/${productId}`);
+                const res = await fetch(`${backendUrl}/api/products/${productId}`);
                 const data = await res.json();
                 setProductName(data.productName);
                 setPrice(data.price);
                 setStock(data.stock);
                 setDescription(data.description);
-                setGambarPreview(`http://localhost:5000/uploads/${data.photo}`);
+                setGambarPreview(`${backendUrl}/uploads/${data.photo}`);
             } catch (err) {
                 console.error(err);
                 alert('Gagal mengambil data produk.');
@@ -53,7 +55,7 @@ const EditProductPage = () => {
         }
 
         try {
-            const res = await fetch(`http://localhost:5000/api/products/${productId}`, {
+            const res = await fetch(`${backendUrl}/api/products/${productId}`, {
                 method: 'PUT',
                 body: formData,
             });

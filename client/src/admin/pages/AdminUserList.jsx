@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import AdminLayout from '../components/AdminLayout';
 
+const backendUrl = import.meta.env.VITE_API_URL;
+
 const AdminUserListPage = () => {
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -14,7 +16,7 @@ const AdminUserListPage = () => {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem('token'); 
-        const res = await axios.get('http://localhost:5000/api/admin/users', {
+        const res = await axios.get(`${backendUrl}/api/admin/users`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
