@@ -21,16 +21,7 @@ const Kontak = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        alert('Silakan login terlebih dahulu untuk mengirim pesan');
-        return;
-      }
-
       const response = await axios.post('http://localhost:5000/api/contact', form, {
-        headers: {
-          'Authorization': `Bearer ${token}`  // ✅ perbaikan di sini
-        }
       });
 
       console.log('Form dikirim:', response.data);
