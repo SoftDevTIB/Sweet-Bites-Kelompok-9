@@ -38,6 +38,7 @@ const MenuDetailPage = () => {
   }, []);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     fetch(`${backendUrl}/api/products/${id}`)
       .then(res => {
         if (!res.ok) {
