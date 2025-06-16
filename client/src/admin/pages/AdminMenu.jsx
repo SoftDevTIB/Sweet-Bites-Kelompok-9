@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import { BsArrowRightCircle, BsArrowLeftCircle, BsPencilSquare, BsTrash3, BsPlusCircle, BsSearch } from 'react-icons/bs';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
 import AdminLayout from '../components/AdminLayout';
+
+const backendUrl = import.meta.env.VITE_API_URL;
 
 const AdminMenuPage = () => {
   const [products, setProducts] = useState([]);
@@ -15,7 +16,7 @@ const AdminMenuPage = () => {
   const itemsPerPage = 5;
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/products')
+    fetch(`${backendUrl}/api/products`)
       .then(res => res.json())
       .then(data => {
         const formatted = data.map(item => ({
@@ -49,7 +50,7 @@ const AdminMenuPage = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/products/${id}`);
+      await axios.delete(`${backendUrl}/api/products/${id}`);
       setShowModal2(true);
       setProducts(prev => prev.filter(p => p._id !== id));
     } catch (error) {

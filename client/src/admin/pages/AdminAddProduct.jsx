@@ -3,6 +3,8 @@ import { BsUpload } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 import AdminLayout from '../components/AdminLayout';
 
+const backendUrl = import.meta.env.VITE_API_URL;
+
 const AddProductPage = () => {
     const [productName, setProductName] = useState('');
     const [price, setPrice] = useState('');
@@ -37,7 +39,7 @@ const AddProductPage = () => {
 
 
         try {
-            const res = await fetch('http://localhost:5000/api/products', {
+            const res = await fetch(`${backendUrl}/api/products`, {
                 method: 'POST',
                 body: formData,
             });

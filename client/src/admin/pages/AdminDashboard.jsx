@@ -17,6 +17,8 @@ import {
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
+const backendUrl = import.meta.env.VITE_API_URL;
+
 const AdminPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [dashboardData, setDashboardData] = useState(null);
@@ -35,7 +37,7 @@ const AdminPage = () => {
     const fetchDashboard = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:5000/api/admin/stats', {
+        const response = await fetch(`${backendUrl}/api/admin/stats`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -47,9 +49,9 @@ const AdminPage = () => {
         await Promise.all(
           data.bestSellers.map(async (product) => {
             try {
-              const res = await fetch(`http://localhost:5000/api/products/${product.productId}`);
+              const res = await fetch(`${backendUrl}/api/products/${product.productId}`);
               const prod = await res.json();
-              photoMap[product.productId] = `http://localhost:5000/uploads/${prod.photo}`;
+              photoMap[product.productId] = `${backendUrl}/uploads/${prod.photo}`;
             } catch (err) {
               console.error(`Gagal fetch foto untuk produk ${product.productId}`, err);
             }

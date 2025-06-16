@@ -5,6 +5,8 @@ import axios from 'axios';
 import Toast from '../../customer/components/Toast';
 import AdminLayout from '../components/AdminLayout';
 
+const backendUrl = import.meta.env.VITE_API_URL;
+
 const AdminUserDetailPage = () => {
     const { userId } = useParams(); 
     const navigate = useNavigate();
@@ -17,7 +19,7 @@ const AdminUserDetailPage = () => {
         const fetchUserDetail = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const res = await axios.get(`http://localhost:5000/api/admin/users/${userId}`, {
+                const res = await axios.get(`${backendUrl}/api/admin/users/${userId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },

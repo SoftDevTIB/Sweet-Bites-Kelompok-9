@@ -4,6 +4,8 @@ import { BsArrowRightCircle, BsArrowLeftCircle, BsSearch } from 'react-icons/bs'
 import { useEffect, useState } from 'react';
 import AdminLayout from '../components/AdminLayout';
 
+const backendUrl = import.meta.env.VITE_API_URL;
+
 const statusColors = {
   menunggu: '#FF55E5',   // Warna pink lembut
   diproses: '#FF8C00',   // Oranye
@@ -45,7 +47,7 @@ const AdminOrdersPage = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await fetch('/api/orders');
+        const res = await fetch(`${backendUrl}/api/orders`);
         if (!res.ok) throw new Error('Gagal mengambil data');
 
         const data = await res.json();

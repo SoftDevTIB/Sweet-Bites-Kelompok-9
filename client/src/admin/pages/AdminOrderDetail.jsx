@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import AdminLayout from '../components/AdminLayout';
 import Toast from '../../customer/components/Toast';
 
+const backendUrl = import.meta.env.VITE_API_URL;
 
 const statusColors = {
   menunggu: '#FF55E5',   // Warna pink lembut
@@ -26,7 +27,7 @@ const AdminOrderDetailPage = () => {
     const fetchOrder = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch(`/api/orders/${orderId}`, {
+        const res = await fetch(`${backendUrl}/api/orders/${orderId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
 
@@ -51,7 +52,7 @@ const AdminOrderDetailPage = () => {
     try {
       const token = localStorage.getItem('token');
 
-      const res = await fetch(`/api/orders/${orderId}/status`, {
+      const res = await fetch(`${backendUrl}/api/orders/${orderId}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
