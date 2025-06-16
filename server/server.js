@@ -9,6 +9,7 @@ const cartRouter = require('./routes/cartRoutes');
 const userRouter = require('./routes/userRoutes');
 const orderRouter = require('./routes/orderRoutes');
 const adminRouter = require('./routes/adminRoutes');
+const contactRouter = require('./routes/contactRoutes');
 
 const app = express();
 const PORT = 5000;
@@ -27,6 +28,7 @@ app.use('/api/cart', cartRouter);
 app.use('/api/users', userRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/admin', adminRouter);
+app.use('/api/contact', contactRouter);
 
 // New endpoint to receive order data
 app.post("/api/orders", (req, res) => {
