@@ -123,7 +123,9 @@ const HomePage = () => {
                   name={product.productName}
                   price={formatPrice(product.price)}
                   stock={product.stock}
-                  imageUrl={product.photo ? `/uploads/${product.photo}` : ''}
+                  imageUrl={product.photo
+                              ? `${import.meta.env.VITE_API_URL}/uploads/${product.photo}`
+                              : ''}
                 />
               ))}
             </div>

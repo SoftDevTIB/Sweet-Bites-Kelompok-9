@@ -6,7 +6,7 @@ import ProductCard from '../components/ProductCard';
 import bannerImage from '../../assets/banner.png';
 import './MenuPage.css';
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL || '';
+const backendUrl = import.meta.env.VITE_API_URL;
 
 const MenuPage = () => {
   const [products, setProducts] = useState([]);
@@ -17,10 +17,15 @@ const MenuPage = () => {
   const [showFilters, setShowFilters] = useState(false);
 
   const fetchProducts = () => {
-    let url = '/api/products?';
-    if (search) url += `search=${encodeURIComponent(search)}&`;
-    if (sortBy) url += `sortBy=${sortBy}&order=${order}&`;
-    if (available) url += `available=${available}&`;
+    const baseUrl = `${backendUrl}/api/products`;
+    const params = new URLSearchParams();
+
+    if (search) params.append('search', search);
+    if (sortBy) params.append('sortBy', sortBy);
+    if (order) params.append('order', order);
+    if (available) params.append('available', available);
+
+    const url = `${baseUrl}?${params.toString()}`;
 
     fetch(url)
       .then(res => res.json())
@@ -97,7 +102,7 @@ const MenuPage = () => {
                 className="filter-select"
               >
                 <option value="true">Tersedia</option>
-                <option value="false">Tidak tersedia</option>
+                <option value="false">Tidak Tersedia</option>
               </select>
             </div>
           )}
@@ -111,7 +116,11 @@ const MenuPage = () => {
               name={product.productName}
               price={formatPrice(product.price)}
               stock={product.stock}
-              imageUrl={product.photo ? `${backendUrl}/uploads/${product.photo}` : ''}
+              imageUrl={
+                product.photo
+                  ? `${backendUrl}/uploads/${product.photo}`
+                  : ''
+              }
             />
           ))}
         </div>
