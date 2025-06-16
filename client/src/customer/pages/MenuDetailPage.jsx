@@ -85,21 +85,27 @@ const MenuDetailPage = () => {
   const normalizedPrice = typeof product.price === 'string' ? parseFloat(product.price.replace(/\./g, '').replace(',', '.')) : product.price;
 
   const handleAddToCart = () => {
+    if (product.stock <= 0) {
+      setToastMessage('Stok tidak tersedia');
+      setToastShow(true);
+      return false;
+    }
     const success = addToCart({
       id: product._id,
       name: product.productName,
       price: normalizedPrice,
       photo: product.photo,
-      imageUrl: product.photo ? `${backendUrl}/uploads/${product.photo}` : '',
+      imageUrl: product.photo ? `/uploads/${product.photo}` : '',
       description: product.description,
       stock: product.stock,
     });
     if (success) {
       setToastMessage('Berhasil ditambahkan ke keranjang!');
     } else {
-      setToastMessage('Stock tidak cukup');
+      setToastMessage('Stok tidak tersedia');
     }
     setToastShow(true);
+    return success;
   };
 
   return (
@@ -132,8 +138,10 @@ const MenuDetailPage = () => {
               <button
                 className="btn btn-outline-secondary"
                 onClick={() => {
-                  handleAddToCart();
-                  navigate('/checkout');
+                  const success = handleAddToCart();
+                  if (success) {
+                    navigate('/checkout');
+                  }
                 }}
               >
                 Beli Sekarang
