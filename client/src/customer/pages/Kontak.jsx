@@ -49,7 +49,7 @@ const Kontak = () => {
           </p>
           <div className="kontak-info">
             <BsWhatsapp className="kontak-icon" />
-            <span>0813 XXXX XXXX</span>
+            <span>0813 1450 4545</span>
           </div>
           <div className="kontak-info">
             <BsInstagram className="kontak-icon" />
