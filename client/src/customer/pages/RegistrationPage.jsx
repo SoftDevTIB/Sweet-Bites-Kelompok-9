@@ -4,6 +4,8 @@ import Toast from '../components/Toast';
 import './RegistrationPage.css';
 import SimpleHeader from '../components/header_nonav';
 
+const backendUrl = import.meta.env.VITE_API_URL;
+
 const RegistrationPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -50,7 +52,7 @@ const RegistrationPage = () => {
 
     const userData = { name, email, phone, password };
 
-    fetch('http://localhost:5000/api/auth/register', {
+    fetch(`${backendUrl}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userData),
