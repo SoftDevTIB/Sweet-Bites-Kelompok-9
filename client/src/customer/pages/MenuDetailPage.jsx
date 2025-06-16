@@ -59,8 +59,10 @@ const MenuDetailPage = () => {
     return (
       <>
         <Header />
-        <main className="container p-4" style={{ paddingTop: headerHeight }}>
-          <h2>Loading...</h2>
+        <main className="py-5 text-center">
+          <div className="pp-container d-flex justify-content-center align-items-center">
+            <p className='fs-4 text-oren'>Loading...</p>
+          </div>
         </main>
         <Footer />
       </>
