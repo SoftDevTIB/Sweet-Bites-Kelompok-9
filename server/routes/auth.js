@@ -1,5 +1,5 @@
 const express = require('express');
-const User = require('../models/User').default; 
+const User = require('../models/User'); 
 const router = express.Router();
 const { verifyToken } = require('../middlewares/authMiddleware');
 
