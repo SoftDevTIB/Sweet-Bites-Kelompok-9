@@ -1,6 +1,6 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-require("dotenv").config();
 
 const cors = require("cors");
 const authRouter = require("./routes/auth");
@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5001;
 
 app.use(
   cors({
-    origin: "https://sweetbites-ten.vercel.app",
+    origin: "https://sweetbites-three.vercel.app",
     credentials: true,
   })
 );
@@ -46,6 +46,8 @@ app.post("/api/orders", (req, res) => {
 
   res.status(201).json({ message: "Order received successfully" });
 });
+
+console.log("ATLAS_URI:", process.env.ATLAS_URI);
 
 // Connect ke MongoDB
 mongoose
